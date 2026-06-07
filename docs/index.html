@@ -865,12 +865,12 @@ function getHistory() { try{return JSON.parse(localStorage.getItem(LS_HISTORY))|
 async function saveLeaderboardToCloud(session) {
   try {
     const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-      headers: { 'X-Master-Key': API_KEY }
+      headers: { 'X-Access-Key': API_KEY }
     });
     let currentData = [];
     if (getRes.ok) {
       const data = await getRes.json();
-      currentData = Array.isArray(data.record) ? data.record : [];
+      currentData = (data.record && data.record.leaderboard) ? data.record.leaderboard : [];
     }
 
     currentData.push(session);
@@ -881,9 +881,9 @@ async function saveLeaderboardToCloud(session) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'X-Master-Key': API_KEY
+        'X-Access-Key': API_KEY
       },
-      body: JSON.stringify(currentData)
+      body: JSON.stringify({ leaderboard: currentData })
     });
 
     if (!putRes.ok) throw new Error('PUT failed');
@@ -924,11 +924,11 @@ async function loadLeaderboard() {
   try {
     const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
       method: 'GET',
-      headers: { 'X-Master-Key': API_KEY }
+      headers: { 'X-Access-Key': API_KEY }
     });
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
-    lbDataCache = Array.isArray(data.record) ? data.record : [];
+    lbDataCache = (data.record && data.record.leaderboard) ? data.record.leaderboard : [];
     localStorage.setItem(LS_LB, JSON.stringify(lbDataCache));
   } catch (err) {
     console.error('Lỗi tải đám mây, dùng localStorage:', err);
