@@ -26,7 +26,7 @@ Bộ đề gồm **160 câu trắc nghiệm** chia thành **8 chương**, bao ph
 | Chương 6 | Cấu hình và duy trì hệ thống | 20 |
 | Chương 7 | Các dịch vụ mức ứng dụng | 20 |
 | Chương 8 | Các dịch vụ mức mạng | 20 |
-| **Tổng** | | **160 câu** |
+| **Tổng** | | **150 câu** |
 
 ---
 
@@ -189,7 +189,7 @@ Trả lời sai  → −10 điểm
 
 ## 👨‍💻 Tác giả
 
-**ThuanPhats** — Sinh viên ngành Quản Trị Hệ Thống Mạng
+**ThuanPhats** — Sinh viên ngành Công Nghệ Thông Tin
 
 ---
 
