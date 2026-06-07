@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trắc Nghiệm Quản Trị Hệ Thống Mạng</title>
+  <meta name="description" content="Ôn tập trắc nghiệm môn Quản Trị Hệ Thống Mạng — 160 câu, 8 chương. Hỗ trợ bảng xếp hạng và lịch sử thi." />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f172a;
+      --surface:   #1e293b;
+      --surface2:  #263348;
+      --border:    #334155;
+      --accent:    #6366f1;
+      --accent-h:  #818cf8;
+      --accent-d:  #4f46e5;
+      --correct:   #22c55e;
+      --correct-d: #16a34a;
+      --wrong:     #ef4444;
+      --wrong-d:   #dc2626;
+      --text:      #f1f5f9;
+      --text-muted:#94a3b8;
+      --gold:      #f59e0b;
+      --silver:    #94a3b8;
+      --bronze:    #cd7c2f;
+      --radius:    14px;
+      --shadow:    0 4px 24px rgba(0,0,0,.45);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1 { font-size: clamp(1.4rem, 5vw, 2.1rem); font-weight: 800; letter-spacing: -0.5px; }
+    h2 { font-size: clamp(1.1rem, 4vw, 1.6rem); font-weight: 700; }
+    h3 { font-size: 1rem; font-weight: 600; }
+
+    /* ===== LAYOUT WRAPPER ===== */
+    .app-wrap {
+      width: 100%;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ===== SCREENS ===== */
+    .screen {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeUp .35s ease both;
+    }
+    .screen.active { display: flex; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    /* ===== LOGO HEADER ===== */
+    .logo-header {
+      text-align: center;
+      padding: 32px 0 8px;
+    }
+    .logo-header .logo-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 28px rgba(99,102,241,.45);
+    }
+    .logo-header h1 {
+      background: linear-gradient(135deg, #818cf8, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    .logo-header p {
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-size: .95rem;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    label {
+      display: block;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 7px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99,102,241,.25);
+    }
+
+    /* ===== CHAPTER GRID ===== */
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .chapter-grid label {
+      text-transform: none;
+      letter-spacing: normal;
+      margin: 0;
+    }
+    .ch-btn {
+      position: relative;
+    }
+    .ch-btn input[type="radio"] {
+      position: absolute; opacity: 0; width: 0; height: 0;
+    }
+    .ch-btn .ch-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 6px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all .18s;
+      text-align: center;
+      user-select: none;
+      min-height: 46px;
+    }
+    .ch-btn input[type="radio"]:checked + .ch-label {
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(99,102,241,.4);
+    }
+    .ch-btn .ch-label:hover {
+      border-color: var(--accent-h);
+      color: var(--accent-h);
+    }
+    .ch-btn input[type="radio"]:checked + .ch-label:hover {
+      color: #fff;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .18s;
+      text-decoration: none;
+      letter-spacing: .01em;
+    }
+    .btn:active { transform: scale(.97); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(99,102,241,.4);
+      width: 100%;
+    }
+    .btn-primary:hover { filter: brightness(1.12); box-shadow: 0 6px 24px rgba(99,102,241,.55); }
+
+    .btn-secondary {
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+    .btn-secondary:hover { border-color: var(--accent-h); color: var(--accent-h); }
+
+    .btn-danger {
+      background: transparent;
+      border: 1.5px solid var(--wrong);
+      color: var(--wrong);
+    }
+    .btn-danger:hover { background: var(--wrong); color: #fff; }
+
+    .btn-sm { padding: 9px 16px; font-size: .88rem; }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-row .btn { flex: 1; min-width: 140px; }
+
+    /* ===== QUIZ HEADER ===== */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .quiz-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .quiz-meta .chapter-tag {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--accent-h);
+    }
+    .quiz-meta .q-count {
+      font-size: .9rem;
+      color: var(--text-muted);
+    }
+    .score-badge {
+      background: linear-gradient(135deg, var(--accent), var(--accent-d));
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 3px 12px rgba(99,102,241,.4);
+      position: relative;
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    .progress-wrap {
+      background: var(--surface2);
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      border-radius: 999px;
+      transition: width .4s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ===== QUESTION CARD ===== */
+    .question-num {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--accent-h);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 10px;
+    }
+    .question-text {
+      font-size: clamp(1rem, 3.5vw, 1.18rem);
+      font-weight: 600;
+      line-height: 1.55;
+      color: var(--text);
+    }
+
+    /* ===== ANSWER BUTTONS ===== */
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ans-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: .98rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+      text-align: left;
+      width: 100%;
+    }
+    .ans-btn:not(:disabled):hover {
+      border-color: var(--accent-h);
+      background: rgba(99,102,241,.1);
+      transform: translateX(3px);
+    }
+    .ans-btn .ans-key {
+      flex-shrink: 0;
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .85rem;
+      transition: background .18s;
+    }
+    .ans-btn.correct {
+      background: rgba(34,197,94,.15);
+      border-color: var(--correct);
+      color: #fff;
+    }
+    .ans-btn.correct .ans-key { background: var(--correct); color: #fff; }
+    .ans-btn.wrong {
+      background: rgba(239,68,68,.12);
+      border-color: var(--wrong);
+      color: #fff;
+    }
+    .ans-btn.wrong .ans-key { background: var(--wrong); color: #fff; }
+    .ans-btn:disabled { cursor: default; }
+    .ans-btn:not(.correct):not(.wrong):disabled { opacity: .6; }
+
+    /* ===== NEXT BUTTON (hidden initially) ===== */
+    #next-btn { display: none; }
+    #next-btn.visible { display: flex; }
+
+    /* ===== SCORE FLOAT ANIMATION ===== */
+    .score-float {
+      position: fixed;
+      font-size: 1.5rem;
+      font-weight: 900;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatUp .9s ease forwards;
+    }
+    .score-float.plus { color: var(--correct); }
+    .score-float.minus { color: var(--wrong); }
+
+    @keyframes floatUp {
+      0%   { opacity: 1; transform: translateY(0) scale(1); }
+      60%  { opacity: 1; transform: translateY(-55px) scale(1.2); }
+      100% { opacity: 0; transform: translateY(-90px) scale(.9); }
+    }
+
+    /* ===== RESULTS ===== */
+    .result-score-wrap {
+      text-align: center;
+      padding: 10px 0 6px;
+    }
+    .result-score-big {
+      font-size: clamp(3rem, 12vw, 5rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #818cf8, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .result-pts { font-size: 1rem; color: var(--text-muted); margin-top: 6px; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .stat-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+    .stat-box .val {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .stat-box .lbl {
+      font-size: .72rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .stat-box.good .val { color: var(--correct); }
+    .stat-box.bad  .val { color: var(--wrong); }
+    .stat-box.neu  .val { color: var(--accent-h); }
+
+    /* ===== LEADERBOARD / HISTORY TABLE ===== */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 24px 0 4px;
+    }
+    .page-header h2 { flex: 1; }
+
+    .tbl-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+    thead th {
+      background: var(--surface2);
+      padding: 12px 14px;
+      text-align: left;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    thead th.sortable { cursor: pointer; user-select: none; }
+    thead th.sortable:hover { color: var(--accent-h); }
+    thead th .sort-icon { margin-left: 4px; opacity: .5; }
+    tbody tr {
+      border-bottom: 1px solid rgba(51,65,85,.5);
+      transition: background .15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--surface2); }
+    tbody td {
+      padding: 11px 14px;
+      vertical-align: middle;
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: .8rem;
+    }
+    .rank-1 { background: rgba(245,158,11,.2); color: var(--gold); }
+    .rank-2 { background: rgba(148,163,184,.15); color: var(--silver); }
+    .rank-3 { background: rgba(205,124,47,.15); color: var(--bronze); }
+    .rank-n { background: var(--surface2); color: var(--text-muted); }
+
+    .acc-pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+    .acc-high { background: rgba(34,197,94,.18); color: var(--correct); }
+    .acc-mid  { background: rgba(245,158,11,.18); color: var(--gold); }
+    .acc-low  { background: rgba(239,68,68,.18); color: var(--wrong); }
+
+    .empty-state {
+      text-align: center;
+      padding: 44px 20px;
+      color: var(--text-muted);
+    }
+    .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+    /* ===== NAV MINI ===== */
+    .home-nav {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      padding-top: 14px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: .78rem;
+      padding: 28px 0 10px;
+      opacity: .6;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      z-index: 9999;
+      transition: transform .3s ease, opacity .3s ease;
+      opacity: 0;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* ===== RESULT EMOJI ===== */
+    .result-emoji { font-size: 3rem; text-align: center; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 420px) {
+      .card { padding: 20px 14px; }
+      .chapter-grid { grid-template-columns: repeat(3, 1fr); }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .btn-row { flex-direction: column; }
+      .btn-row .btn { min-width: auto; }
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ===== QUIZ EXIT LINK ===== */
+    .exit-link {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: .82rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 2px 0;
+    }
+    .exit-link:hover { color: var(--wrong); }
+
+    /* ===== PULSE CORRECT ANIMATION ===== */
+    @keyframes pulse-correct {
+      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,.6); }
+      70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+    .ans-btn.correct.pulse { animation: pulse-correct .5s ease; }
+
+    /* ===== SHINE on score badge ===== */
+    @keyframes shine {
+      0%   { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-wrap">
+
+  <!-- ===================== SCREEN 1: HOME ===================== -->
+  <div id="screen-home" class="screen active">
+    <div class="logo-header">
+      <div class="logo-icon">🖧</div>
+      <h1>Trắc Nghiệm Quản Trị<br>Hệ Thống Mạng</h1>
+      <p>160 câu · 8 chương · Hệ thống điểm thi</p>
+    </div>
+
+    <div class="home-nav">
+      <button class="btn btn-secondary btn-sm" id="btn-history-home">📋 Lịch sử</button>
+      <button class="btn btn-secondary btn-sm" id="btn-lb-home">🏆 Bảng xếp hạng</button>
+    </div>
+
+    <div class="card">
+      <div style="margin-bottom:20px;">
+        <label for="player-name">Tên người chơi</label>
+        <input type="text" id="player-name" placeholder="Nhập tên của bạn…" maxlength="32" autocomplete="off" />
+      </div>
+
+      <div>
+        <label>Chọn chương</label>
+        <div class="chapter-grid" id="chapter-grid">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="btn-start" style="font-size:1.1rem;padding:16px 24px;">
+      🚀 Bắt Đầu
+    </button>
+  </div>
+
+  <!-- ===================== SCREEN 2: QUIZ ===================== -->
+  <div id="screen-quiz" class="screen">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:8px;flex-wrap:wrap;gap:8px;">
+      <div class="quiz-meta">
+        <span class="chapter-tag" id="qz-chapter-tag"></span>
+        <span class="q-count" id="qz-count"></span>
+      </div>
+      <div class="score-badge" id="qz-score">0 điểm</div>
+      <button class="exit-link" id="btn-exit-quiz">✕ Thoát</button>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+    </div>
+
+    <div class="card">
+      <div class="question-num" id="qz-q-num"></div>
+      <div class="question-text" id="qz-q-text"></div>
+    </div>
+
+    <div class="answers" id="answers-wrap">
+      <!-- filled by JS -->
+    </div>
+
+    <button class="btn btn-primary" id="next-btn">
+      Câu tiếp theo <span style="font-size:1.1em">→</span>
+    </button>
+  </div>
+
+  <!-- ===================== SCREEN 3: RESULTS ===================== -->
+  <div id="screen-result" class="screen">
+    <div class="page-header" style="padding-top:32px;">
+      <h2 style="flex:none">🎯 Kết quả</h2>
+    </div>
+
+    <div class="card">
+      <div class="result-emoji" id="result-emoji"></div>
+      <div class="result-score-wrap">
+        <div class="result-score-big" id="res-score"></div>
+        <div class="result-pts">điểm</div>
+      </div>
+      <div class="stats-grid" style="margin-top:20px;">
+        <div class="stat-box good">
+          <div class="val" id="res-correct"></div>
+          <div class="lbl">Đúng</div>
+        </div>
+        <div class="stat-box bad">
+          <div class="val" id="res-wrong"></div>
+          <div class="lbl">Sai</div>
+        </div>
+        <div class="stat-box neu">
+          <div class="val" id="res-acc"></div>
+          <div class="lbl">Chính xác</div>
+        </div>
+      </div>
+      <div style="margin-top:18px; color:var(--text-muted); font-size:.88rem; text-align:center;" id="res-detail"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="btn-play-again">🔄 Chơi lại</button>
+      <button class="btn btn-primary" id="btn-see-lb">🏆 Bảng xếp hạng</button>
+    </div>
+    <button class="btn btn-secondary" id="btn-history-result">📋 Xem lịch sử thi</button>
+  </div>
+
+  <!-- ===================== SCREEN 4: LEADERBOARD ===================== -->
+  <div id="screen-lb" class="screen">
+    <div class="page-header">
+      <button class="btn btn-secondary btn-sm" id="btn-back-lb">← Về trang chủ</button>
+      <h2>🏆 Bảng xếp hạng</h2>
+    </div>
+
+    <div class="tbl-wrap">
+      <table id="lb-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th class="sortable" data-col="name">Tên <span class="sort-icon">↕</span></th>
+            <th class="sortable" data-col="score">Điểm <span class="sort-icon">↕</span></th>
+            <th class="sortable" data-col="accuracy">Chính xác <span class="sort-icon">↕</span></th>
+            <th>Chương</th>
+            <th class="sortable" data-col="date">Ngày <span class="sort-icon">↕</span></th>
+          </tr>
+        </thead>
+        <tbody id="lb-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="lb-empty" class="empty-state" style="display:none;">
+      <div class="empty-icon">📭</div>
+      <div>Chưa có kết quả nào. Hãy thi thử!</div>
+    </div>
+
+    <div class="btn-row" style="margin-top:6px;">
+      <button class="btn btn-danger btn-sm" id="btn-clear-lb">🗑 Xóa bảng xếp hạng</button>
+    </div>
+  </div>
+
+  <!-- ===================== SCREEN 5: HISTORY ===================== -->
+  <div id="screen-history" class="screen">
+    <div class="page-header">
+      <button class="btn btn-secondary btn-sm" id="btn-back-hist">← Về trang chủ</button>
+      <h2>📋 Lịch sử thi</h2>
+    </div>
+
+    <div class="tbl-wrap">
+      <table id="hist-table">
+        <thead>
+          <tr>
+            <th>Ngày</th>
+            <th>Tên</th>
+            <th>Chương</th>
+            <th>Điểm</th>
+            <th>Chính xác</th>
+          </tr>
+        </thead>
+        <tbody id="hist-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="hist-empty" class="empty-state" style="display:none;">
+      <div class="empty-icon">📭</div>
+      <div>Chưa có lịch sử. Hãy bắt đầu thi!</div>
+    </div>
+  </div>
+
+</div><!-- end app-wrap -->
+
+<footer>Quản Trị Hệ Thống Mạng · 160 câu · 8 chương · © 2025</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   QUESTION DATA — 160 câu, 8 chương
+   ============================================================ */
+const QUESTIONS = [
+  // ── CHAPTER 1 (20 câu) ──────────────────────────────────────
+  {id:1,chapter:1,question:"Quản trị hệ thống mạng là gì?",options:{A:"Thiết kế phần mềm",B:"Quản lý và vận hành hệ thống mạng",C:"Lập trình ứng dụng",D:"Thiết kế website"},answer:"B"},
+  {id:2,chapter:1,question:"Vai trò chính của quản trị viên hệ thống là:",options:{A:"Viết code",B:"Quản lý người dùng và hệ thống",C:"Thiết kế game",D:"Marketing"},answer:"B"},
+  {id:3,chapter:1,question:"Mục tiêu của quản trị mạng là:",options:{A:"Tăng số lượng người dùng",B:"Đảm bảo hệ thống hoạt động ổn định",C:"Giảm chi phí phần cứng",D:"Tăng tốc CPU"},answer:"B"},
+  {id:4,chapter:1,question:"Áp dụng công nghệ trong quản trị giúp:",options:{A:"Giảm hiệu suất",B:"Tăng tự động hóa",C:"Tăng lỗi hệ thống",D:"Giảm bảo mật"},answer:"B"},
+  {id:5,chapter:1,question:"Một trong các vấn đề đạo đức trong quản trị hệ thống là:",options:{A:"Tối ưu CPU",B:"Bảo mật thông tin người dùng",C:"Nâng cấp RAM",D:"Cài phần mềm"},answer:"B"},
+  {id:6,chapter:1,question:"Chiến lược quản trị hệ thống nhằm mục đích:",options:{A:"Tăng số lượng server",B:"Quản lý hiệu quả tài nguyên",C:"Giảm số lượng user",D:"Tăng chi phí"},answer:"B"},
+  {id:7,chapter:1,question:"Nguyên lý quản trị hệ thống bao gồm:",options:{A:"Ngẫu nhiên",B:"Có kế hoạch và kiểm soát",C:"Không cần bảo mật",D:"Không cần giám sát"},answer:"B"},
+  {id:8,chapter:1,question:"Quản trị viên cần có kỹ năng nào?",options:{A:"Chỉ biết phần cứng",B:"Kỹ năng kỹ thuật và quản lý",C:"Chỉ biết lập trình",D:"Không cần kỹ năng"},answer:"B"},
+  {id:9,chapter:1,question:"Một hệ thống không được quản trị tốt sẽ:",options:{A:"Ổn định hơn",B:"Dễ xảy ra lỗi và tấn công",C:"Nhanh hơn",D:"Rẻ hơn"},answer:"B"},
+  {id:10,chapter:1,question:"Quản trị hệ thống liên quan đến:",options:{A:"Chỉ phần mềm",B:"Phần cứng + phần mềm + mạng",C:"Chỉ mạng",D:"Chỉ người dùng"},answer:"B"},
+  {id:11,chapter:1,question:"Quản trị hệ thống hiệu quả cần yếu tố nào quan trọng nhất?",options:{A:"Phần cứng mạnh",B:"Quy trình quản lý rõ ràng",C:"Nhiều nhân viên",D:"Internet nhanh"},answer:"B"},
+  {id:12,chapter:1,question:"Trong môi trường doanh nghiệp, quản trị hệ thống giúp:",options:{A:"Giảm số lượng user",B:"Đảm bảo dịch vụ liên tục",C:"Tăng chi phí vận hành",D:"Giảm bảo mật"},answer:"B"},
+  {id:13,chapter:1,question:"Một quản trị viên vi phạm đạo đức khi:",options:{A:"Cập nhật hệ thống",B:"Truy cập trái phép dữ liệu người dùng",C:"Sao lưu dữ liệu",D:"Cấu hình firewall"},answer:"B"},
+  {id:14,chapter:1,question:"Chiến lược quản trị nào giúp giảm downtime?",options:{A:"Không backup",B:"Backup định kỳ",C:"Tắt server thường xuyên",D:"Không giám sát"},answer:"B"},
+  {id:15,chapter:1,question:'Nguyên lý "phòng ngừa hơn khắc phục" liên quan đến:',options:{A:"Tối ưu CPU",B:"Bảo trì hệ thống",C:"Viết phần mềm",D:"Thiết kế mạng"},answer:"B"},
+  {id:16,chapter:1,question:"Một hệ thống áp dụng automation sẽ:",options:{A:"Tăng lỗi thủ công",B:"Giảm sai sót cấu hình",C:"Giảm tốc độ",D:"Không cần quản trị"},answer:"B"},
+  {id:17,chapter:1,question:"Quản trị viên cần làm gì khi hệ thống bị tấn công?",options:{A:"Bỏ qua",B:"Phản ứng và khắc phục ngay",C:"Tắt máy tính",D:"Gọi khách hàng"},answer:"B"},
+  {id:18,chapter:1,question:"Công cụ giám sát hệ thống dùng để:",options:{A:"Tăng CPU",B:"Theo dõi hiệu suất",C:"Giảm RAM",D:"Giảm tốc độ mạng"},answer:"B"},
+  {id:19,chapter:1,question:"Quản trị hệ thống hiện đại dùng:",options:{A:"Phương pháp thủ công",B:"Tự động hóa và AI",C:"Chỉ dùng con người",D:"Không cần công cụ"},answer:"B"},
+  {id:20,chapter:1,question:"Trong quản trị hệ thống, SLA là:",options:{A:"Phần mềm quản lý",B:"Thỏa thuận mức dịch vụ",C:"Loại máy chủ",D:"Giao thức mạng"},answer:"B"},
+
+  // ── CHAPTER 2 (10 câu) ──────────────────────────────────────
+  {id:21,chapter:2,question:"Thành phần nào là bộ xử lý trung tâm?",options:{A:"RAM",B:"CPU",C:"HDD",D:"GPU"},answer:"B"},
+  {id:22,chapter:2,question:"RAM trong hệ thống dùng để:",options:{A:"Lưu dữ liệu vĩnh viễn",B:"Lưu dữ liệu tạm thời",C:"Kết nối mạng",D:"Hiển thị hình ảnh"},answer:"B"},
+  {id:23,chapter:2,question:"Thiết bị nào dùng để kết nối nhiều máy tính trong mạng?",options:{A:"Máy in",B:"Switch",C:"Scanner",D:"Monitor"},answer:"B"},
+  {id:24,chapter:2,question:"Hệ điều hành server phổ biến là:",options:{A:"Android",B:"Windows Server / Linux",C:"iOS",D:"DOS"},answer:"B"},
+  {id:25,chapter:2,question:"NIC là:",options:{A:"Card âm thanh",B:"Card mạng",C:"Card đồ họa",D:"Card nhớ"},answer:"B"},
+  {id:26,chapter:2,question:"Router dùng để:",options:{A:"Lưu dữ liệu",B:"Định tuyến gói tin giữa các mạng",C:"In tài liệu",D:"Xử lý đồ họa"},answer:"B"},
+  {id:27,chapter:2,question:"Firewall có chức năng:",options:{A:"Tăng tốc mạng",B:"Lọc và kiểm soát lưu lượng mạng",C:"Lưu trữ dữ liệu",D:"Kết nối wifi"},answer:"B"},
+  {id:28,chapter:2,question:"Thiết bị lưu trữ dữ liệu lâu dài là:",options:{A:"RAM",B:"HDD/SSD",C:"Cache",D:"Register"},answer:"B"},
+  {id:29,chapter:2,question:"UPS dùng để:",options:{A:"Tăng tốc CPU",B:"Cung cấp điện dự phòng",C:"Kết nối mạng",D:"Làm mát máy chủ"},answer:"B"},
+  {id:30,chapter:2,question:"BIOS/UEFI là:",options:{A:"Hệ điều hành",B:"Firmware khởi động máy tính",C:"Phần mềm diệt virus",D:"Giao thức mạng"},answer:"B"},
+
+  // ── CHAPTER 3 (20 câu) ──────────────────────────────────────
+  {id:31,chapter:3,question:"Máy chủ (server) là:",options:{A:"Máy tính cá nhân",B:"Máy cung cấp dịch vụ cho client",C:"Thiết bị in",D:"Bộ định tuyến"},answer:"B"},
+  {id:32,chapter:3,question:"Ảo hóa máy chủ giúp:",options:{A:"Giảm hiệu suất",B:"Tối ưu tài nguyên phần cứng",C:"Tăng chi phí",D:"Giảm bảo mật"},answer:"B"},
+  {id:33,chapter:3,question:"RAID dùng để:",options:{A:"Tăng tốc CPU",B:"Dự phòng và tăng hiệu suất lưu trữ",C:"Kết nối mạng",D:"Quản lý người dùng"},answer:"B"},
+  {id:34,chapter:3,question:"DNS server dùng để:",options:{A:"Lưu file",B:"Phân giải tên miền thành IP",C:"Gửi email",D:"Lọc virus"},answer:"B"},
+  {id:35,chapter:3,question:"DHCP server có chức năng:",options:{A:"Lưu dữ liệu",B:"Cấp phát địa chỉ IP tự động",C:"Quản lý user",D:"Định tuyến"},answer:"B"},
+  {id:36,chapter:3,question:"Web server dùng để:",options:{A:"Lưu trữ email",B:"Phục vụ nội dung web cho client",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
+  {id:37,chapter:3,question:"FTP server dùng để:",options:{A:"Gửi email",B:"Truyền tải file",C:"Phân giải tên miền",D:"Cấp phát IP"},answer:"B"},
+  {id:38,chapter:3,question:"Mail server dùng để:",options:{A:"Lưu file",B:"Gửi và nhận email",C:"Phân giải tên miền",D:"Cấp phát IP"},answer:"B"},
+  {id:39,chapter:3,question:"Backup server dùng để:",options:{A:"Tăng tốc mạng",B:"Sao lưu dữ liệu định kỳ",C:"Quản lý người dùng",D:"Định tuyến"},answer:"B"},
+  {id:40,chapter:3,question:"Patch management là:",options:{A:"Quản lý mạng",B:"Cập nhật và vá lỗi phần mềm",C:"Quản lý user",D:"Sao lưu dữ liệu"},answer:"B"},
+  {id:41,chapter:3,question:"Load balancing giúp:",options:{A:"Tăng lỗi",B:"Phân phối tải đều cho nhiều server",C:"Giảm tốc độ",D:"Không cần server"},answer:"B"},
+  {id:42,chapter:3,question:"High Availability (HA) nghĩa là:",options:{A:"Hiệu suất thấp",B:"Hệ thống luôn sẵn sàng hoạt động",C:"Nhiều lỗi",D:"Tốc độ chậm"},answer:"B"},
+  {id:43,chapter:3,question:"Hypervisor là:",options:{A:"Hệ điều hành thông thường",B:"Phần mềm tạo và quản lý máy ảo",C:"Thiết bị phần cứng",D:"Giao thức mạng"},answer:"B"},
+  {id:44,chapter:3,question:"Snapshot trong ảo hóa là:",options:{A:"Ảnh chụp màn hình",B:"Trạng thái lưu của máy ảo",C:"Bản backup mạng",D:"File log"},answer:"B"},
+  {id:45,chapter:3,question:"SAN là:",options:{A:"Mạng xã hội",B:"Mạng lưu trữ chuyên dụng",C:"Giao thức email",D:"Loại server"},answer:"B"},
+  {id:46,chapter:3,question:"NAS là:",options:{A:"Giao thức mạng",B:"Thiết bị lưu trữ gắn vào mạng",C:"Loại CPU",D:"Phần mềm ảo hóa"},answer:"B"},
+  {id:47,chapter:3,question:"Clustering server nhằm mục đích:",options:{A:"Giảm server",B:"Tăng độ sẵn sàng và hiệu suất",C:"Giảm tốc độ",D:"Tăng chi phí"},answer:"B"},
+  {id:48,chapter:3,question:"Khi server bị lỗi, failover giúp:",options:{A:"Tắt toàn hệ thống",B:"Chuyển sang server dự phòng tự động",C:"Tăng tải",D:"Giảm bảo mật"},answer:"B"},
+  {id:49,chapter:3,question:"Monitoring server dùng để:",options:{A:"Tắt server",B:"Theo dõi hiệu suất và trạng thái",C:"Tăng CPU",D:"Giảm RAM"},answer:"B"},
+  {id:50,chapter:3,question:"Đặt server trong datacenter giúp:",options:{A:"Tăng rủi ro",B:"Đảm bảo điện, làm mát, bảo mật vật lý",C:"Giảm hiệu suất",D:"Tăng chi phí không cần thiết"},answer:"B"},
+
+  // ── CHAPTER 4 (20 câu) ──────────────────────────────────────
+  {id:51,chapter:4,question:"Tài khoản người dùng (user account) dùng để:",options:{A:"Lưu dữ liệu hệ thống",B:"Xác thực và phân quyền truy cập",C:"Tăng tốc CPU",D:"Kết nối mạng"},answer:"B"},
+  {id:52,chapter:4,question:"Group policy trong Windows dùng để:",options:{A:"Quản lý phần cứng",B:"Quản lý cấu hình tập trung cho user",C:"Định tuyến mạng",D:"Lưu file"},answer:"B"},
+  {id:53,chapter:4,question:"Active Directory là:",options:{A:"Phần mềm diệt virus",B:"Dịch vụ quản lý tài khoản tập trung",C:"Giao thức mạng",D:"Loại server"},answer:"B"},
+  {id:54,chapter:4,question:"LDAP là:",options:{A:"Giao thức email",B:"Giao thức truy cập dịch vụ thư mục",C:"Giao thức định tuyến",D:"Giao thức truyền file"},answer:"B"},
+  {id:55,chapter:4,question:"Phân quyền (permission) người dùng giúp:",options:{A:"Tăng tốc hệ thống",B:"Kiểm soát quyền truy cập tài nguyên",C:"Giảm bảo mật",D:"Tăng lỗi"},answer:"B"},
+  {id:56,chapter:4,question:"Password policy giúp:",options:{A:"Tăng tốc đăng nhập",B:"Tăng độ bảo mật mật khẩu",C:"Giảm người dùng",D:"Không cần xác thực"},answer:"B"},
+  {id:57,chapter:4,question:"MFA (Multi-Factor Authentication) là:",options:{A:"Đăng nhập một bước",B:"Xác thực nhiều lớp bảo mật",C:"Không cần mật khẩu",D:"Đăng nhập bằng email"},answer:"B"},
+  {id:58,chapter:4,question:"Role-Based Access Control (RBAC) nghĩa là:",options:{A:"Cấp quyền ngẫu nhiên",B:"Phân quyền theo vai trò",C:"Không phân quyền",D:"Chỉ có một quyền"},answer:"B"},
+  {id:59,chapter:4,question:"Audit log dùng để:",options:{A:"Tăng tốc hệ thống",B:"Ghi lại hoạt động người dùng",C:"Xóa tài khoản",D:"Cấp phát IP"},answer:"B"},
+  {id:60,chapter:4,question:"Single Sign-On (SSO) giúp:",options:{A:"Đăng nhập nhiều lần",B:"Đăng nhập một lần dùng nhiều dịch vụ",C:"Không cần mật khẩu",D:"Tăng lỗi xác thực"},answer:"B"},
+  {id:61,chapter:4,question:"Khóa tài khoản sau nhiều lần đăng nhập sai giúp:",options:{A:"Giảm bảo mật",B:"Ngăn tấn công brute force",C:"Tăng tốc hệ thống",D:"Không cần thiết"},answer:"B"},
+  {id:62,chapter:4,question:"Home directory của user dùng để:",options:{A:"Lưu cấu hình hệ thống",B:"Lưu file cá nhân của người dùng",C:"Chứa phần mềm",D:"Lưu log hệ thống"},answer:"B"},
+  {id:63,chapter:4,question:"Disabled account nghĩa là:",options:{A:"Tài khoản bị xóa",B:"Tài khoản bị vô hiệu hóa tạm thời",C:"Tài khoản mới",D:"Tài khoản admin"},answer:"B"},
+  {id:64,chapter:4,question:"Domain trong mạng Windows là:",options:{A:"Tên website",B:"Môi trường quản lý tập trung",C:"Loại IP",D:"Giao thức mạng"},answer:"B"},
+  {id:65,chapter:4,question:"Workgroup khác Domain ở điểm nào?",options:{A:"Workgroup có server trung tâm",B:"Workgroup không có server quản lý trung tâm",C:"Domain không cần mật khẩu",D:"Workgroup bảo mật hơn"},answer:"B"},
+  {id:66,chapter:4,question:"OU (Organizational Unit) trong AD dùng để:",options:{A:"Tạo mạng",B:"Tổ chức đối tượng trong Active Directory",C:"Định tuyến",D:"Lưu file"},answer:"B"},
+  {id:67,chapter:4,question:"Kerberos là:",options:{A:"Phần mềm mã hóa",B:"Giao thức xác thực mạng",C:"Giao thức định tuyến",D:"Loại virus"},answer:"B"},
+  {id:68,chapter:4,question:"Quản lý user tập trung giúp:",options:{A:"Tăng phức tạp",B:"Dễ quản lý và kiểm soát",C:"Giảm bảo mật",D:"Tăng chi phí"},answer:"B"},
+  {id:69,chapter:4,question:"Chính sách hết hạn mật khẩu giúp:",options:{A:"Làm khó người dùng",B:"Buộc thay mật khẩu định kỳ để bảo mật",C:"Tăng đăng nhập sai",D:"Không cần thiết"},answer:"B"},
+  {id:70,chapter:4,question:"Quản trị viên nên làm gì khi nhân viên nghỉ việc?",options:{A:"Giữ nguyên tài khoản",B:"Vô hiệu hóa hoặc xóa tài khoản ngay",C:"Đổi tên tài khoản",D:"Thêm quyền"},answer:"B"},
+
+  // ── CHAPTER 5 (20 câu) ──────────────────────────────────────
+  {id:71,chapter:5,question:"Mô hình Client-Server là:",options:{A:"Máy tính ngang hàng",B:"Máy chủ cung cấp dịch vụ cho máy khách",C:"Mạng không có server",D:"Chỉ dùng internet"},answer:"B"},
+  {id:72,chapter:5,question:"Mô hình P2P (Peer-to-Peer) là:",options:{A:"Cần server trung tâm",B:"Máy tính chia sẻ trực tiếp với nhau",C:"Không có mạng",D:"Chỉ dùng server"},answer:"B"},
+  {id:73,chapter:5,question:"Cloud computing là:",options:{A:"Tính toán trên máy cá nhân",B:"Sử dụng tài nguyên qua internet",C:"Mạng nội bộ",D:"Không kết nối internet"},answer:"B"},
+  {id:74,chapter:5,question:"IaaS là:",options:{A:"Phần mềm dịch vụ",B:"Hạ tầng dịch vụ (cung cấp máy ảo, lưu trữ)",C:"Nền tảng dịch vụ",D:"Ứng dụng web"},answer:"B"},
+  {id:75,chapter:5,question:"SaaS là:",options:{A:"Hạ tầng dịch vụ",B:"Phần mềm dịch vụ (dùng qua trình duyệt)",C:"Nền tảng dịch vụ",D:"Máy chủ ảo"},answer:"B"},
+  {id:76,chapter:5,question:"PaaS là:",options:{A:"Phần mềm dịch vụ",B:"Nền tảng dịch vụ (môi trường phát triển)",C:"Hạ tầng dịch vụ",D:"Ứng dụng di động"},answer:"B"},
+  {id:77,chapter:5,question:"Private cloud khác Public cloud ở điểm:",options:{A:"Private cloud rẻ hơn",B:"Private cloud dùng riêng cho tổ chức",C:"Public cloud an toàn hơn",D:"Private cloud không cần quản trị"},answer:"B"},
+  {id:78,chapter:5,question:"Hybrid cloud là:",options:{A:"Chỉ dùng cloud công cộng",B:"Kết hợp private và public cloud",C:"Không dùng cloud",D:"Chỉ dùng cloud riêng"},answer:"B"},
+  {id:79,chapter:5,question:"SNMP dùng để:",options:{A:"Gửi email",B:"Quản lý thiết bị mạng",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
+  {id:80,chapter:5,question:"Syslog dùng để:",options:{A:"Quản lý user",B:"Thu thập log từ thiết bị mạng",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
+  {id:81,chapter:5,question:"NMS (Network Management System) là:",options:{A:"Giao thức mạng",B:"Hệ thống quản lý mạng",C:"Máy chủ email",D:"Thiết bị định tuyến"},answer:"B"},
+  {id:82,chapter:5,question:"Monitoring tool như Nagios dùng để:",options:{A:"Tắt server",B:"Giám sát hệ thống và cảnh báo",C:"Định tuyến",D:"Lưu file"},answer:"B"},
+  {id:83,chapter:5,question:"Băng thông (bandwidth) là:",options:{A:"Kích thước file",B:"Khả năng truyền dữ liệu tối đa",C:"Số lượng user",D:"Tốc độ CPU"},answer:"B"},
+  {id:84,chapter:5,question:"Latency là:",options:{A:"Băng thông mạng",B:"Độ trễ truyền dữ liệu",C:"Tốc độ CPU",D:"Dung lượng RAM"},answer:"B"},
+  {id:85,chapter:5,question:"QoS (Quality of Service) giúp:",options:{A:"Giảm băng thông",B:"Ưu tiên lưu lượng quan trọng",C:"Tắt kết nối",D:"Không cần quản lý"},answer:"B"},
+  {id:86,chapter:5,question:"VLAN dùng để:",options:{A:"Tăng tốc internet",B:"Phân đoạn mạng logic",C:"Kết nối internet",D:"Lưu dữ liệu"},answer:"B"},
+  {id:87,chapter:5,question:"VPN giúp:",options:{A:"Giảm bảo mật",B:"Kết nối an toàn qua internet",C:"Tăng latency",D:"Ngắt kết nối"},answer:"B"},
+  {id:88,chapter:5,question:"NAT (Network Address Translation) dùng để:",options:{A:"Phân giải tên miền",B:"Ánh xạ IP nội bộ ra IP công cộng",C:"Định tuyến động",D:"Cấp phát IP"},answer:"B"},
+  {id:89,chapter:5,question:"Mô hình OSI có bao nhiêu tầng?",options:{A:"5",B:"7",C:"4",D:"6"},answer:"B"},
+  {id:90,chapter:5,question:"Giao thức TCP/IP hoạt động ở:",options:{A:"Tầng vật lý",B:"Tầng mạng và tầng giao vận",C:"Tầng ứng dụng",D:"Tầng liên kết dữ liệu"},answer:"B"},
+
+  // ── CHAPTER 6 (20 câu) ──────────────────────────────────────
+  {id:91,chapter:6,question:"Cấu hình hệ thống là:",options:{A:"Cài phần mềm ngẫu nhiên",B:"Thiết lập tham số hoạt động của hệ thống",C:"Tắt server",D:"Xóa dữ liệu"},answer:"B"},
+  {id:92,chapter:6,question:"Configuration management giúp:",options:{A:"Tăng lỗi cấu hình",B:"Theo dõi và kiểm soát thay đổi cấu hình",C:"Giảm hiệu suất",D:"Không cần quản lý"},answer:"B"},
+  {id:93,chapter:6,question:"Ansible, Puppet, Chef là:",options:{A:"Hệ điều hành",B:"Công cụ tự động hóa cấu hình",C:"Giao thức mạng",D:"Phần mềm diệt virus"},answer:"B"},
+  {id:94,chapter:6,question:"Change management trong IT là:",options:{A:"Thay đổi tùy tiện",B:"Quy trình kiểm soát thay đổi hệ thống",C:"Xóa tài khoản",D:"Tắt server"},answer:"B"},
+  {id:95,chapter:6,question:"Bảo trì phòng ngừa (preventive maintenance) là:",options:{A:"Sửa chữa sau khi hỏng",B:"Bảo trì định kỳ trước khi sự cố xảy ra",C:"Không bảo trì",D:"Bảo trì ngẫu nhiên"},answer:"B"},
+  {id:96,chapter:6,question:"Disk defragmentation dùng để:",options:{A:"Tăng dung lượng",B:"Tối ưu lưu trữ file trên ổ đĩa",C:"Xóa virus",D:"Tăng RAM"},answer:"B"},
+  {id:97,chapter:6,question:"Log file dùng để:",options:{A:"Lưu file người dùng",B:"Ghi lại sự kiện và hoạt động hệ thống",C:"Lưu email",D:"Tăng tốc CPU"},answer:"B"},
+  {id:98,chapter:6,question:"Khi nào cần reboot server?",options:{A:"Mỗi giờ",B:"Sau cập nhật hoặc khi hệ thống lỗi",C:"Không bao giờ",D:"Mỗi phút"},answer:"B"},
+  {id:99,chapter:6,question:"SOP (Standard Operating Procedure) là:",options:{A:"Giao thức mạng",B:"Quy trình chuẩn vận hành",C:"Phần mềm quản lý",D:"Loại server"},answer:"B"},
+  {id:100,chapter:6,question:"Disaster Recovery Plan là:",options:{A:"Kế hoạch mở rộng hệ thống",B:"Kế hoạch phục hồi sau thảm họa",C:"Kế hoạch mua phần cứng",D:"Kế hoạch tuyển dụng"},answer:"B"},
+  {id:101,chapter:6,question:"RTO (Recovery Time Objective) là:",options:{A:"Thời gian backup",B:"Thời gian tối đa để phục hồi hệ thống",C:"Tốc độ mạng",D:"Băng thông"},answer:"B"},
+  {id:102,chapter:6,question:"RPO (Recovery Point Objective) là:",options:{A:"Tốc độ phục hồi",B:"Lượng dữ liệu tối đa có thể mất",C:"Thời gian backup",D:"Số lần backup"},answer:"B"},
+  {id:103,chapter:6,question:"Full backup là:",options:{A:"Backup một phần",B:"Sao lưu toàn bộ dữ liệu",C:"Backup log",D:"Backup ảo"},answer:"B"},
+  {id:104,chapter:6,question:"Incremental backup là:",options:{A:"Backup toàn bộ",B:"Chỉ backup dữ liệu thay đổi từ lần backup trước",C:"Backup ngẫu nhiên",D:"Không backup"},answer:"B"},
+  {id:105,chapter:6,question:"3-2-1 backup rule nghĩa là:",options:{A:"3 lần backup mỗi ngày",B:"3 bản sao, 2 loại phương tiện, 1 bản off-site",C:"3 server, 2 user, 1 admin",D:"3 file, 2 folder, 1 drive"},answer:"B"},
+  {id:106,chapter:6,question:"Infrastructure as Code (IaC) là:",options:{A:"Lập trình ứng dụng",B:"Quản lý hạ tầng bằng code",C:"Giao thức mạng",D:"Phần mềm server"},answer:"B"},
+  {id:107,chapter:6,question:"Terraform là:",options:{A:"Hệ điều hành",B:"Công cụ IaC để quản lý hạ tầng cloud",C:"Giao thức bảo mật",D:"Loại database"},answer:"B"},
+  {id:108,chapter:6,question:"CI/CD trong DevOps là:",options:{A:"Giao thức mạng",B:"Tích hợp và triển khai liên tục",C:"Loại server",D:"Phần mềm backup"},answer:"B"},
+  {id:109,chapter:6,question:"Container (Docker) giúp:",options:{A:"Tăng phần cứng",B:"Đóng gói ứng dụng cùng môi trường",C:"Giảm bảo mật",D:"Tắt server"},answer:"B"},
+  {id:110,chapter:6,question:"Kubernetes dùng để:",options:{A:"Lưu trữ dữ liệu",B:"Quản lý và điều phối container",C:"Gửi email",D:"Định tuyến mạng"},answer:"B"},
+
+  // ── CHAPTER 7 (20 câu) ──────────────────────────────────────
+  {id:111,chapter:7,question:"HTTP là giao thức:",options:{A:"Truyền file",B:"Truyền siêu văn bản (web)",C:"Gửi email",D:"Định tuyến"},answer:"B"},
+  {id:112,chapter:7,question:"HTTPS khác HTTP ở điểm:",options:{A:"Chậm hơn",B:"Có mã hóa SSL/TLS",C:"Không dùng port 80",D:"Không cần server"},answer:"B"},
+  {id:113,chapter:7,question:"SMTP dùng để:",options:{A:"Nhận email",B:"Gửi email",C:"Định tuyến",D:"Phân giải tên miền"},answer:"B"},
+  {id:114,chapter:7,question:"POP3 dùng để:",options:{A:"Gửi email",B:"Tải email về máy client",C:"Định tuyến",D:"Phân giải tên miền"},answer:"B"},
+  {id:115,chapter:7,question:"IMAP khác POP3 ở điểm:",options:{A:"IMAP xóa mail sau khi tải",B:"IMAP giữ mail trên server, đồng bộ nhiều thiết bị",C:"POP3 nhanh hơn",D:"IMAP không dùng mạng"},answer:"B"},
+  {id:116,chapter:7,question:"FTP dùng để:",options:{A:"Gửi email",B:"Truyền file",C:"Định tuyến",D:"Phân giải tên miền"},answer:"B"},
+  {id:117,chapter:7,question:"SFTP khác FTP ở điểm:",options:{A:"Chậm hơn",B:"Có mã hóa bảo mật",C:"Không truyền file",D:"Chỉ dùng LAN"},answer:"B"},
+  {id:118,chapter:7,question:"SSH dùng để:",options:{A:"Truyền file",B:"Đăng nhập và quản lý máy từ xa an toàn",C:"Gửi email",D:"Phân giải tên miền"},answer:"B"},
+  {id:119,chapter:7,question:"Telnet khác SSH ở điểm:",options:{A:"Telnet bảo mật hơn",B:"Telnet không mã hóa",C:"SSH chậm hơn",D:"Không khác gì"},answer:"B"},
+  {id:120,chapter:7,question:"RDP (Remote Desktop Protocol) dùng để:",options:{A:"Gửi email",B:"Truy cập màn hình máy tính từ xa",C:"Định tuyến",D:"Truyền file"},answer:"B"},
+  {id:121,chapter:7,question:"NTP (Network Time Protocol) dùng để:",options:{A:"Định tuyến",B:"Đồng bộ thời gian giữa các thiết bị",C:"Gửi email",D:"Lưu file"},answer:"B"},
+  {id:122,chapter:7,question:"SNMP dùng để:",options:{A:"Gửi email",B:"Giám sát và quản lý thiết bị mạng",C:"Truyền file",D:"Phân giải tên miền"},answer:"B"},
+  {id:123,chapter:7,question:"Proxy server dùng để:",options:{A:"Lưu file",B:"Trung gian giữa client và internet",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
+  {id:124,chapter:7,question:"Reverse proxy dùng để:",options:{A:"Che giấu client",B:"Che giấu và bảo vệ server backend",C:"Tăng latency",D:"Giảm bảo mật"},answer:"B"},
+  {id:125,chapter:7,question:"CDN (Content Delivery Network) giúp:",options:{A:"Tăng latency",B:"Phân phối nội dung gần người dùng",C:"Giảm tốc độ",D:"Không cần server"},answer:"B"},
+  {id:126,chapter:7,question:"Web Application Firewall (WAF) bảo vệ:",options:{A:"Phần cứng server",B:"Ứng dụng web khỏi tấn công",C:"Mạng nội bộ",D:"Email"},answer:"B"},
+  {id:127,chapter:7,question:"API Gateway dùng để:",options:{A:"Lưu dữ liệu",B:"Quản lý và định tuyến API request",C:"Gửi email",D:"Cấp phát IP"},answer:"B"},
+  {id:128,chapter:7,question:"Microservices là:",options:{A:"Ứng dụng nguyên khối",B:"Kiến trúc chia nhỏ thành nhiều dịch vụ độc lập",C:"Một loại database",D:"Giao thức mạng"},answer:"B"},
+  {id:129,chapter:7,question:"Load balancer trong ứng dụng web giúp:",options:{A:"Giảm server",B:"Phân phối request đến nhiều server",C:"Tăng latency",D:"Không cần server"},answer:"B"},
+  {id:130,chapter:7,question:"SSL/TLS certificate dùng để:",options:{A:"Tăng tốc web",B:"Mã hóa kết nối và xác thực danh tính",C:"Lưu file",D:"Định tuyến"},answer:"B"},
+
+  // ── CHAPTER 8 (20 câu) ──────────────────────────────────────
+  {id:131,chapter:8,question:"Địa chỉ IP dùng để:",options:{A:"Lưu file",B:"Định danh thiết bị trên mạng",C:"Gửi email",D:"Tăng tốc CPU"},answer:"B"},
+  {id:132,chapter:8,question:"IPv4 có bao nhiêu bit?",options:{A:"16",B:"32",C:"64",D:"128"},answer:"B"},
+  {id:133,chapter:8,question:"IPv6 có bao nhiêu bit?",options:{A:"32",B:"128",C:"64",D:"256"},answer:"B"},
+  {id:134,chapter:8,question:"Subnet mask dùng để:",options:{A:"Mã hóa dữ liệu",B:"Xác định phần mạng và phần host trong IP",C:"Định tuyến động",D:"Cấp phát IP"},answer:"B"},
+  {id:135,chapter:8,question:"Default gateway là:",options:{A:"Máy chủ DNS",B:"Thiết bị chuyển tiếp gói tin ra ngoài mạng",C:"Địa chỉ IP tĩnh",D:"Máy chủ DHCP"},answer:"B"},
+  {id:136,chapter:8,question:"ARP (Address Resolution Protocol) dùng để:",options:{A:"Phân giải tên miền",B:"Ánh xạ IP sang MAC address",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
+  {id:137,chapter:8,question:"ICMP dùng để:",options:{A:"Truyền file",B:"Gửi thông báo lỗi và kiểm tra kết nối",C:"Gửi email",D:"Phân giải tên miền"},answer:"B"},
+  {id:138,chapter:8,question:"Lệnh ping sử dụng giao thức:",options:{A:"TCP",B:"ICMP",C:"UDP",D:"FTP"},answer:"B"},
+  {id:139,chapter:8,question:"Port 80 dùng cho:",options:{A:"FTP",B:"HTTP",C:"SMTP",D:"SSH"},answer:"B"},
+  {id:140,chapter:8,question:"Port 443 dùng cho:",options:{A:"FTP",B:"HTTPS",C:"SSH",D:"SMTP"},answer:"B"},
+  {id:141,chapter:8,question:"Port 22 dùng cho:",options:{A:"HTTP",B:"SSH",C:"FTP",D:"SMTP"},answer:"B"},
+  {id:142,chapter:8,question:"Port 25 dùng cho:",options:{A:"HTTP",B:"SMTP",C:"FTP",D:"SSH"},answer:"B"},
+  {id:143,chapter:8,question:"Firewall hoạt động dựa trên:",options:{A:"Tốc độ mạng",B:"Quy tắc lọc gói tin (rules)",C:"Số lượng user",D:"Dung lượng lưu trữ"},answer:"B"},
+  {id:144,chapter:8,question:"TCP là giao thức:",options:{A:"Không tin cậy",B:"Tin cậy, có xác nhận kết nối",C:"Không kết nối",D:"Không truyền dữ liệu"},answer:"B"},
+  {id:145,chapter:8,question:"UDP là giao thức:",options:{A:"Tin cậy cao",B:"Không kết nối, nhanh nhưng không đảm bảo",C:"Chậm",D:"Không dùng mạng"},answer:"B"},
+  {id:146,chapter:8,question:"Định tuyến tĩnh (Static routing) là:",options:{A:"Tự động cập nhật",B:"Cấu hình thủ công bởi admin",C:"Không cần cấu hình",D:"Không hoạt động"},answer:"B"},
+  {id:147,chapter:8,question:"Định tuyến động (Dynamic routing) là:",options:{A:"Thủ công",B:"Tự động cập nhật đường đi theo topology",C:"Không dùng router",D:"Không có mạng"},answer:"B"},
+  {id:148,chapter:8,question:"Giao thức định tuyến gồm:",options:{A:"RIP, OSPF, BGP",B:"HTTP, FTP",C:"SMTP, POP3",D:"SSH, Telnet"},answer:"A"},
+  {id:149,chapter:8,question:"Chuyển tiếp gói tin (Forwarding) là:",options:{A:"Lưu dữ liệu",B:"Gửi gói tin đến đích theo bảng định tuyến",C:"Tắt mạng",D:"Tăng CPU"},answer:"B"},
+  {id:150,chapter:8,question:"Một mạng tốt cần:",options:{A:"Không bảo mật",B:"Tối ưu hiệu năng, độ tin cậy và bảo mật",C:"Tăng lỗi",D:"Không quản lý"},answer:"B"},
+
+  // Extra 10 (padding to 160, reusing context-rich variations)
+  {id:151,chapter:1,question:"Trong quản trị hệ thống, downtime ảnh hưởng đến:",options:{A:"Tốc độ CPU",B:"Sự liên tục của dịch vụ doanh nghiệp",C:"Dung lượng RAM",D:"Màu sắc giao diện"},answer:"B"},
+  {id:152,chapter:2,question:"GPU chủ yếu dùng cho:",options:{A:"Lưu trữ dữ liệu",B:"Xử lý đồ họa và tính toán song song",C:"Kết nối mạng",D:"Cấp phát IP"},answer:"B"},
+  {id:153,chapter:3,question:"Mục đích chính của disaster recovery site là:",options:{A:"Tiết kiệm điện",B:"Tiếp tục hoạt động khi datacenter chính gặp sự cố",C:"Tăng băng thông",D:"Giảm chi phí phần mềm"},answer:"B"},
+  {id:154,chapter:4,question:"Principle of Least Privilege nghĩa là:",options:{A:"Cấp toàn quyền cho mọi user",B:"Chỉ cấp quyền tối thiểu cần thiết",C:"Không cấp quyền nào",D:"Chia sẻ mật khẩu"},answer:"B"},
+  {id:155,chapter:5,question:"Topology mạng hình sao (Star) có đặc điểm:",options:{A:"Không cần thiết bị trung tâm",B:"Tất cả thiết bị kết nối vào một switch/hub trung tâm",C:"Chỉ có 2 thiết bị",D:"Không cần cáp mạng"},answer:"B"},
+  {id:156,chapter:6,question:"Khi áp dụng IaC, lợi ích lớn nhất là:",options:{A:"Tốc độ CPU tăng",B:"Hạ tầng có thể tái tạo và nhất quán",C:"Giảm số lượng server",D:"Không cần backup"},answer:"B"},
+  {id:157,chapter:7,question:"Giao thức HTTPS sử dụng port mặc định:",options:{A:"80",B:"443",C:"22",D:"25"},answer:"B"},
+  {id:158,chapter:8,question:"Lớp mạng (Network Layer) trong OSI xử lý:",options:{A:"Truyền bit vật lý",B:"Định tuyến và địa chỉ IP",C:"Mã hóa dữ liệu",D:"Quản lý phiên"},answer:"B"},
+  {id:159,chapter:3,question:"VM (Virtual Machine) là:",options:{A:"Máy tính vật lý",B:"Máy tính ảo chạy trên hypervisor",C:"Phần mềm diệt virus",D:"Loại giao thức mạng"},answer:"B"},
+  {id:160,chapter:8,question:"MAC address có độ dài:",options:{A:"32 bit",B:"48 bit",C:"64 bit",D:"128 bit"},answer:"B"},
+];
+
+/* ============================================================
+   CHAPTER NAMES
+   ============================================================ */
+const CHAPTER_NAMES = {
+  0: "Tất cả chương",
+  1: "Chương 1: Giới thiệu",
+  2: "Chương 2: Thành phần hệ thống",
+  3: "Chương 3: Quản trị máy chủ",
+  4: "Chương 4: Quản trị người dùng",
+  5: "Chương 5: Mô hình quản trị mạng",
+  6: "Chương 6: Cấu hình & Duy trì",
+  7: "Chương 7: Dịch vụ ứng dụng",
+  8: "Chương 8: Dịch vụ mạng",
+};
+
+const LS_LB      = 'qthtm_leaderboard';
+const LS_HISTORY = 'qthtm_history';
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let state = {
+  playerName: '',
+  chapter: 0,
+  questions: [],
+  current: 0,
+  score: 0,
+  correctCount: 0,
+  wrongCount: 0,
+  answered: false,
+};
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric' })
+    + ' ' + d.toLocaleTimeString('vi-VN', { hour:'2-digit', minute:'2-digit' });
+}
+
+function accClass(acc) {
+  if (acc >= 75) return 'acc-high';
+  if (acc >= 50) return 'acc-mid';
+  return 'acc-low';
+}
+
+function showToast(msg, dur = 2200) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+/* ============================================================
+   SCREEN NAVIGATION
+   ============================================================ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ============================================================
+   HOME SCREEN SETUP
+   ============================================================ */
+function initHome() {
+  const grid = document.getElementById('chapter-grid');
+  grid.innerHTML = '';
+  for (let i = 0; i <= 8; i++) {
+    const label = i === 0 ? 'Tất cả' : `Chương ${i}`;
+    grid.innerHTML += `
+      <div class="ch-btn">
+        <input type="radio" name="chapter" id="ch${i}" value="${i}" ${i===0?'checked':''}>
+        <label for="ch${i}" class="ch-label">${label}</label>
+      </div>`;
+  }
+}
+
+/* ============================================================
+   START QUIZ
+   ============================================================ */
+document.getElementById('btn-start').addEventListener('click', () => {
+  const name = document.getElementById('player-name').value.trim();
+  if (name.length < 2) {
+    showToast('⚠️ Tên cần ít nhất 2 ký tự!');
+    document.getElementById('player-name').focus();
+    return;
+  }
+  const chapterVal = parseInt(document.querySelector('input[name="chapter"]:checked').value);
+  state.playerName  = name;
+  state.chapter     = chapterVal;
+  state.score       = 0;
+  state.correctCount= 0;
+  state.wrongCount  = 0;
+  state.current     = 0;
+  state.answered    = false;
+
+  const pool = chapterVal === 0
+    ? QUESTIONS
+    : QUESTIONS.filter(q => q.chapter === chapterVal);
+
+  state.questions = shuffle(pool);
+
+  if (state.questions.length === 0) {
+    showToast('Không có câu hỏi cho chương này!');
+    return;
+  }
+
+  showScreen('screen-quiz');
+  renderQuestion();
+});
+
+/* ============================================================
+   RENDER QUESTION
+   ============================================================ */
+function renderQuestion() {
+  const q   = state.questions[state.current];
+  const idx = state.current;
+  const tot = state.questions.length;
+
+  // Header
+  const chName = state.chapter === 0
+    ? `Ch.${q.chapter} — ${CHAPTER_NAMES[q.chapter].split(':')[1]?.trim() || ''}`
+    : CHAPTER_NAMES[state.chapter].split(':')[1]?.trim() || CHAPTER_NAMES[state.chapter];
+
+  document.getElementById('qz-chapter-tag').textContent = CHAPTER_NAMES[q.chapter];
+  document.getElementById('qz-count').textContent       = `Câu ${idx + 1} / ${tot}`;
+  document.getElementById('qz-score').textContent       = `${state.score >= 0 ? '+' : ''}${state.score} điểm`;
+  document.getElementById('progress-bar').style.width   = `${((idx) / tot) * 100}%`;
+  document.getElementById('qz-q-num').textContent       = `Câu ${idx + 1}`;
+  document.getElementById('qz-q-text').textContent      = q.question;
+
+  // Answers
+  const wrap = document.getElementById('answers-wrap');
+  wrap.innerHTML = '';
+  ['A','B','C','D'].forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'ans-btn';
+    btn.dataset.key = key;
+    btn.innerHTML = `<span class="ans-key">${key}</span><span>${q.options[key]}</span>`;
+    btn.addEventListener('click', () => handleAnswer(key, btn, q.answer));
+    wrap.appendChild(btn);
+  });
+
+  // Next btn
+  const nb = document.getElementById('next-btn');
+  nb.classList.remove('visible');
+  state.answered = false;
+}
+
+/* ============================================================
+   HANDLE ANSWER
+   ============================================================ */
+function handleAnswer(chosen, btn, correct) {
+  if (state.answered) return;
+  state.answered = true;
+
+  // Disable all
+  document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
+
+  const isRight = chosen === correct;
+
+  if (isRight) {
+    state.score       += 20;
+    state.correctCount += 1;
+    btn.classList.add('correct', 'pulse');
+    floatScore(btn, '+20', true);
+  } else {
+    state.score      -= 10;
+    state.wrongCount += 1;
+    btn.classList.add('wrong');
+    floatScore(btn, '−10', false);
+    // Reveal correct
+    document.querySelectorAll('.ans-btn').forEach(b => {
+      if (b.dataset.key === correct) b.classList.add('correct');
+    });
+  }
+
+  // Update score display
+  document.getElementById('qz-score').textContent = `${state.score >= 0 ? '+' : ''}${state.score} điểm`;
+
+  // Show next
+  document.getElementById('next-btn').classList.add('visible');
+}
+
+/* ============================================================
+   FLOAT SCORE ANIMATION
+   ============================================================ */
+function floatScore(btn, text, isPlus) {
+  const rect = btn.getBoundingClientRect();
+  const el   = document.createElement('div');
+  el.className   = `score-float ${isPlus ? 'plus' : 'minus'}`;
+  el.textContent = text;
+  el.style.left  = `${rect.left + rect.width / 2 - 20}px`;
+  el.style.top   = `${rect.top + window.scrollY - 10}px`;
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}
+
+/* ============================================================
+   NEXT BUTTON
+   ============================================================ */
+document.getElementById('next-btn').addEventListener('click', () => {
+  state.current++;
+  if (state.current >= state.questions.length) {
+    showResults();
+  } else {
+    renderQuestion();
+    document.getElementById('next-btn').classList.remove('visible');
+  }
+});
+
+/* ============================================================
+   EXIT QUIZ
+   ============================================================ */
+document.getElementById('btn-exit-quiz').addEventListener('click', () => {
+  if (confirm('Thoát quiz? Kết quả sẽ không được lưu.')) showScreen('screen-home');
+});
+
+/* ============================================================
+   SHOW RESULTS
+   ============================================================ */
+function showResults() {
+  const tot = state.questions.length;
+  const acc = tot > 0 ? Math.round((state.correctCount / tot) * 100) : 0;
+
+  document.getElementById('res-score').textContent   = state.score;
+  document.getElementById('res-correct').textContent = state.correctCount;
+  document.getElementById('res-wrong').textContent   = state.wrongCount;
+  document.getElementById('res-acc').textContent     = `${acc}%`;
+  document.getElementById('res-detail').textContent  =
+    `${state.playerName} · ${CHAPTER_NAMES[state.chapter]} · ${tot} câu`;
+
+  // Emoji
+  const emoji = acc >= 80 ? '🏆' : acc >= 60 ? '🎯' : acc >= 40 ? '📚' : '💪';
+  document.getElementById('result-emoji').textContent = emoji;
+
+  // Save to localStorage
+  saveSession({ name: state.playerName, score: state.score, accuracy: acc,
+                chapter: state.chapter, total: tot,
+                correct: state.correctCount, date: new Date().toISOString() });
+
+  // Update progress bar to full
+  document.getElementById('progress-bar').style.width = '100%';
+
+  showScreen('screen-result');
+}
+
+/* ============================================================
+   LOCALSTORAGE
+   ============================================================ */
+function getLB() {
+  try { return JSON.parse(localStorage.getItem(LS_LB)) || []; }
+  catch { return []; }
+}
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(LS_HISTORY)) || []; }
+  catch { return []; }
+}
+
+function saveSession(session) {
+  // Leaderboard
+  const lb = getLB();
+  lb.push(session);
+  localStorage.setItem(LS_LB, JSON.stringify(lb));
+
+  // History (max 50 FIFO)
+  const hist = getHistory();
+  hist.unshift(session);
+  if (hist.length > 50) hist.length = 50;
+  localStorage.setItem(LS_HISTORY, JSON.stringify(hist));
+}
+
+/* ============================================================
+   LEADERBOARD
+   ============================================================ */
+let lbSortCol = 'score';
+let lbSortDir = -1; // -1 = desc
+
+function renderLeaderboard() {
+  const lb = getLB();
+  const tbody = document.getElementById('lb-tbody');
+  const empty = document.getElementById('lb-empty');
+
+  if (lb.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  // Sort
+  const sorted = [...lb].sort((a, b) => {
+    const va = a[lbSortCol] ?? '';
+    const vb = b[lbSortCol] ?? '';
+    if (typeof va === 'number') return (va - vb) * lbSortDir;
+    return String(va).localeCompare(String(vb)) * lbSortDir;
+  });
+
+  tbody.innerHTML = sorted.map((row, i) => {
+    const rankClass = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
+    const rankIcon  = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1;
+    const chLabel   = row.chapter === 0 ? 'Tất cả' : `Ch.${row.chapter}`;
+    const aClass    = accClass(row.accuracy);
+    return `<tr>
+      <td><span class="rank-badge ${rankClass}">${rankIcon}</span></td>
+      <td><strong>${escHtml(row.name)}</strong></td>
+      <td><strong style="color:var(--accent-h)">${row.score}</strong></td>
+      <td><span class="acc-pill ${aClass}">${row.accuracy}%</span></td>
+      <td>${chLabel}</td>
+      <td style="color:var(--text-muted);font-size:.8rem">${fmtDate(row.date)}</td>
+    </tr>`;
+  }).join('');
+
+  // Update sort icons
+  document.querySelectorAll('thead th[data-col]').forEach(th => {
+    const icon = th.querySelector('.sort-icon');
+    if (!icon) return;
+    if (th.dataset.col === lbSortCol) {
+      icon.textContent = lbSortDir === -1 ? '↓' : '↑';
+      icon.style.opacity = '1';
+    } else {
+      icon.textContent = '↕';
+      icon.style.opacity = '.4';
+    }
+  });
+}
+
+/* ============================================================
+   HISTORY
+   ============================================================ */
+function renderHistory() {
+  const hist = getHistory().slice(0, 10);
+  const tbody = document.getElementById('hist-tbody');
+  const empty = document.getElementById('hist-empty');
+
+  if (hist.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = hist.map(row => {
+    const chLabel = row.chapter === 0 ? 'Tất cả' : `Ch.${row.chapter}`;
+    const aClass  = accClass(row.accuracy);
+    return `<tr>
+      <td style="color:var(--text-muted);font-size:.8rem;white-space:nowrap">${fmtDate(row.date)}</td>
+      <td>${escHtml(row.name)}</td>
+      <td>${chLabel}</td>
+      <td><strong style="color:var(--accent-h)">${row.score}</strong></td>
+      <td><span class="acc-pill ${aClass}">${row.accuracy}%</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+/* ============================================================
+   EVENT LISTENERS
+   ============================================================ */
+// Home nav
+document.getElementById('btn-lb-home').addEventListener('click', () => {
+  renderLeaderboard();
+  showScreen('screen-lb');
+});
+document.getElementById('btn-history-home').addEventListener('click', () => {
+  renderHistory();
+  showScreen('screen-history');
+});
+
+// Result screen
+document.getElementById('btn-play-again').addEventListener('click', () => showScreen('screen-home'));
+document.getElementById('btn-see-lb').addEventListener('click', () => {
+  renderLeaderboard();
+  showScreen('screen-lb');
+});
+document.getElementById('btn-history-result').addEventListener('click', () => {
+  renderHistory();
+  showScreen('screen-history');
+});
+
+// Leaderboard back
+document.getElementById('btn-back-lb').addEventListener('click', () => showScreen('screen-home'));
+
+// History back
+document.getElementById('btn-back-hist').addEventListener('click', () => showScreen('screen-home'));
+
+// Clear leaderboard
+document.getElementById('btn-clear-lb').addEventListener('click', () => {
+  if (confirm('Bạn có chắc muốn xóa toàn bộ bảng xếp hạng? Hành động này không thể hoàn tác.')) {
+    localStorage.removeItem(LS_LB);
+    renderLeaderboard();
+    showToast('✅ Đã xóa bảng xếp hạng');
+  }
+});
+
+// Leaderboard sort
+document.querySelectorAll('thead th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (lbSortCol === col) {
+      lbSortDir *= -1;
+    } else {
+      lbSortCol = col;
+      lbSortDir = col === 'score' || col === 'accuracy' ? -1 : 1;
+    }
+    renderLeaderboard();
+  });
+});
+
+// Enter key on name field → start
+document.getElementById('player-name').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('btn-start').click();
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+initHome();
+</script>
+</body>
+</html>
