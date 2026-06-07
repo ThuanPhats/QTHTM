@@ -386,6 +386,10 @@
       <button class="btn btn-secondary btn-sm" id="btn-back-lb">← Về trang chủ</button>
       <h2>🏆 Bảng xếp hạng</h2>
     </div>
+    <div id="lb-loading" class="empty-state" style="display:none;">
+      <div class="empty-icon">⏳</div>
+      <div>Đang tải dữ liệu từ đám mây...</div>
+    </div>
     <div class="tbl-wrap">
       <table id="lb-table">
         <thead>
@@ -434,6 +438,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
+const BIN_ID = '6a25497cda38895dfe94530f';
+const API_KEY = '$2a$10$zDXXpNpBQuVITE3RutPM0ufiGxYztP8cm/4zYGpo.MLi7/RP5dmgS';
+
 /* =============================================================
    QUESTION DATA — 160 câu, 8 chương
    Stored as { id, chapter, question, options:{A,B,C,D}, answer }
@@ -850,31 +857,98 @@ function showResults() {
 }
 
 /* ============================================================
-   LOCALSTORAGE
+   LOCALSTORAGE & CLOUD
    ============================================================ */
 function getLB()      { try{return JSON.parse(localStorage.getItem(LS_LB))||[];}catch{return[];} }
 function getHistory() { try{return JSON.parse(localStorage.getItem(LS_HISTORY))||[];}catch{return[];} }
 
+async function saveLeaderboardToCloud(session) {
+  try {
+    const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      headers: { 'X-Master-Key': API_KEY }
+    });
+    let currentData = [];
+    if (getRes.ok) {
+      const data = await getRes.json();
+      currentData = Array.isArray(data.record) ? data.record : [];
+    }
+
+    currentData.push(session);
+    currentData.sort((a, b) => b.score - a.score);
+    currentData = currentData.slice(0, 100);
+
+    const putRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
+      body: JSON.stringify(currentData)
+    });
+
+    if (!putRes.ok) throw new Error('PUT failed');
+    localStorage.setItem(LS_LB, JSON.stringify(currentData));
+  } catch (err) {
+    console.error('Lưu đám mây thất bại, lưu cục bộ:', err);
+    const lb = getLB();
+    lb.push(session);
+    lb.sort((a, b) => b.score - a.score);
+    localStorage.setItem(LS_LB, JSON.stringify(lb.slice(0, 100)));
+  }
+}
+
 function saveSession(s) {
-  const lb = getLB(); lb.push(s);
-  localStorage.setItem(LS_LB, JSON.stringify(lb));
   const hist = getHistory(); hist.unshift(s);
   if (hist.length > 50) hist.length = 50;
   localStorage.setItem(LS_HISTORY, JSON.stringify(hist));
+  
+  // Async save to cloud
+  saveLeaderboardToCloud(s);
 }
 
 /* ============================================================
    LEADERBOARD
    ============================================================ */
 let lbSortCol = 'score', lbSortDir = -1;
+let lbDataCache = [];
+
+async function loadLeaderboard() {
+  const empty = document.getElementById('lb-empty');
+  const loading = document.getElementById('lb-loading');
+  const tblWrap = document.querySelector('#screen-lb .tbl-wrap');
+  
+  empty.style.display = 'none';
+  tblWrap.style.display = 'none';
+  loading.style.display = 'block';
+  
+  try {
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+      method: 'GET',
+      headers: { 'X-Master-Key': API_KEY }
+    });
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    lbDataCache = Array.isArray(data.record) ? data.record : [];
+    localStorage.setItem(LS_LB, JSON.stringify(lbDataCache));
+  } catch (err) {
+    console.error('Lỗi tải đám mây, dùng localStorage:', err);
+    lbDataCache = getLB();
+    showToast('⚠️ Lỗi tải từ đám mây, đang hiển thị dữ liệu cục bộ');
+  }
+  
+  loading.style.display = 'none';
+  if (!lbDataCache.length) {
+    empty.style.display = 'block';
+    return;
+  }
+  
+  tblWrap.style.display = 'block';
+  renderLeaderboard();
+}
 
 function renderLeaderboard() {
-  const lb    = getLB();
   const tbody = document.getElementById('lb-tbody');
-  const empty = document.getElementById('lb-empty');
-  if (!lb.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-  const sorted = [...lb].sort((a,b) => {
+  const sorted = [...lbDataCache].sort((a,b) => {
     const va=a[lbSortCol]??'', vb=b[lbSortCol]??'';
     return (typeof va==='number' ? (va-vb) : String(va).localeCompare(String(vb))) * lbSortDir;
   });
@@ -918,10 +992,10 @@ function renderHistory() {
 /* ============================================================
    EVENTS
    ============================================================ */
-document.getElementById('btn-lb-home').addEventListener('click',      ()=>{renderLeaderboard();showScreen('screen-lb');});
+document.getElementById('btn-lb-home').addEventListener('click',      ()=>{loadLeaderboard();showScreen('screen-lb');});
 document.getElementById('btn-history-home').addEventListener('click', ()=>{renderHistory();showScreen('screen-history');});
 document.getElementById('btn-play-again').addEventListener('click',   ()=>showScreen('screen-home'));
-document.getElementById('btn-see-lb').addEventListener('click',       ()=>{renderLeaderboard();showScreen('screen-lb');});
+document.getElementById('btn-see-lb').addEventListener('click',       ()=>{loadLeaderboard();showScreen('screen-lb');});
 document.getElementById('btn-history-result').addEventListener('click',()=>{renderHistory();showScreen('screen-history');});
 document.getElementById('btn-back-lb').addEventListener('click',      ()=>showScreen('screen-home'));
 document.getElementById('btn-back-hist').addEventListener('click',    ()=>showScreen('screen-home'));
