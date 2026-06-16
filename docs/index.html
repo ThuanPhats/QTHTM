@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trắc Nghiệm Quản Trị Hệ Thống Mạng</title>
-  <meta name="description" content="Ôn tập trắc nghiệm môn Quản Trị Hệ Thống Mạng — 160 câu, 8 chương. Xáo trộn thứ tự câu và đáp án mỗi phiên." />
+  <meta name="description"
+    content="Ôn tập trắc nghiệm môn Quản Trị Hệ Thống Mạng — 160 câu, 8 chương. Xáo trộn thứ tự câu và đáp án mỗi phiên." />
   <style>
     /* ===== RESET & BASE ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #0f172a;
-      --surface:   #1e293b;
-      --surface2:  #263348;
-      --border:    #334155;
-      --accent:    #6366f1;
-      --accent-h:  #818cf8;
-      --accent-d:  #4f46e5;
-      --correct:   #22c55e;
-      --wrong:     #ef4444;
-      --text:      #f1f5f9;
-      --text-muted:#94a3b8;
-      --gold:      #f59e0b;
-      --silver:    #94a3b8;
-      --bronze:    #cd7c2f;
-      --radius:    14px;
-      --shadow:    0 4px 24px rgba(0,0,0,.45);
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    html { scroll-behavior: smooth; }
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface2: #263348;
+      --border: #334155;
+      --accent: #6366f1;
+      --accent-h: #818cf8;
+      --accent-d: #4f46e5;
+      --correct: #22c55e;
+      --wrong: #ef4444;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --gold: #f59e0b;
+      --silver: #94a3b8;
+      --bronze: #cd7c2f;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, .45);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -42,23 +52,64 @@
       overflow-x: hidden;
     }
 
-    h1 { font-size: clamp(1.4rem, 5vw, 2.1rem); font-weight: 800; letter-spacing: -0.5px; }
-    h2 { font-size: clamp(1.1rem, 4vw, 1.6rem); font-weight: 700; }
+    h1 {
+      font-size: clamp(1.4rem, 5vw, 2.1rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: clamp(1.1rem, 4vw, 1.6rem);
+      font-weight: 700;
+    }
 
     .app-wrap {
       width: 100%;
-      max-width: 680px;
+      max-width: 1200px;
       display: flex;
       flex-direction: column;
+      align-items: center;
     }
 
     /* ===== SCREENS ===== */
-    .screen { display: none; flex-direction: column; gap: 20px; animation: fadeUp .35s ease both; }
-    .screen.active { display: flex; }
+    .screen {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: fadeUp .35s ease both;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .screen.active {
+      display: flex;
+    }
+
+    #screen-home.screen {
+      max-width: 1200px;
+    }
+
+    #screen-home .logo-header,
+    #screen-home .home-nav,
+    #screen-home .card,
+    #screen-home #btn-start {
+      width: 100%;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ===== CARD ===== */
@@ -71,952 +122,3045 @@
     }
 
     /* ===== LOGO HEADER ===== */
-    .logo-header { text-align: center; padding: 32px 0 8px; }
+    .logo-header {
+      text-align: center;
+      padding: 32px 0 8px;
+    }
+
     .logo-icon {
-      width: 64px; height: 64px;
+      width: 64px;
+      height: 64px;
       background: linear-gradient(135deg, var(--accent), var(--accent-d));
       border-radius: 18px;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 2rem; margin-bottom: 14px;
-      box-shadow: 0 8px 28px rgba(99,102,241,.45);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 28px rgba(99, 102, 241, .45);
     }
+
     .logo-header h1 {
       background: linear-gradient(135deg, #818cf8, #c4b5fd);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       line-height: 1.2;
     }
-    .logo-header p { color: var(--text-muted); margin-top: 8px; font-size: .95rem; }
+
+    .logo-header p {
+      color: var(--text-muted);
+      margin-top: 8px;
+      font-size: .95rem;
+    }
 
     /* ===== FORM ===== */
     label {
-      display: block; font-size: .85rem; font-weight: 600;
-      color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: .06em; margin-bottom: 7px;
+      display: block;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 7px;
     }
+
     input[type="text"] {
-      width: 100%; padding: 13px 16px;
-      background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 10px; color: var(--text); font-size: 1rem; outline: none;
+      width: 100%;
+      padding: 13px 16px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
       transition: border-color .2s, box-shadow .2s;
     }
-    input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99,102,241,.25); }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, .25);
+    }
 
     /* ===== CHAPTER GRID ===== */
-    .chapter-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .chapter-grid label { text-transform: none; letter-spacing: normal; margin: 0; }
-    .ch-btn { position: relative; }
-    .ch-btn input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .chapter-grid label {
+      text-transform: none;
+      letter-spacing: normal;
+      margin: 0;
+    }
+
+    .ch-btn {
+      position: relative;
+    }
+
+    .ch-btn input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
     .ch-btn .ch-label {
-      display: flex; align-items: center; justify-content: center;
-      padding: 10px 6px; background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 10px; font-size: .82rem; font-weight: 600; color: var(--text-muted);
-      cursor: pointer; transition: all .18s; text-align: center; user-select: none; min-height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 6px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all .18s;
+      text-align: center;
+      user-select: none;
+      min-height: 46px;
     }
-    .ch-btn input[type="radio"]:checked + .ch-label {
+
+    .ch-btn input[type="radio"]:checked+.ch-label {
       background: linear-gradient(135deg, var(--accent), var(--accent-d));
-      border-color: var(--accent); color: #fff;
-      box-shadow: 0 4px 14px rgba(99,102,241,.4);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, .4);
     }
-    .ch-btn .ch-label:hover { border-color: var(--accent-h); color: var(--accent-h); }
-    .ch-btn input[type="radio"]:checked + .ch-label:hover { color: #fff; }
+
+    .ch-btn .ch-label:hover {
+      border-color: var(--accent-h);
+      color: var(--accent-h);
+    }
+
+    .ch-btn input[type="radio"]:checked+.ch-label:hover {
+      color: #fff;
+    }
 
     /* ===== BUTTONS ===== */
     .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      gap: 8px; padding: 14px 24px; border: none; border-radius: 10px;
-      font-size: 1rem; font-weight: 700; cursor: pointer; transition: all .18s;
-      text-decoration: none; letter-spacing: .01em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .18s;
+      text-decoration: none;
+      letter-spacing: .01em;
     }
-    .btn:active { transform: scale(.97); }
+
+    .btn:active {
+      transform: scale(.97);
+    }
+
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent-d));
-      color: #fff; box-shadow: 0 4px 18px rgba(99,102,241,.4); width: 100%;
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(99, 102, 241, .4);
+      width: 100%;
     }
-    .btn-primary:hover { filter: brightness(1.12); box-shadow: 0 6px 24px rgba(99,102,241,.55); }
+
+    .btn-primary:hover {
+      filter: brightness(1.12);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, .55);
+    }
+
     .btn-secondary {
-      background: var(--surface2); border: 1.5px solid var(--border); color: var(--text);
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      color: var(--text);
     }
-    .btn-secondary:hover { border-color: var(--accent-h); color: var(--accent-h); }
-    .btn-sm { padding: 9px 16px; font-size: .88rem; }
-    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
-    .btn-row .btn { flex: 1; min-width: 140px; }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-h);
+      color: var(--accent-h);
+    }
+
+    .btn-sm {
+      padding: 9px 16px;
+      font-size: .88rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-row .btn {
+      flex: 1;
+      min-width: 140px;
+    }
 
     /* ===== QUIZ HEADER ===== */
-    .quiz-meta { display: flex; flex-direction: column; gap: 3px; }
-    .quiz-meta .chapter-tag {
-      font-size: .75rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .08em; color: var(--accent-h);
+    .quiz-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
-    .quiz-meta .q-count { font-size: .9rem; color: var(--text-muted); }
+
+    .quiz-meta .chapter-tag {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--accent-h);
+    }
+
+    .quiz-meta .q-count {
+      font-size: .9rem;
+      color: var(--text-muted);
+    }
+
     .score-badge {
       background: linear-gradient(135deg, var(--accent), var(--accent-d));
-      border-radius: 100px; padding: 8px 18px; font-size: 1rem; font-weight: 800;
-      white-space: nowrap; box-shadow: 0 3px 12px rgba(99,102,241,.4);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 3px 12px rgba(99, 102, 241, .4);
     }
 
     /* ===== PROGRESS BAR ===== */
-    .progress-wrap { background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; }
+    .progress-wrap {
+      background: var(--surface2);
+      border-radius: 999px;
+      height: 6px;
+      overflow: hidden;
+    }
+
     .progress-bar {
-      height: 100%; background: linear-gradient(90deg, var(--accent), #a78bfa);
-      border-radius: 999px; transition: width .4s cubic-bezier(.4,0,.2,1);
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      border-radius: 999px;
+      transition: width .4s cubic-bezier(.4, 0, .2, 1);
     }
 
     /* ===== QUESTION CARD ===== */
     .question-num {
-      font-size: .78rem; font-weight: 700; color: var(--accent-h);
-      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 10px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--accent-h);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 10px;
     }
-    .question-text { font-size: clamp(1rem, 3.5vw, 1.18rem); font-weight: 600; line-height: 1.55; }
+
+    .question-text {
+      font-size: clamp(1rem, 3.5vw, 1.18rem);
+      font-weight: 600;
+      line-height: 1.55;
+    }
 
     /* ===== ANSWER BUTTONS ===== */
-    .answers { display: flex; flex-direction: column; gap: 10px; }
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .ans-btn {
-      display: flex; align-items: center; gap: 14px; padding: 14px 18px;
-      background: var(--surface2); border: 1.5px solid var(--border);
-      border-radius: 12px; color: var(--text); font-size: .98rem; font-weight: 500;
-      cursor: pointer; transition: all .18s; text-align: left; width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: .98rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+      text-align: left;
+      width: 100%;
     }
+
     .ans-btn:not(:disabled):hover {
-      border-color: var(--accent-h); background: rgba(99,102,241,.1); transform: translateX(3px);
+      border-color: var(--accent-h);
+      background: rgba(99, 102, 241, .1);
+      transform: translateX(3px);
     }
+
     .ans-btn .ans-key {
-      flex-shrink: 0; width: 34px; height: 34px; border-radius: 8px;
-      background: var(--border); display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: .85rem; transition: background .18s;
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: .85rem;
+      transition: background .18s;
     }
-    .ans-btn.correct { background: rgba(34,197,94,.15); border-color: var(--correct); color: #fff; }
-    .ans-btn.correct .ans-key { background: var(--correct); color: #fff; }
-    .ans-btn.wrong   { background: rgba(239,68,68,.12);  border-color: var(--wrong);   color: #fff; }
-    .ans-btn.wrong   .ans-key { background: var(--wrong); color: #fff; }
-    .ans-btn:disabled { cursor: default; }
-    .ans-btn:not(.correct):not(.wrong):disabled { opacity: .6; }
+
+    .ans-btn.correct {
+      background: rgba(34, 197, 94, .15);
+      border-color: var(--correct);
+      color: #fff;
+    }
+
+    .ans-btn.correct .ans-key {
+      background: var(--correct);
+      color: #fff;
+    }
+
+    .ans-btn.wrong {
+      background: rgba(239, 68, 68, .12);
+      border-color: var(--wrong);
+      color: #fff;
+    }
+
+    .ans-btn.wrong .ans-key {
+      background: var(--wrong);
+      color: #fff;
+    }
+
+    .ans-btn:disabled {
+      cursor: default;
+    }
+
+    .ans-btn:not(.correct):not(.wrong):disabled {
+      opacity: .6;
+    }
 
     @keyframes pulse-correct {
-      0%   { box-shadow: 0 0 0 0 rgba(34,197,94,.6); }
-      70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
-      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, .6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
     }
-    .ans-btn.correct.pulse { animation: pulse-correct .5s ease; }
+
+    .ans-btn.correct.pulse {
+      animation: pulse-correct .5s ease;
+    }
 
     /* ===== NEXT BUTTON ===== */
-    #next-btn { display: none; }
-    #next-btn.visible { display: flex; }
+    #next-btn {
+      display: none;
+    }
+
+    #next-btn.visible {
+      display: flex;
+    }
 
     /* ===== SCORE FLOAT ===== */
     .score-float {
-      position: fixed; font-size: 1.5rem; font-weight: 900;
-      pointer-events: none; z-index: 9999; animation: floatUp .9s ease forwards;
+      position: fixed;
+      font-size: 1.5rem;
+      font-weight: 900;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatUp .9s ease forwards;
     }
-    .score-float.plus  { color: var(--correct); }
-    .score-float.minus { color: var(--wrong); }
+
+    .score-float.plus {
+      color: var(--correct);
+    }
+
+    .score-float.minus {
+      color: var(--wrong);
+    }
+
     @keyframes floatUp {
-      0%   { opacity: 1; transform: translateY(0) scale(1); }
-      60%  { opacity: 1; transform: translateY(-55px) scale(1.2); }
-      100% { opacity: 0; transform: translateY(-90px) scale(.9); }
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      60% {
+        opacity: 1;
+        transform: translateY(-55px) scale(1.2);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-90px) scale(.9);
+      }
     }
 
     /* ===== RESULTS ===== */
-    .result-score-wrap { text-align: center; padding: 10px 0 6px; }
+    .result-score-wrap {
+      text-align: center;
+      padding: 10px 0 6px;
+    }
+
     .result-score-big {
-      font-size: clamp(3rem, 12vw, 5rem); font-weight: 900; line-height: 1;
+      font-size: clamp(3rem, 12vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
       background: linear-gradient(135deg, #818cf8, #c4b5fd);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .result-pts { font-size: 1rem; color: var(--text-muted); margin-top: 6px; }
-    .result-emoji { font-size: 3rem; text-align: center; }
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+
+    .result-pts {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .result-emoji {
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
     .stat-box {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 14px 10px; text-align: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 10px;
+      text-align: center;
     }
-    .stat-box .val  { font-size: 1.5rem; font-weight: 800; }
-    .stat-box .lbl  { font-size: .72rem; color: var(--text-muted); margin-top: 3px; text-transform: uppercase; letter-spacing: .05em; }
-    .stat-box.good .val { color: var(--correct); }
-    .stat-box.bad  .val { color: var(--wrong); }
-    .stat-box.neu  .val { color: var(--accent-h); }
+
+    .stat-box .val {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .stat-box .lbl {
+      font-size: .72rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .stat-box.good .val {
+      color: var(--correct);
+    }
+
+    .stat-box.bad .val {
+      color: var(--wrong);
+    }
+
+    .stat-box.neu .val {
+      color: var(--accent-h);
+    }
 
     /* ===== PAGE HEADER ===== */
-    .page-header { display: flex; align-items: center; gap: 14px; padding: 24px 0 4px; }
-    .page-header h2 { flex: 1; }
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 24px 0 4px;
+    }
+
+    .page-header h2 {
+      flex: 1;
+    }
 
     /* ===== TABLES ===== */
-    .tbl-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    .tbl-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+
     thead th {
-      background: var(--surface2); padding: 12px 14px; text-align: left;
-      font-size: .75rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .07em; color: var(--text-muted); border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+      padding: 12px 14px;
+      text-align: left;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
       white-space: nowrap;
     }
-    thead th.sortable { cursor: pointer; user-select: none; }
-    thead th.sortable:hover { color: var(--accent-h); }
-    thead th .sort-icon { margin-left: 4px; opacity: .5; }
-    tbody tr { border-bottom: 1px solid rgba(51,65,85,.5); transition: background .15s; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: var(--surface2); }
-    tbody td { padding: 11px 14px; vertical-align: middle; }
-    .rank-badge {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 26px; height: 26px; border-radius: 6px; font-weight: 800; font-size: .8rem;
+
+    thead th.sortable {
+      cursor: pointer;
+      user-select: none;
     }
-    .rank-1 { background: rgba(245,158,11,.2);  color: var(--gold); }
-    .rank-2 { background: rgba(148,163,184,.15); color: var(--silver); }
-    .rank-3 { background: rgba(205,124,47,.15);  color: var(--bronze); }
-    .rank-n { background: var(--surface2);        color: var(--text-muted); }
-    .acc-pill { display: inline-block; padding: 3px 9px; border-radius: 100px; font-size: .78rem; font-weight: 700; }
-    .acc-high { background: rgba(34,197,94,.18);  color: var(--correct); }
-    .acc-mid  { background: rgba(245,158,11,.18); color: var(--gold); }
-    .acc-low  { background: rgba(239,68,68,.18);  color: var(--wrong); }
+
+    thead th.sortable:hover {
+      color: var(--accent-h);
+    }
+
+    thead th .sort-icon {
+      margin-left: 4px;
+      opacity: .5;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(51, 65, 85, .5);
+      transition: background .15s;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: var(--surface2);
+    }
+
+    tbody td {
+      padding: 11px 14px;
+      vertical-align: middle;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: .8rem;
+    }
+
+    .rank-1 {
+      background: rgba(245, 158, 11, .2);
+      color: var(--gold);
+    }
+
+    .rank-2 {
+      background: rgba(148, 163, 184, .15);
+      color: var(--silver);
+    }
+
+    .rank-3 {
+      background: rgba(205, 124, 47, .15);
+      color: var(--bronze);
+    }
+
+    .rank-n {
+      background: var(--surface2);
+      color: var(--text-muted);
+    }
+
+    .acc-pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .acc-high {
+      background: rgba(34, 197, 94, .18);
+      color: var(--correct);
+    }
+
+    .acc-mid {
+      background: rgba(245, 158, 11, .18);
+      color: var(--gold);
+    }
+
+    .acc-low {
+      background: rgba(239, 68, 68, .18);
+      color: var(--wrong);
+    }
 
     /* ===== MISC ===== */
-    .empty-state { text-align: center; padding: 44px 20px; color: var(--text-muted); }
-    .empty-icon  { font-size: 2.5rem; margin-bottom: 10px; }
-    .home-nav    { display: flex; gap: 10px; justify-content: flex-end; padding-top: 14px; }
-    .exit-link   { background: none; border: none; color: var(--text-muted); font-size: .82rem; cursor: pointer; text-decoration: underline; padding: 2px 0; }
-    .exit-link:hover { color: var(--wrong); }
-    footer { text-align: center; color: var(--text-muted); font-size: .78rem; padding: 28px 0 10px; opacity: .6; }
-    .toast {
-      position: fixed; bottom: 28px; left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px 22px; font-weight: 600;
-      box-shadow: var(--shadow); z-index: 9999;
-      transition: transform .3s ease, opacity .3s ease; opacity: 0; white-space: nowrap;
+    .empty-state {
+      text-align: center;
+      padding: 44px 20px;
+      color: var(--text-muted);
     }
-    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    .empty-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .home-nav {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      padding-top: 14px;
+    }
+
+    .exit-link {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: .82rem;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 2px 0;
+    }
+
+    .exit-link:hover {
+      color: var(--wrong);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: .78rem;
+      padding: 28px 0 10px;
+      opacity: .6;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 22px;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+      z-index: 9999;
+      transition: transform .3s ease, opacity .3s ease;
+      opacity: 0;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
 
     @media (max-width: 420px) {
-      .card { padding: 20px 14px; }
-      .btn-row { flex-direction: column; }
-      .btn-row .btn { min-width: auto; }
+      .card {
+        padding: 20px 14px;
+      }
+
+      .btn-row {
+        flex-direction: column;
+      }
+
+      .btn-row .btn {
+        min-width: auto;
+      }
+    }
+
+    /* ===== LINUX GRID SELECTOR ===== */
+    .linux-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 576px) {
+      .linux-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== VIETJACK LINK ===== */
+    .vietjack-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--accent-h);
+      text-decoration: none;
+      transition: all 0.18s;
+      margin-top: 4px;
+    }
+
+    .vietjack-link:hover {
+      border-color: var(--accent);
+      color: #fff;
+      background: rgba(99, 102, 241, 0.15);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    }
+
+    /* ===== 120 QUESTIONS SECTION ===== */
+    .questions-section {
+      margin-top: 40px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .questions-section-title {
+      text-align: center;
+      background: linear-gradient(135deg, #818cf8, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .question-column {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .question-column h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-h);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    .column-content {
+      overflow-y: auto;
+      max-height: 500px;
+      padding-right: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Style scrollbar for column-content */
+    .column-content::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .column-content::-webkit-scrollbar-track {
+      background: var(--surface2);
+      border-radius: 4px;
+    }
+
+    .column-content::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .column-content::-webkit-scrollbar-thumb:hover {
+      background: var(--accent);
+    }
+
+    /* Individual Question Styling */
+    .q-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .q-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-h);
+    }
+
+    .q-item-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text);
+    }
+
+    .q-item-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .q-item-opt {
+      font-size: 0.84rem;
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+    }
+
+    .q-item-opt.correct {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--correct);
+      border-color: rgba(34, 197, 94, 0.3);
+      font-weight: 600;
+    }
+
+    .q-item-ans-line {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--correct);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== FOOTER UPDATE ===== */
+    .app-footer {
+      width: 100%;
+      margin-top: 40px;
+      padding: 20px 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-socials {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: var(--accent-h);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .footer-link:hover {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: var(--accent);
+      color: var(--accent-h);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+    }
+
+    .footer-discord {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .footer-discord strong {
+      color: var(--text);
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .questions-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .column-content {
+        max-height: 400px;
+      }
     }
   </style>
 </head>
+
 <body>
-<div class="app-wrap">
+  <div class="app-wrap">
 
-  <!-- ========== SCREEN 1: HOME ========== -->
-  <div id="screen-home" class="screen active">
-    <div class="logo-header">
-      <div class="logo-icon">🖧</div>
-      <h1>Trắc Nghiệm Quản Trị<br>Hệ Thống Mạng</h1>
-      <p>160 câu · 8 chương · Xáo trộn đáp án mỗi phiên</p>
-    </div>
-
-    <div class="home-nav">
-      <button class="btn btn-secondary btn-sm" id="btn-history-home">📋 Lịch sử</button>
-      <button class="btn btn-secondary btn-sm" id="btn-lb-home">🏆 Bảng xếp hạng</button>
-    </div>
-
-    <div class="card">
-      <div style="margin-bottom:20px;">
-        <label for="player-name">Tên người chơi</label>
-        <input type="text" id="player-name" placeholder="Nhập tên của bạn…" maxlength="32" autocomplete="off" />
+    <!-- ========== SCREEN 1: HOME ========== -->
+    <div id="screen-home" class="screen active">
+      <div class="logo-header">
+        <div class="logo-icon">🖧</div>
+        <h1>Trắc Nghiệm Quản Trị<br>Hệ Thống Mạng</h1>
       </div>
-      <div>
-        <label>Chọn chương</label>
-        <div class="chapter-grid" id="chapter-grid"></div>
+
+      <div class="home-nav">
+        <button class="btn btn-secondary btn-sm" id="btn-history-home">📋 Lịch sử</button>
+        <button class="btn btn-secondary btn-sm" id="btn-lb-home">🏆 Bảng xếp hạng</button>
+      </div>
+
+      <div class="card">
+        <div style="margin-bottom:20px;">
+          <label for="player-name">Tên người chơi</label>
+          <input type="text" id="player-name" placeholder="Nhập tên của bạn…" maxlength="32" autocomplete="off" />
+        </div>
+        <div style="margin-bottom:20px;">
+          <label>Chọn chương</label>
+          <div class="chapter-grid" id="chapter-grid"></div>
+        </div>
+        <div style="margin-bottom:20px;">
+          <label>BỘ 120 CÂU LINUX</label>
+          <div class="linux-grid">
+            <div class="ch-btn">
+              <input type="radio" name="chapter" id="linux1" value="linux1">
+              <label for="linux1" class="ch-label">40 câu (phần 1)</label>
+            </div>
+            <div class="ch-btn">
+              <input type="radio" name="chapter" id="linux2" value="linux2">
+              <label for="linux2" class="ch-label">40 câu (phần 2)</label>
+            </div>
+            <div class="ch-btn">
+              <input type="radio" name="chapter" id="linux3" value="linux3">
+              <label for="linux3" class="ch-label">40 câu (phần 3)</label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>350 câu</label>
+          <a href="https://khoahoc.vietjack.com/thi-online/350-cau-hoi-trac-nghiem-he-dieu-hanh-linux-co-dap-an/94440" target="_blank" class="vietjack-link">
+            🔗 Thi Online (Vietjack)
+          </a>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" id="btn-start" style="font-size:1.1rem;padding:16px 24px;">
+        🚀 Bắt Đầu
+      </button>
+
+
+    </div>
+
+    <!-- ========== SCREEN 2: QUIZ ========== -->
+    <div id="screen-quiz" class="screen">
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;padding-top:8px;flex-wrap:wrap;gap:8px;">
+        <div class="quiz-meta">
+          <span class="chapter-tag" id="qz-chapter-tag"></span>
+          <span class="q-count" id="qz-count"></span>
+        </div>
+        <div class="score-badge" id="qz-score">0 điểm</div>
+        <button class="exit-link" id="btn-exit-quiz">✕ Thoát</button>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+      </div>
+
+      <div class="card">
+        <div class="question-num" id="qz-q-num"></div>
+        <div class="question-text" id="qz-q-text"></div>
+      </div>
+
+      <div class="answers" id="answers-wrap"></div>
+
+      <button class="btn btn-primary" id="next-btn">
+        Câu tiếp theo <span style="font-size:1.1em">→</span>
+      </button>
+    </div>
+
+    <!-- ========== SCREEN 3: RESULTS ========== -->
+    <div id="screen-result" class="screen">
+      <div class="page-header" style="padding-top:32px;">
+        <h2>🎯 Kết quả</h2>
+      </div>
+      <div class="card">
+        <div class="result-emoji" id="result-emoji"></div>
+        <div class="result-score-wrap">
+          <div class="result-score-big" id="res-score"></div>
+          <div class="result-pts">điểm</div>
+        </div>
+        <div class="stats-grid" style="margin-top:20px;">
+          <div class="stat-box good">
+            <div class="val" id="res-correct"></div>
+            <div class="lbl">Đúng</div>
+          </div>
+          <div class="stat-box bad">
+            <div class="val" id="res-wrong"></div>
+            <div class="lbl">Sai</div>
+          </div>
+          <div class="stat-box neu">
+            <div class="val" id="res-acc"></div>
+            <div class="lbl">Chính xác</div>
+          </div>
+        </div>
+        <div style="margin-top:18px;color:var(--text-muted);font-size:.88rem;text-align:center;" id="res-detail"></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="btn-play-again">🔄 Chơi lại</button>
+        <button class="btn btn-primary" id="btn-see-lb">🏆 Bảng xếp hạng</button>
+      </div>
+      <button class="btn btn-secondary" id="btn-history-result">📋 Xem lịch sử thi</button>
+    </div>
+
+    <!-- ========== SCREEN 4: LEADERBOARD ========== -->
+    <div id="screen-lb" class="screen">
+      <div class="page-header">
+        <button class="btn btn-secondary btn-sm" id="btn-back-lb">← Về trang chủ</button>
+        <h2>🏆 Bảng xếp hạng</h2>
+      </div>
+      <div id="lb-loading" class="empty-state" style="display:none;">
+        <div class="empty-icon">⏳</div>
+        <div>Đang tải dữ liệu từ đám mây...</div>
+      </div>
+      <div class="tbl-wrap">
+        <table id="lb-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th class="sortable" data-col="name">Tên <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="score">Điểm <span class="sort-icon">↕</span></th>
+              <th class="sortable" data-col="accuracy">Chính xác <span class="sort-icon">↕</span></th>
+              <th>Chương</th>
+              <th class="sortable" data-col="date">Ngày <span class="sort-icon">↕</span></th>
+            </tr>
+          </thead>
+          <tbody id="lb-tbody"></tbody>
+        </table>
+      </div>
+      <div id="lb-empty" class="empty-state" style="display:none;">
+        <div class="empty-icon">📭</div>
+        <div>Chưa có kết quả nào. Hãy thi thử!</div>
       </div>
     </div>
 
-    <button class="btn btn-primary" id="btn-start" style="font-size:1.1rem;padding:16px 24px;">
-      🚀 Bắt Đầu
-    </button>
-  </div>
-
-  <!-- ========== SCREEN 2: QUIZ ========== -->
-  <div id="screen-quiz" class="screen">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding-top:8px;flex-wrap:wrap;gap:8px;">
-      <div class="quiz-meta">
-        <span class="chapter-tag" id="qz-chapter-tag"></span>
-        <span class="q-count"     id="qz-count"></span>
+    <!-- ========== SCREEN 5: HISTORY ========== -->
+    <div id="screen-history" class="screen">
+      <div class="page-header">
+        <button class="btn btn-secondary btn-sm" id="btn-back-hist">← Về trang chủ</button>
+        <h2>📋 Lịch sử thi</h2>
       </div>
-      <div class="score-badge" id="qz-score">0 điểm</div>
-      <button class="exit-link" id="btn-exit-quiz">✕ Thoát</button>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-bar" id="progress-bar" style="width:0%"></div>
-    </div>
-
-    <div class="card">
-      <div class="question-num"  id="qz-q-num"></div>
-      <div class="question-text" id="qz-q-text"></div>
-    </div>
-
-    <div class="answers" id="answers-wrap"></div>
-
-    <button class="btn btn-primary" id="next-btn">
-      Câu tiếp theo <span style="font-size:1.1em">→</span>
-    </button>
-  </div>
-
-  <!-- ========== SCREEN 3: RESULTS ========== -->
-  <div id="screen-result" class="screen">
-    <div class="page-header" style="padding-top:32px;">
-      <h2>🎯 Kết quả</h2>
-    </div>
-    <div class="card">
-      <div class="result-emoji"       id="result-emoji"></div>
-      <div class="result-score-wrap">
-        <div class="result-score-big" id="res-score"></div>
-        <div class="result-pts">điểm</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ngày</th>
+              <th>Tên</th>
+              <th>Chương</th>
+              <th>Điểm</th>
+              <th>Chính xác</th>
+            </tr>
+          </thead>
+          <tbody id="hist-tbody"></tbody>
+        </table>
       </div>
-      <div class="stats-grid" style="margin-top:20px;">
-        <div class="stat-box good"><div class="val" id="res-correct"></div><div class="lbl">Đúng</div></div>
-        <div class="stat-box bad" ><div class="val" id="res-wrong"></div>  <div class="lbl">Sai</div></div>
-        <div class="stat-box neu" ><div class="val" id="res-acc"></div>    <div class="lbl">Chính xác</div></div>
+      <div id="hist-empty" class="empty-state" style="display:none;">
+        <div class="empty-icon">📭</div>
+        <div>Chưa có lịch sử. Hãy bắt đầu thi!</div>
       </div>
-      <div style="margin-top:18px;color:var(--text-muted);font-size:.88rem;text-align:center;" id="res-detail"></div>
     </div>
-    <div class="btn-row">
-      <button class="btn btn-secondary" id="btn-play-again">🔄 Chơi lại</button>
-      <button class="btn btn-primary"   id="btn-see-lb">🏆 Bảng xếp hạng</button>
+
+  </div><!-- end app-wrap -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <p>Quản Trị Hệ Thống Mạng · © 2026</p>
+      <div class="footer-socials">
+        <a href="https://www.facebook.com/la.thuan.phat.29/" target="_blank" class="footer-link">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
+            <path
+              d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+          </svg>
+          Facebook
+        </a>
+        <div class="footer-discord">
+          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" style="width: 24px; height: 24px;">
+            <path
+              d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z" />
+          </svg>
+          Discord: <strong>thuanphat.</strong>
+        </div>
+      </div>
     </div>
-    <button class="btn btn-secondary"   id="btn-history-result">📋 Xem lịch sử thi</button>
-  </div>
+  </footer>
+  <div class="toast" id="toast"></div>
 
-  <!-- ========== SCREEN 4: LEADERBOARD ========== -->
-  <div id="screen-lb" class="screen">
-    <div class="page-header">
-      <button class="btn btn-secondary btn-sm" id="btn-back-lb">← Về trang chủ</button>
-      <h2>🏆 Bảng xếp hạng</h2>
-    </div>
-    <div id="lb-loading" class="empty-state" style="display:none;">
-      <div class="empty-icon">⏳</div>
-      <div>Đang tải dữ liệu từ đám mây...</div>
-    </div>
-    <div class="tbl-wrap">
-      <table id="lb-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th class="sortable" data-col="name">Tên <span class="sort-icon">↕</span></th>
-            <th class="sortable" data-col="score">Điểm <span class="sort-icon">↕</span></th>
-            <th class="sortable" data-col="accuracy">Chính xác <span class="sort-icon">↕</span></th>
-            <th>Chương</th>
-            <th class="sortable" data-col="date">Ngày <span class="sort-icon">↕</span></th>
-          </tr>
-        </thead>
-        <tbody id="lb-tbody"></tbody>
-      </table>
-    </div>
-    <div id="lb-empty" class="empty-state" style="display:none;">
-      <div class="empty-icon">📭</div>
-      <div>Chưa có kết quả nào. Hãy thi thử!</div>
-    </div>
-  </div>
+  <script>
+    const BIN_ID = '6a25497cda38895dfe94530f';
+    const API_KEY = '$2a$10$zDXXpNpBQuVITE3RutPM0ufiGxYztP8cm/4zYGpo.MLi7/RP5dmgS';
 
-  <!-- ========== SCREEN 5: HISTORY ========== -->
-  <div id="screen-history" class="screen">
-    <div class="page-header">
-      <button class="btn btn-secondary btn-sm" id="btn-back-hist">← Về trang chủ</button>
-      <h2>📋 Lịch sử thi</h2>
-    </div>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Ngày</th><th>Tên</th><th>Chương</th><th>Điểm</th><th>Chính xác</th>
-          </tr>
-        </thead>
-        <tbody id="hist-tbody"></tbody>
-      </table>
-    </div>
-    <div id="hist-empty" class="empty-state" style="display:none;">
-      <div class="empty-icon">📭</div>
-      <div>Chưa có lịch sử. Hãy bắt đầu thi!</div>
-    </div>
-  </div>
+    const QUESTIONS_120 = [
+      {
+        "id": 1,
+        "question": "Phần quan trọng nhất của hệ điều hành Linux là:",
+        "options": {
+          "A": "File System",
+          "B": "Services",
+          "C": "Kernel",
+          "D": "Shell"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 2,
+        "question": "Số phiên bản kernel của Linux có gì đặc biệt",
+        "options": {
+          "A": "Số chẵn là phiên bản ổn định",
+          "B": "Số lẻ là phiên bản thử nghiệm",
+          "C": "Không quan trọng",
+          "D": "Câu a và b đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 3,
+        "question": "Khi cải RedHat Linux ở chế độ nào thì các partion DOS bị xoá hết",
+        "options": {
+          "A": "Workstation",
+          "B": "Server",
+          "C": "Workstation and Server",
+          "D": "Không cái nào đúng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 4,
+        "question": "Kiến trúc Kernel Linux là:",
+        "options": {
+          "A": "Static",
+          "B": "Microkernel",
+          "C": "Distributed",
+          "D": "Monolithic"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 5,
+        "question": "Tác giả của phiên bản hệ điều hành Linux đầu tiên là ?",
+        "options": {
+          "A": "Bill Gates",
+          "B": "Linus Tolvards",
+          "C": "Alan Turing",
+          "D": "Pascal"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 6,
+        "question": "Để liệt kê các file có trong thư mục hiện hành ta dùng lệnh:",
+        "options": {
+          "A": "lệnh is",
+          "B": "lệnh df",
+          "C": "lệnh du",
+          "D": "lệnh cp"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 7,
+        "question": "Để liệt kê đầy đủ thông tin của các file có trong thư mục hiện hành theo ta dùng lệnh ls với tham số",
+        "options": {
+          "A": "a",
+          "B": "-1",
+          "C": "-x",
+          "D": "-n"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 8,
+        "question": "Để liệt kê các file ẩn trong thư mục hiện hành theo ta dùng lệnh ls với tham số",
+        "options": {
+          "A": "-b",
+          "B": "a",
+          "C": "-1",
+          "D": "-n"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 9,
+        "question": "Để chuyển sang một thư mục khác ta dùng lệnh",
+        "options": {
+          "A": "Lệnh cdir",
+          "B": "Lệnh cả (Lưu ý: Có thể là lỗi đánh máy từ \"cd\" trong bản gốc)",
+          "C": "Lệnh mkdir",
+          "D": "Lệnh dir"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 10,
+        "question": "Một user có username là sinhvien và home directory của anh ta là /home/sinhvien. Để trở về home dir của anh ta 1 cách nhanh nhất, anh ta phải dùng lệnh",
+        "options": {
+          "A": "cd",
+          "B": "cd /home/sinhvien",
+          "C": "cd/ cd home: cd sinhvien",
+          "D": "cd /home/sinhvien"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 11,
+        "question": "Để chép một file /tmp/hello.txt vào thư mục /tmp/hello/ ta phải làm lệnh nào sau đây:",
+        "options": {
+          "A": "copy/tmp/hello.txt /tmp/hello/",
+          "B": "cp tmp/hello.txt /tmp/hello",
+          "C": "cp/tmp/hello /tmp/hello",
+          "D": "cp/tmp/hello.txt /tmp/hello"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 12,
+        "question": "Để xem nội dung một tập tin văn bản trong Linux ta có thể dùng lệnh nào sau đây",
+        "options": {
+          "A": "cat",
+          "B": "less",
+          "C": "more",
+          "D": "cả 3 lệnh trên"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 13,
+        "question": "Để đọc nội dung một đĩa CD trong Linux ta phải làm thế nào ?",
+        "options": {
+          "A": "Phải mount trước",
+          "B": "eject cdrom",
+          "C": "cd /mnt/cdrom",
+          "D": "Không đọc được CD rom"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 14,
+        "question": "Làm thế nào để đọc một đĩa mềm trong Linux",
+        "options": {
+          "A": "mount /dev/fd0",
+          "B": "mount /dev/cdrom",
+          "C": "Không cần làm gì cả, chỉ việc đọc từ a:",
+          "D": "cd/mnt/floppy"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 15,
+        "question": "Tập tin nào chứa các mount point mặc định khi hệ thống boot lên:",
+        "options": {
+          "A": "/etc/mtab",
+          "B": "/etc/mount.conf",
+          "C": "/etc/fstab",
+          "D": "/etc/modules.conf"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 16,
+        "question": "Tập tin nào chứa thông tin các file system đang được mount",
+        "options": {
+          "A": "/etc/mntab",
+          "B": "/etc/mount.conf",
+          "C": "/etc/fstab",
+          "D": "/etc/modules.conf"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 17,
+        "question": "Tập tin sau đây có thuộc tính như thế nào : -rwx--x--x hello.sh",
+        "options": {
+          "A": "077",
+          "B": "644",
+          "C": "755",
+          "D": "711"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 18,
+        "question": "Để thiết lập thuộc tính cho một tập tin hello.sh với các yêu cầu sau: - Chủ sở hữu được quyền đọc ghi, nhóm được đọc, thực thi, other chỉ đọc thì ta làm lệnh nào dưới đây.",
+        "options": {
+          "A": "chmod 665",
+          "B": "chmod 654",
+          "C": "chmod 653",
+          "D": "chmod 754"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 19,
+        "question": "Tập tin có dấu chấm .\" Phía trước có đặc tính gì đặc biệt: Ví dụ: .hello.txt",
+        "options": {
+          "A": "Tập tin ân",
+          "B": "Thực thi",
+          "C": "Không thấy được với lệnh ls",
+          "D": "Tập tin hệ thống"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 20,
+        "question": "Lệnh nào cho phép ta tạo một account user mới trên hệ thống",
+        "options": {
+          "A": "Lệnh adduser",
+          "B": "Lệnh useradd",
+          "C": "lệnh passwd",
+          "D": "Câu a và b đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 21,
+        "question": "Sau khi đánh lệnh useradd sinhvien. Hoi user có account là sinhvien có thể login vào hệ thống được chưa ?",
+        "options": {
+          "A": "Được",
+          "B": "Không"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 22,
+        "question": "Tập tin /etc/passwd chứa thông tin gì của users hệ thống",
+        "options": {
+          "A": "Chứa profile của người dùng",
+          "B": "Chứa uid, gid, home directory, shell",
+          "C": "Chứa password của người dùng",
+          "D": "Chửa tập shadow của người dùng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 23,
+        "question": "Tập tin /etc/shadow chứa thông tin gì của users hệ thống",
+        "options": {
+          "A": "Chứa profile của người dùng",
+          "B": "Chứa uid,gid, home directory, shell",
+          "C": "Chứa password của người dùng",
+          "D": "Chứa login name"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 24,
+        "question": "Trong hệ thống Linux user nào có quyền cao nhất",
+        "options": {
+          "A": "User administrator",
+          "B": "User root",
+          "C": "User admin",
+          "D": "User có UID=0"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 25,
+        "question": "Hệ thống Linux có mấy Run Level chính",
+        "options": {
+          "A": "Có 7 Run Level",
+          "B": "Có 6 Run Level",
+          "C": "Có 5 Run Level",
+          "D": "Có 4 Run Level"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 26,
+        "question": "Run level nào là shutdown và halt hệ thống",
+        "options": {
+          "A": "Level 6",
+          "B": "Level 0",
+          "C": "Level 3",
+          "D": "Level 5"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 27,
+        "question": "Run level nào là reboot hệ thống",
+        "options": {
+          "A": "Level 6",
+          "B": "Level 0",
+          "C": "Level 3",
+          "D": "Level 5"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 28,
+        "question": "Run level nào làm hệ thống chạy full mode with X window",
+        "options": {
+          "A": "Level 6",
+          "B": "Level 0",
+          "C": "Level 3",
+          "D": "Level 5"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 29,
+        "question": "Ở run level nào hệ thống không đòi hỏi ta phải nhập username password để login",
+        "options": {
+          "A": "Level 1",
+          "B": "Level 3",
+          "C": "Level 5",
+          "D": "Không có level nào"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 30,
+        "question": "Chương trình soạn thảo văn bản nào là phổ biến nhất trong hđh Linux:",
+        "options": {
+          "A": "vi",
+          "B": "Word",
+          "C": "Emacs",
+          "D": "Pico"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 31,
+        "question": "Chương trình soạn thảo nào sau đây không sử dụng giao diện đồ hoạ",
+        "options": {
+          "A": "emacs",
+          "B": "latex",
+          "C": "vi",
+          "D": "kword"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 32,
+        "question": "Emacs là một chương trình",
+        "options": {
+          "A": "soạn thảo văn bản",
+          "B": "Công cụ lập trình",
+          "C": "Email client",
+          "D": "Tất cả các tính năng trên"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 33,
+        "question": "Trong vi, để vào mode edit insert ta phải dùng lệnh nào :",
+        "options": {
+          "A": "Dùng phím F4",
+          "B": "ESC-:i",
+          "C": "ESC-:q",
+          "D": "ESC-:x"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 34,
+        "question": "Trong vi, để thoát không cần hỏi lại ta phải dùng lệnh nào :",
+        "options": {
+          "A": "ESC-:q!",
+          "B": "ESC-wq",
+          "C": "ESC-w!",
+          "D": "ESC-!"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 35,
+        "question": "Để xem các tiến trình hiện có trong hệ thống Linux ta dùng lệnh nào",
+        "options": {
+          "A": "Lệnh ls",
+          "B": "Lệnh ps",
+          "C": "Lệnh cs",
+          "D": "Lệnh ds"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 36,
+        "question": "Để xem chi tiết các tiến trình đang chạy trong hệ thống ta dùng lệnh ps với các tham số nào sau đây",
+        "options": {
+          "A": "ef",
+          "B": "-ax",
+          "C": "-axf",
+          "D": "Cả 3 câu đều đúng"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 37,
+        "question": "Mỗi tiến trình chạy trong hệ thống Linux được đặc trưng bởi :",
+        "options": {
+          "A": "PID",
+          "B": "PUID",
+          "C": "PGUID",
+          "D": "GUID"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 38,
+        "question": "Tham số PPIUD dùng để chỉ:",
+        "options": {
+          "A": "Properly process ID",
+          "B": "Parent process ID",
+          "C": "Papa Process ID",
+          "D": "Không cái nào đúng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 39,
+        "question": "Để dừng một tiến trình ta dùng lệnh nào :",
+        "options": {
+          "A": "stop",
+          "B": "kill",
+          "C": "shutdown",
+          "D": "halt"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 40,
+        "question": "Điều gì xảy ra với một tiến trình khi ta kill tiến trình cha của nó",
+        "options": {
+          "A": "Không có gì ảnh hưởng",
+          "B": "Tiến trình con sẽ chết theo",
+          "C": "Chương trình sẽ đọc lại file cấu hình",
+          "D": "Sẽ có một tiến trình con mới sinh ra"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 41,
+        "question": "Để kill hết các tiến trình có tên là vi ta dùng lệnh nào",
+        "options": {
+          "A": "kill-9 vi",
+          "B": "kill-HUP vi",
+          "C": "killall-HUP vi",
+          "D": "killall-9 vi"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 42,
+        "question": "Để thiết lập địa chỉ IP cho một máy Linux ta sử dụng lệnh nào trong các lệnh sau đây",
+        "options": {
+          "A": "ipconfig",
+          "B": "ifconfig",
+          "C": "netstat",
+          "D": "route"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 43,
+        "question": "Để xem trạng thái các port đang mở của một máy Linux ta sử dụng lệnh nào trong các lệnh sau đây",
+        "options": {
+          "A": "ipconfig",
+          "B": "ifconfig",
+          "C": "netstat",
+          "D": "route"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 44,
+        "question": "Để xem các thông tin về bảng routing trong hệ thống Linux ta sử dụng lệnh nào trong các lệnh sau đây",
+        "options": {
+          "A": "ifconfig",
+          "B": "netstat -nr",
+          "C": "route-n",
+          "D": "b và c đúng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 45,
+        "question": "Để thiết lập địa chỉ IP cho card mạng eth0 dùng lệnh ifconfig, ta phải thực hiện lệnh nào sau đây",
+        "options": {
+          "A": "ifconfig eth0 172.16.10.11/255.255.255.0",
+          "B": "ifconfig eth0 172.16.10.11 netmask 255.255.255.0",
+          "C": "ifconfig eth0 172.16.10.11 mask 255.255.255.0",
+          "D": "ifconfig eth0 172.16.10.11 mask 255.255.255.0"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 46,
+        "question": "Để tạm thời stop một card mạng ta dùng lệnh nào",
+        "options": {
+          "A": "ifconfig eth0 up",
+          "B": "ifconfig eth0 stop",
+          "C": "ifconfig eth0 start",
+          "D": "ifconfig eth0 down"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 47,
+        "question": "Giả sử ta muốn thêm vào bảng routing một con đường mới: qua mạng 192.168.10.0/24 thì phải qua gateway 172.16.10.140 ta làm cách nào:",
+        "options": {
+          "A": "route add-net 192.168.10.0 netmask 255.255.255.0 gw 172.16.10.140",
+          "B": "route add-net 192.168.10.0 mask 255.255.255.0 gw 172.16.10.140 netmask 255.255.255.0",
+          "C": "route add-net 192.168.10.0/25 gw 172.16.10.140",
+          "D": "route add-net 192.168.10.0 netmask 255.255.255.0 gw 172.16.10.0"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 48,
+        "question": "Khai báo default gw 172.16.8.2 cho 1 máy Linux sử dụnglàm lệnh nào:",
+        "options": {
+          "A": "route add-net default gw 172.16.8.2",
+          "B": "route add-net 0.0.0.0 netmask 0.0.0.0 gw 172.16.8.2",
+          "C": "route add-net 0.0.0.0 netmask 255.255.255.255 gw 172.16.8.2",
+          "D": "Câu a và b đúng"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 49,
+        "question": "Để xem tải của hệ thống Linux ta dùng lệnh nào",
+        "options": {
+          "A": "Lệnh top",
+          "B": "Lệnh free",
+          "C": "Lệnh performance",
+          "D": "Không thể biết"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 50,
+        "question": "Tập tin nào trong Linux định nghĩa các port cho các dịch vụ chạy trong nó",
+        "options": {
+          "A": "/etc/service",
+          "B": "/etc/services",
+          "C": "/etc/ports.conf",
+          "D": "/etc/httpd.conf"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 51,
+        "question": "Dịch vụ SMTP chạy ở port nào",
+        "options": {
+          "A": "22",
+          "B": "23",
+          "C": "24",
+          "D": "25"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 52,
+        "question": "Dịch vụ www chạy ở port nào",
+        "options": {
+          "A": "53",
+          "B": "80",
+          "C": "110",
+          "D": "443"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 53,
+        "question": "Dịch vụ nào cho phép ta truyền file qua mạng",
+        "options": {
+          "A": "http",
+          "B": "ftp",
+          "C": "uucp",
+          "D": "me"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 54,
+        "question": "Làm thế nào để login từ xa qua mạng vào một máy Linux",
+        "options": {
+          "A": "Dùng telnet",
+          "B": "Dùng ssh",
+          "C": "Dùng rlogin",
+          "D": "Cả 3 cách trên"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 55,
+        "question": "Dịch vụ SSH trong Linux là gì ?",
+        "options": {
+          "A": "Secure Socket Shell",
+          "B": "Secure Shell",
+          "C": "Samba Shell",
+          "D": "Không là dịch vụ gì cả"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 56,
+        "question": "Lệnh nào dùng để cài đặt gói phần mềm “packagename.rpm\"?",
+        "options": {
+          "A": "rpm-evh packagename.rpm",
+          "B": "rpm-ivh packagename.rpm",
+          "C": "rpm -q packagename.rpm",
+          "D": "rpm-qa *.rpm"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 57,
+        "question": "Để thay đổi các lựa chọn gắn kết (mount) tự động cho một hệ thống tập tin cục bộ, ta cần sửa đổi nội dung tập tin nào?",
+        "options": {
+          "A": "/etc/filesystems",
+          "B": "/etc/fstab",
+          "C": "/etc/group",
+          "D": "/etc/mnttab"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 58,
+        "question": "Trong dịch vụ httpd (Apache), để xây dựng “máy Web ảo”, ta cần chỉ khối dẫn nào?",
+        "options": {
+          "A": "Directory",
+          "B": "VirtualMachine",
+          "C": "VirtualHost",
+          "D": "Tất cả đều sai"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 59,
+        "question": "Để thay đổi tên đăng nhập của tài khoản \"user\" thành \"newuser\", ta dùng lệnh?",
+        "options": {
+          "A": "userchange-name newuser user",
+          "B": "passwd-n newuser user",
+          "C": "usermode -1 newuser user",
+          "D": "usermodem user newuser"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 60,
+        "question": "Để chỉ liệt kê danh sách các tập tin có ký tự cuối cùng trong tên là “? ở thư mục hiện hành, ta dùng lệnh?",
+        "options": {
+          "A": "Is *?",
+          "B": "Is*?",
+          "C": "Is *[?]",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 61,
+        "question": "Tập tin nào chứa ánh xạ tên-địa chỉ IP cục bộ?",
+        "options": {
+          "A": "/etc/host.conf",
+          "B": "/etc/hosts",
+          "C": "/etc/resolv.conf",
+          "D": "/etc/named.conf"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 62,
+        "question": "Lệnh nào được sử dụng để cho người dùng thiết lập lịch của riêng họ?",
+        "options": {
+          "A": "vi /.crontab",
+          "B": "cp/etc/crontab",
+          "C": "crontab-v",
+          "D": "crontab-c"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 63,
+        "question": "Để chép nội dung filel vào cuối file2, sử dụng lệnh?",
+        "options": {
+          "A": "cat filel file2",
+          "B": "more file1 2> file2",
+          "C": "cat filel >> file2",
+          "D": "copy filel >> file2"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 64,
+        "question": "Lệnh nào để biết đầy đủ đường dẫn của thư mục hiện hành?",
+        "options": {
+          "A": "pwd",
+          "B": "path",
+          "C": "echo path",
+          "D": "Không câu nào đúng"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 65,
+        "question": "Để thực hiện phân giải ngược cho các máy thuộc mạng 192.168.20.0, ta cần định nghĩa zone có tên?",
+        "options": {
+          "A": "192.168.20.in-addr.arpa",
+          "B": "192.168.20.0.in-addr.arpa",
+          "C": "20.168.192.in-addr.arpa",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 66,
+        "question": "Để hủy bỏ lệnh đang thi hành, ta thực hiện:",
+        "options": {
+          "A": "Nhấn Ctrl + C",
+          "B": "Nhấn Ctrl + D",
+          "C": "Nhấn Ctrl+Z",
+          "D": "Nhấn $Ctrl+S$"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 67,
+        "question": "Để xem nội dung của tập tin văn bản, ta dùng lệnh:",
+        "options": {
+          "A": "more",
+          "B": "less",
+          "C": "cat",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 68,
+        "question": "Để tạo tập tin “new” chứa nội dung của hai tập tin \"data\" và \"odd\", ta dùng lệnh:",
+        "options": {
+          "A": "cp data odd > new",
+          "B": "cp data odd >> new",
+          "C": "cat data odd > new",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 69,
+        "question": "\"/doc là một thư mục, lệnh nào sai trong các lệnh dưới đây?",
+        "options": {
+          "A": "In-s/doc mydoc",
+          "B": "In/doc mydoc",
+          "C": "rm-rf/doc",
+          "D": "cp-s/doc mydoc"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 70,
+        "question": "Để xem hướng dẫn cách dùng lệnh ls, ta thực hiện lệnh:",
+        "options": {
+          "A": "help Is",
+          "B": "list ls",
+          "C": "man Is",
+          "D": "doc Is"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 71,
+        "question": "Lệnh nào để xóa tập tin có tên là “abc”",
+        "options": {
+          "A": "rm-f-abe",
+          "B": "rm-i-abc",
+          "C": "rm-abc",
+          "D": "rm-abc"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 72,
+        "question": "Lệnh nào tương đương với lệnh sau “mkdir -p/file/doc/priv\"?",
+        "options": {
+          "A": "mkdir -parent /priv/doc/file",
+          "B": "mkdir /file/doc/priv",
+          "C": "mkdir/priv/doc/file",
+          "D": "mkdir -p/priv/doc/file"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 73,
+        "question": "Trong trình soạn thảo vi, lệnh nào dùng để ghi và thoát?",
+        "options": {
+          "A": "wq",
+          "B": "wq!",
+          "C": "wq",
+          "D": "qw"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 74,
+        "question": "Lệnh nào tương đương với lệnh sau “chmod $U^{+}TWX.$ $g=rx,$ o-rwx myfile\"",
+        "options": {
+          "A": "chmod 027 myfile",
+          "B": "chmod 757 myfile",
+          "C": "chmod 750 myfile",
+          "D": "Không câu nào đúng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 75,
+        "question": "Để chuyển về thư mục chủ của người dùng hiện hành, ta dùng lệnh?",
+        "options": {
+          "A": "pwd",
+          "B": "cd-",
+          "C": "cd..",
+          "D": "cd /home"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 76,
+        "question": "Trong RedHat Linux, tên tài khoản người dùng:",
+        "options": {
+          "A": "Là duy nhất",
+          "B": "Phân biệt chữ thường với chữ hoa",
+          "C": "Không được bắt đầu bằng một ký số",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 77,
+        "question": "Tập tin nào chứa khai báo địa chỉ máy chủ DNS?",
+        "options": {
+          "A": "/etc/named",
+          "B": "/etc/resolv.conf",
+          "C": "/etc/sysconfig/resolv.conf",
+          "D": "/etc/sysconfig/network"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 78,
+        "question": "Lệnh nào tương đương với lệnh sau “chown sales myfile\"",
+        "options": {
+          "A": "chown sales:sales myfile",
+          "B": "chgroup sales:sales myfile",
+          "C": "chgrp sales myfile",
+          "D": "chmod sales myfile"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 79,
+        "question": "Tập tin /etc/sysconfig/network có chứa thông tin về:",
+        "options": {
+          "A": "Tên máy tính và default gateway",
+          "B": "Các thiết bị được sử dụng để kết nối mạng",
+          "C": "Các script dùng trong kết nối PPP và SLIP",
+          "D": "Trạng thái của mạng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 80,
+        "question": "Để khóa tài khoản \"user\", ta dùng lệnh?",
+        "options": {
+          "A": "usermod-L user",
+          "B": "passwd-I user",
+          "C": "A và B đều sai",
+          "D": "A và B đều đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 81,
+        "question": "Tiến trình init:",
+        "options": {
+          "A": "Luôn có $PID=1$;",
+          "B": "Không thể kết thúc được",
+          "C": "Gọi khởi động các tiến trình khác",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 82,
+        "question": "Tập tin nào được sử dụng để thay đổi mức thi hành mặc định (default runlevel)?",
+        "options": {
+          "A": "/etc/grub.conf",
+          "B": "/etc/runlevel",
+          "C": "/etc/inittab",
+          "D": "/etc/init.conf"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 83,
+        "question": "Trong trình soạn thảo vì, để chuyển về chế độ lệnh, ta nhấn:",
+        "options": {
+          "A": "ESC",
+          "B": "INS",
+          "C": "Ctrl + Shift",
+          "D": "Tất cả đều sai"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 84,
+        "question": "Có thể tạo một Symbolic Link chỉ tới một tập tin không tồn tại hay không?",
+        "options": {
+          "A": "Có",
+          "B": "Không",
+          "C": "Tùy trường hợp",
+          "D": "Tất cả đều sai"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 85,
+        "question": "Tập tin script nào chứa khai báo định tuyến?",
+        "options": {
+          "A": "/etc/sysconfig/network",
+          "B": "/etc/sysconfig/route",
+          "C": "/etc/sysconfig/static-routes",
+          "D": "/etc/sysconfig/network-scripts/routes"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 86,
+        "question": "Khi tạo một tài khoản người dùng, thông tin nào bắt buộc phải được cung cấp?",
+        "options": {
+          "A": "Tên đầy đủ (Full Name)",
+          "B": "Tên đăng nhập",
+          "C": "Mã nhận diện tài khoản (UID)",
+          "D": "Shell"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 87,
+        "question": "Nếu muốn xem “crond được cấu hình để khởi động ở mức thi hành (runlevel) nào, ta thi hành lệnh?",
+        "options": {
+          "A": "chkconfig-list-crond",
+          "B": "chkconfig -1 crond",
+          "C": "chkconfig --list crond",
+          "D": "chkconfig crond"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 88,
+        "question": "\"/xyz là một symbolic link của /tmp/dir”, lệnh nào sau đây cho phép ta chuyên vào thư mục \"/tmp/dir\"?",
+        "options": {
+          "A": "cd $-L/xyz$",
+          "B": "cd-P/xyz",
+          "C": "cd/xyz",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 89,
+        "question": "Để bật ngay lập tức chức năng chuyển gói tin (IP Forward), ta thực hiện:",
+        "options": {
+          "A": "Sửa nội dung tập tin \"/etc/sysctl.conf\"",
+          "B": "Thi hành lệnh echo 1> /proc/sys/net/ipv4/ip_forward",
+          "C": "Thi hành lệnh echo 1> net.ipv4.ip_forward",
+          "D": "Thi hành lệnh ./proc/sys/net/ipv4/ip_forward=1"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 90,
+        "question": "Cho biết ý nghĩa của một mục từ crond như sau: 105***/bin/foo",
+        "options": {
+          "A": "Thực thi /bin/foo vào lúc 10:05 sáng mỗi ngày",
+          "B": "Thực thi /bin/foo vào 10 tháng 5 hàng năm",
+          "C": "Thực thi /bin/foo vào lúc 5:10 sáng mỗi ngày",
+          "D": "Không câu nào đúng"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 91,
+        "question": "Để xem thông tin về phần chia đĩa cứng trên hệ thống, ta dùng lệnh:",
+        "options": {
+          "A": "fdisk /dev/had",
+          "B": "fdisk /dev/sc",
+          "C": "list/dev/had",
+          "D": "fdisk-1"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 92,
+        "question": "Để kiểm tra dung lượng đĩa cứng còn trống, ta dùng lệnh:",
+        "options": {
+          "A": "du-a",
+          "B": "df-a",
+          "C": "df",
+          "D": "du"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 93,
+        "question": "Để kết thúc tiến trình có $PID=1.$, ta thi hành lệnh:",
+        "options": {
+          "A": "kill-15 1",
+          "B": "kill-91",
+          "C": "kill-p 1",
+          "D": "Không có lệnh nào"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 94,
+        "question": "Thư mục /dev chứa:",
+        "options": {
+          "A": "Các tập tin dùng phát triển hệ thống",
+          "B": "Các tập tin rác, tạm thời",
+          "C": "Các tập tin đại diện trạng thải hiện hành của hệ thống",
+          "D": "Các tập tin đại diện thiết bị"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 95,
+        "question": "Để tạo thêm một địa chỉ IP 192.168.10.5/24 cho giao tiếp mạng eth0, ta dùng lệnh",
+        "options": {
+          "A": "alias eth0 192.168.10.5 up",
+          "B": "ifconfig eth1:0 192.168.10.5 netmask 255.255.255.0 up",
+          "C": "ifconfig eth0:0 192.168.10.5",
+          "D": "if-cfg eth0:0 192.168.10.5"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 96,
+        "question": "Trong tập tin khai báo các tham số cho zone, bản ghi SOA:",
+        "options": {
+          "A": "Bắt buộc phải có",
+          "B": "Được đặt tùy ý trong tập tin",
+          "C": "Được phép khai báo nhiều lần",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 97,
+        "question": "Để sao chép tất cả nội dung có trong thư mục /dir vào thư mục /tmp, thi hành lệnh:",
+        "options": {
+          "A": "cp-r/dir/*/tmp",
+          "B": "cp-a/dir/*/tmp",
+          "C": "cp-parents/dir/*/tmp",
+          "D": "Tất cả đều đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 98,
+        "question": "Chương trình nào dùng để kiểm tra cấu hình dịch vụ DNS?",
+        "options": {
+          "A": "dnscheck",
+          "B": "BIND",
+          "C": "nslookup",
+          "D": "resolve"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 99,
+        "question": "Trong tập tin \"httpd.conf\" khai báo nào dưới đây là sai:",
+        "options": {
+          "A": "Alias/image//ftp/pub",
+          "B": "DocumentRoot/var/www/html",
+          "C": "ServerRoot/etc/httpd",
+          "D": "DirectoryIndex index.cgi"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 100,
+        "question": "Lệnh nào dùng để xóa toàn bộ thư mục /dir",
+        "options": {
+          "A": "rm-f/dir",
+          "B": "rm-r/dir",
+          "C": "rmdir/dir",
+          "D": "rmdir-p/dir"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 101,
+        "question": "Để tìm tất cả các sự khác nhau giữa hai tập tin, ta dùng lệnh:",
+        "options": {
+          "A": "cmp",
+          "B": "diff",
+          "C": "wc",
+          "D": "Tất cả đều sai"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 102,
+        "question": "Cấu trúc inode trong extfs, bao gồm:",
+        "options": {
+          "A": "10 con trỏ",
+          "B": "13 con trỏ",
+          "C": "16 con trỏ",
+          "D": "Không câu nào đúng"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 103,
+        "question": "Lệnh nào dùng để liệt kê danh sách tất cả các tập tín có tên phần mở rộng không chứa các ký tự trong khoảng từ “x đến “w” trong thư mục hiện hành",
+        "options": {
+          "A": "$[s^{*}.!x|.$ w",
+          "B": "Is *.[!x-w]",
+          "C": "Is $!^{*}.[xz]$",
+          "D": "ls *.[!xw]"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 104,
+        "question": "Để tạo tài khoản người dùng “abc là thành viên của nhóm \"group\", ta dùng lệnh:",
+        "options": {
+          "A": "useradd-g group abe",
+          "B": "useradd G group abc",
+          "C": "useradd-m group abc",
+          "D": "useradd group abe"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 105,
+        "question": "Có ít nhất bao nhiêu patition cần được tạo ra khi ta cài đặt LINUX",
+        "options": {
+          "A": "1",
+          "B": "2",
+          "C": "Lớn hơn 2"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 106,
+        "question": "File nào trong số các file dưới đây chứa các biến môi trường khi sử dụng Bash Shell",
+        "options": {
+          "A": "~/.profile",
+          "B": "/bash",
+          "C": "/etc/profile",
+          "D": "-/bash"
+        },
+        "answer": "C"
+      },
+      {
+        "id": 107,
+        "question": "Tất cả các nhóm được liệt kê trong file /etc/group. Mỗi một nhóm được thể hiện trên một dòng. Hãy xác định trật tự đúng của các trường trên thực thể này :",
+        "options": {
+          "A": "groupname, password, GID, member list",
+          "B": "GID, groupname, password, member list",
+          "C": "groupname, GID, password, member list",
+          "D": "GID, member list, groupname, password"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 108,
+        "question": "Bạn sử dụng lênh sau useradd -m sapa song user sapa không đăng nhập vào được. Để đăng nhập được ta phải làm gì ?",
+        "options": {
+          "A": "Cần đăng ký mật khẩu cho user sapa bằng lệnh password sapa",
+          "B": "Phải tạo thư mục home cho sapa và tạo quyền cho phép truy cập.",
+          "C": "Bạn cần biên tập lại file /etc/passwd và đăng ký shell cho acount sapa",
+          "D": "Tên người dùng nhỏ hơn 5 ký tự."
+        },
+        "answer": "A"
+      },
+      {
+        "id": 109,
+        "question": "Bạn tạo một user sinhvien mới bằng cách thêm vào /etc/passwd file một dòng như sau: sinhvien:abcdef:501:501:tensinhvien:/home/sinhvien:/bin/bash Sau đó sinh vien gặp bạn và nói không logon vào hệ thống được. Bạn kiểm tra và thấy tên user và mật khẩu đều đúng. Điều gì đã xảy ra?",
+        "options": {
+          "A": "UID và GID giống nhau",
+          "B": "Bạn không gõ khoảng trống hoặc ngoặc kép vào những vị trí cần thiết.",
+          "C": "Bạn không thể nhập mật khẩu trực tiếp. Cần dùng lệnh passwd command để đăng ký mật khẩu cho user.",
+          "D": "Tên người dùng quá ngắn, tối thiểu nó phải có độ dài 6 ký tự."
+        },
+        "answer": "C"
+      },
+      {
+        "id": 110,
+        "question": "Mở file /etc/passwd ta thấy có các dòng. Trật tự nào sau đây của các trường là đúng:",
+        "options": {
+          "A": "username, UID, GID, home directory, command, comment",
+          "B": "username, UID, GID, comment, home directory, command",
+          "C": "UID, username, GID, home directory, comment, command",
+          "D": "username, UID, group name, GID, home directory, comment"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 111,
+        "question": "Bạn có một máy tính và đang cài Windows98 và muốn cài thêm Linux trên đó song bạn không còn đủ không gian đĩa cứng để cài đặt. Bằng cách nào tối ưu nhất bạn có thể thực hiện công việc trên",
+        "options": {
+          "A": "Sử dụng Disk Manager để thay đổi lại kích thước (resize) của partition chira Windows 98.",
+          "B": "Phân hoạch lại đĩa cứng từ đầu; cài lại Windows 98 và sau đó cài Linux.",
+          "C": "Không thể cài Windows 98 và Linux trên cùng một máy tính.",
+          "D": "Tạo một directory trong Windows 98 và cải Linux vào directory này."
+        },
+        "answer": "A"
+      },
+      {
+        "id": 112,
+        "question": "Bạn đang cài Linux lên máy tính của bạn. Bạn muốn có 5 partitions khác nhau và đã tạo ra được 4 partition. Còn partition thứ 5 không cách nào tạo ra được. Điều gì đã xảy ra:",
+        "options": {
+          "A": "Hard drive của bạn không đủ chỗ để tạo hơn 4 partition.",
+          "B": "Bạn phải tạo swap partition.",
+          "C": "Bạn đã tạo ra 4 primary partitions.",
+          "D": "Linux không cho phép tạo hơn 4 partitions."
+        },
+        "answer": "C"
+      },
+      {
+        "id": 113,
+        "question": "Quan sát file /etc/passwd, bạn thấy trong trường password chứa ký hiệu 'x'. Ý nghĩa của ký tự này là gì?",
+        "options": {
+          "A": "Password đã được mã hoá.",
+          "B": "Bạn đang sử dụng shadow password.",
+          "C": "Tất cả passwords đều rỗng.",
+          "D": "Tất cả passwords đều hết hạn."
+        },
+        "answer": "B"
+      },
+      {
+        "id": 114,
+        "question": "Sau khi Dung rời khỏi công ty bạn dùng lệnh userdel Dung để xoá user này. Mẫu tin của user này trong file etc/passwd bị xoá, tuy vậy, trong home directory có thể vẫn còn thư mục của user này. Bạn có thể dùng lệnh nào sau đây để khẳng định home directory cũng đã bị xoá?",
+        "options": {
+          "A": "userdel -m Dung",
+          "B": "userdel -u Dung",
+          "C": "userdel -1 Dung",
+          "D": "userdel -r Dung"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 115,
+        "question": "Bạn Dung có username là sapa. Bạn ấy nói rằng quên mật mật khẩu đăng nhập. Lệnh nào sẽ giúp bạn Dung reset lại mật khẩu của mình.",
+        "options": {
+          "A": "passwd Dung",
+          "B": "resetpassw",
+          "C": "su sapa",
+          "D": "passwd sapa"
+        },
+        "answer": "D"
+      },
+      {
+        "id": 116,
+        "question": "File nào xác định tất cả các user trên hệ thống của bạn",
+        "options": {
+          "A": "/etc/passwd",
+          "B": "/etc/users",
+          "C": "/etc/password",
+          "D": "/etc/user.conf"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 117,
+        "question": "Những user name nào sau đây không đúng",
+        "options": {
+          "A": "Theresa Hadden",
+          "B": "thadden",
+          "C": "TheresaН",
+          "D": "T.H."
+        },
+        "answer": "A"
+      },
+      {
+        "id": 118,
+        "question": "Dung lượng nhỏ nhất cho phép đối với các swap partition là:",
+        "options": {
+          "A": "16 MB",
+          "B": "64 MB",
+          "C": "128 MB",
+          "D": "256 MB"
+        },
+        "answer": "A"
+      },
+      {
+        "id": 119,
+        "question": "Máy tính của bạn có hai đĩa cứng IDE và bạn đang cài Linux trên chúng. Mỗi đĩa cứng bạn chia thành hai patitions. Các partition trên máy của bạn có tên là gì:",
+        "options": {
+          "A": "hdal, hda2, hda3, hda4",
+          "B": "hdal, hda2, hdb1, hdb2",
+          "C": "sdal, sda2, sdal, sdb2",
+          "D": "sdal, sda2, sda3, sda4"
+        },
+        "answer": "B"
+      },
+      {
+        "id": 120,
+        "question": "Hãy cho biết chương trình sau đây xuất ra nội dung nào đúng :\nBash\n#!/bin/sh\nmyvar=\"Chao ban\"\necho \\$myvar\necho 'message: \\$myvar'\necho \"message: \\$myvar\"\necho \"message : \\\\$myvar\"\necho \"Nhap noi dung text\"\nread myvar\necho '\\$myvar' se la \\$myvar\nexit 0",
+        "options": {
+          "A": "Chao ban / message: $mayvar / message: Chao ban / message: $myvar / Nhap noi dung text / Mot ngay dep troi / $myvar se la Mot ngay dep troi",
+          "B": "message: $mayvar / Chao ban / message: Chao ban / message: $myvar / Nhap noi dung text / Mot ngay dep troi / $myvar se la Mot ngay dep troi",
+          "C": "Nhap noi dung text / message: $mayvar / message: Chao ban / message: $myvar / Chao ban / Mot ngay dep troi / $myvar se la Mot ngay dep troi",
+          "D": "Chao ban / Nhap noi dung text / message: $mayvar / message: $myvar / message: Chao ban / Mot ngay dep troi / $myvar se la Mot ngay dep troi"
+        },
+        "answer": "A"
+      }
+    ];
 
-</div><!-- end app-wrap -->
-<footer>Quản Trị Hệ Thống Mạng · 160 câu · 8 chương · © 2025</footer>
-<div class="toast" id="toast"></div>
+    /* =============================================================
+       QUESTION DATA — 160 câu, 8 chương
+       Stored as { id, chapter, question, options:{A,B,C,D}, answer }
+       At render-time, options are SHUFFLED randomly; answer key
+       is remapped to the new shuffled position.
+       ============================================================= */
+    const QUESTIONS = [
+      // ── CH 1 ─────────────────────────────────────────────────────
+      { id: 1, chapter: 1, question: "Quản trị hệ thống mạng là gì?", options: { A: "Thiết kế phần mềm", B: "Quản lý và vận hành hệ thống mạng", C: "Lập trình ứng dụng", D: "Thiết kế website" }, answer: "B" },
+      { id: 2, chapter: 1, question: "Vai trò chính của quản trị viên hệ thống là:", options: { A: "Viết code", B: "Quản lý người dùng và hệ thống", C: "Thiết kế game", D: "Marketing" }, answer: "B" },
+      { id: 3, chapter: 1, question: "Mục tiêu của quản trị mạng là:", options: { A: "Tăng số lượng người dùng", B: "Đảm bảo hệ thống hoạt động ổn định", C: "Giảm chi phí phần cứng", D: "Tăng tốc CPU" }, answer: "B" },
+      { id: 4, chapter: 1, question: "Áp dụng công nghệ trong quản trị giúp:", options: { A: "Giảm hiệu suất", B: "Tăng tự động hóa", C: "Tăng lỗi hệ thống", D: "Giảm bảo mật" }, answer: "B" },
+      { id: 5, chapter: 1, question: "Một trong các vấn đề đạo đức trong quản trị hệ thống là:", options: { A: "Tối ưu CPU", B: "Bảo mật thông tin người dùng", C: "Nâng cấp RAM", D: "Cài phần mềm" }, answer: "B" },
+      { id: 6, chapter: 1, question: "Chiến lược quản trị hệ thống nhằm mục đích:", options: { A: "Tăng số lượng server", B: "Quản lý hiệu quả tài nguyên", C: "Giảm số lượng user", D: "Tăng chi phí" }, answer: "B" },
+      { id: 7, chapter: 1, question: "Nguyên lý quản trị hệ thống bao gồm:", options: { A: "Ngẫu nhiên", B: "Có kế hoạch và kiểm soát", C: "Không cần bảo mật", D: "Không cần giám sát" }, answer: "B" },
+      { id: 8, chapter: 1, question: "Quản trị viên cần có kỹ năng nào?", options: { A: "Chỉ biết phần cứng", B: "Kỹ năng kỹ thuật và quản lý", C: "Chỉ biết lập trình", D: "Không cần kỹ năng" }, answer: "B" },
+      { id: 9, chapter: 1, question: "Một hệ thống không được quản trị tốt sẽ:", options: { A: "Ổn định hơn", B: "Dễ xảy ra lỗi và tấn công", C: "Nhanh hơn", D: "Rẻ hơn" }, answer: "B" },
+      { id: 10, chapter: 1, question: "Quản trị hệ thống liên quan đến:", options: { A: "Chỉ phần mềm", B: "Phần cứng + phần mềm + mạng", C: "Chỉ mạng", D: "Chỉ người dùng" }, answer: "B" },
+      { id: 11, chapter: 1, question: "Quản trị hệ thống hiệu quả cần yếu tố nào quan trọng nhất?", options: { A: "Phần cứng mạnh", B: "Quy trình quản lý rõ ràng", C: "Nhiều nhân viên", D: "Internet nhanh" }, answer: "B" },
+      { id: 12, chapter: 1, question: "Trong môi trường doanh nghiệp, quản trị hệ thống giúp:", options: { A: "Giảm số lượng user", B: "Đảm bảo dịch vụ liên tục", C: "Tăng chi phí vận hành", D: "Giảm bảo mật" }, answer: "B" },
+      { id: 13, chapter: 1, question: "Một quản trị viên vi phạm đạo đức khi:", options: { A: "Cập nhật hệ thống", B: "Truy cập trái phép dữ liệu người dùng", C: "Sao lưu dữ liệu", D: "Cấu hình firewall" }, answer: "B" },
+      { id: 14, chapter: 1, question: "Chiến lược quản trị nào giúp giảm downtime?", options: { A: "Không backup", B: "Backup định kỳ", C: "Tắt server thường xuyên", D: "Không giám sát" }, answer: "B" },
+      { id: 15, chapter: 1, question: 'Nguyên lý "phòng ngừa hơn khắc phục" liên quan đến:', options: { A: "Tối ưu CPU", B: "Bảo trì hệ thống", C: "Viết phần mềm", D: "Thiết kế mạng" }, answer: "B" },
+      { id: 16, chapter: 1, question: "Một hệ thống áp dụng automation sẽ:", options: { A: "Tăng lỗi thủ công", B: "Giảm sai sót cấu hình", C: "Giảm tốc độ", D: "Không cần quản trị" }, answer: "B" },
+      { id: 17, chapter: 1, question: "Quản trị viên cần làm gì khi hệ thống bị tấn công?", options: { A: "Bỏ qua", B: "Phản ứng và khắc phục ngay", C: "Tắt máy tính", D: "Gọi khách hàng" }, answer: "B" },
+      { id: 18, chapter: 1, question: "Công cụ giám sát hệ thống dùng để:", options: { A: "Tăng CPU", B: "Theo dõi hiệu suất", C: "Giảm RAM", D: "Giảm tốc độ mạng" }, answer: "B" },
+      { id: 19, chapter: 1, question: "Quản trị hệ thống hiện đại dùng:", options: { A: "Phương pháp thủ công", B: "Tự động hóa và AI", C: "Chỉ dùng con người", D: "Không cần công cụ" }, answer: "B" },
+      { id: 20, chapter: 1, question: "Trong quản trị hệ thống, SLA là:", options: { A: "Phần mềm quản lý", B: "Thỏa thuận mức dịch vụ", C: "Loại máy chủ", D: "Giao thức mạng" }, answer: "B" },
 
-<script>
-const BIN_ID = '6a25497cda38895dfe94530f';
-const API_KEY = '$2a$10$zDXXpNpBQuVITE3RutPM0ufiGxYztP8cm/4zYGpo.MLi7/RP5dmgS';
+      // ── CH 2 ─────────────────────────────────────────────────────
+      { id: 21, chapter: 2, question: "Thành phần nào là bộ xử lý trung tâm?", options: { A: "RAM", B: "CPU", C: "HDD", D: "GPU" }, answer: "B" },
+      { id: 22, chapter: 2, question: "RAM trong hệ thống dùng để:", options: { A: "Lưu dữ liệu vĩnh viễn", B: "Lưu dữ liệu tạm thời", C: "Kết nối mạng", D: "Hiển thị hình ảnh" }, answer: "B" },
+      { id: 23, chapter: 2, question: "Thiết bị nào dùng để kết nối nhiều máy tính trong mạng?", options: { A: "Máy in", B: "Switch", C: "Scanner", D: "Monitor" }, answer: "B" },
+      { id: 24, chapter: 2, question: "Hệ điều hành server phổ biến là:", options: { A: "Android", B: "Windows Server / Linux", C: "iOS", D: "DOS" }, answer: "B" },
+      { id: 25, chapter: 2, question: "NIC là:", options: { A: "Card âm thanh", B: "Card mạng", C: "Card đồ họa", D: "Card nhớ" }, answer: "B" },
+      { id: 26, chapter: 2, question: "Router dùng để:", options: { A: "Lưu dữ liệu", B: "Định tuyến gói tin giữa các mạng", C: "In tài liệu", D: "Xử lý đồ họa" }, answer: "B" },
+      { id: 27, chapter: 2, question: "Firewall có chức năng:", options: { A: "Tăng tốc mạng", B: "Lọc và kiểm soát lưu lượng mạng", C: "Lưu trữ dữ liệu", D: "Kết nối wifi" }, answer: "B" },
+      { id: 28, chapter: 2, question: "Thiết bị lưu trữ dữ liệu lâu dài là:", options: { A: "RAM", B: "HDD/SSD", C: "Cache", D: "Register" }, answer: "B" },
+      { id: 29, chapter: 2, question: "UPS dùng để:", options: { A: "Tăng tốc CPU", B: "Cung cấp điện dự phòng", C: "Kết nối mạng", D: "Làm mát máy chủ" }, answer: "B" },
+      { id: 30, chapter: 2, question: "BIOS/UEFI là:", options: { A: "Hệ điều hành", B: "Firmware khởi động máy tính", C: "Phần mềm diệt virus", D: "Giao thức mạng" }, answer: "B" },
 
-/* =============================================================
-   QUESTION DATA — 160 câu, 8 chương
-   Stored as { id, chapter, question, options:{A,B,C,D}, answer }
-   At render-time, options are SHUFFLED randomly; answer key
-   is remapped to the new shuffled position.
-   ============================================================= */
-const QUESTIONS = [
-  // ── CH 1 ─────────────────────────────────────────────────────
-  {id:1,chapter:1,question:"Quản trị hệ thống mạng là gì?",options:{A:"Thiết kế phần mềm",B:"Quản lý và vận hành hệ thống mạng",C:"Lập trình ứng dụng",D:"Thiết kế website"},answer:"B"},
-  {id:2,chapter:1,question:"Vai trò chính của quản trị viên hệ thống là:",options:{A:"Viết code",B:"Quản lý người dùng và hệ thống",C:"Thiết kế game",D:"Marketing"},answer:"B"},
-  {id:3,chapter:1,question:"Mục tiêu của quản trị mạng là:",options:{A:"Tăng số lượng người dùng",B:"Đảm bảo hệ thống hoạt động ổn định",C:"Giảm chi phí phần cứng",D:"Tăng tốc CPU"},answer:"B"},
-  {id:4,chapter:1,question:"Áp dụng công nghệ trong quản trị giúp:",options:{A:"Giảm hiệu suất",B:"Tăng tự động hóa",C:"Tăng lỗi hệ thống",D:"Giảm bảo mật"},answer:"B"},
-  {id:5,chapter:1,question:"Một trong các vấn đề đạo đức trong quản trị hệ thống là:",options:{A:"Tối ưu CPU",B:"Bảo mật thông tin người dùng",C:"Nâng cấp RAM",D:"Cài phần mềm"},answer:"B"},
-  {id:6,chapter:1,question:"Chiến lược quản trị hệ thống nhằm mục đích:",options:{A:"Tăng số lượng server",B:"Quản lý hiệu quả tài nguyên",C:"Giảm số lượng user",D:"Tăng chi phí"},answer:"B"},
-  {id:7,chapter:1,question:"Nguyên lý quản trị hệ thống bao gồm:",options:{A:"Ngẫu nhiên",B:"Có kế hoạch và kiểm soát",C:"Không cần bảo mật",D:"Không cần giám sát"},answer:"B"},
-  {id:8,chapter:1,question:"Quản trị viên cần có kỹ năng nào?",options:{A:"Chỉ biết phần cứng",B:"Kỹ năng kỹ thuật và quản lý",C:"Chỉ biết lập trình",D:"Không cần kỹ năng"},answer:"B"},
-  {id:9,chapter:1,question:"Một hệ thống không được quản trị tốt sẽ:",options:{A:"Ổn định hơn",B:"Dễ xảy ra lỗi và tấn công",C:"Nhanh hơn",D:"Rẻ hơn"},answer:"B"},
-  {id:10,chapter:1,question:"Quản trị hệ thống liên quan đến:",options:{A:"Chỉ phần mềm",B:"Phần cứng + phần mềm + mạng",C:"Chỉ mạng",D:"Chỉ người dùng"},answer:"B"},
-  {id:11,chapter:1,question:"Quản trị hệ thống hiệu quả cần yếu tố nào quan trọng nhất?",options:{A:"Phần cứng mạnh",B:"Quy trình quản lý rõ ràng",C:"Nhiều nhân viên",D:"Internet nhanh"},answer:"B"},
-  {id:12,chapter:1,question:"Trong môi trường doanh nghiệp, quản trị hệ thống giúp:",options:{A:"Giảm số lượng user",B:"Đảm bảo dịch vụ liên tục",C:"Tăng chi phí vận hành",D:"Giảm bảo mật"},answer:"B"},
-  {id:13,chapter:1,question:"Một quản trị viên vi phạm đạo đức khi:",options:{A:"Cập nhật hệ thống",B:"Truy cập trái phép dữ liệu người dùng",C:"Sao lưu dữ liệu",D:"Cấu hình firewall"},answer:"B"},
-  {id:14,chapter:1,question:"Chiến lược quản trị nào giúp giảm downtime?",options:{A:"Không backup",B:"Backup định kỳ",C:"Tắt server thường xuyên",D:"Không giám sát"},answer:"B"},
-  {id:15,chapter:1,question:'Nguyên lý "phòng ngừa hơn khắc phục" liên quan đến:',options:{A:"Tối ưu CPU",B:"Bảo trì hệ thống",C:"Viết phần mềm",D:"Thiết kế mạng"},answer:"B"},
-  {id:16,chapter:1,question:"Một hệ thống áp dụng automation sẽ:",options:{A:"Tăng lỗi thủ công",B:"Giảm sai sót cấu hình",C:"Giảm tốc độ",D:"Không cần quản trị"},answer:"B"},
-  {id:17,chapter:1,question:"Quản trị viên cần làm gì khi hệ thống bị tấn công?",options:{A:"Bỏ qua",B:"Phản ứng và khắc phục ngay",C:"Tắt máy tính",D:"Gọi khách hàng"},answer:"B"},
-  {id:18,chapter:1,question:"Công cụ giám sát hệ thống dùng để:",options:{A:"Tăng CPU",B:"Theo dõi hiệu suất",C:"Giảm RAM",D:"Giảm tốc độ mạng"},answer:"B"},
-  {id:19,chapter:1,question:"Quản trị hệ thống hiện đại dùng:",options:{A:"Phương pháp thủ công",B:"Tự động hóa và AI",C:"Chỉ dùng con người",D:"Không cần công cụ"},answer:"B"},
-  {id:20,chapter:1,question:"Trong quản trị hệ thống, SLA là:",options:{A:"Phần mềm quản lý",B:"Thỏa thuận mức dịch vụ",C:"Loại máy chủ",D:"Giao thức mạng"},answer:"B"},
+      // ── CH 3 ─────────────────────────────────────────────────────
+      { id: 31, chapter: 3, question: "Máy chủ (server) là:", options: { A: "Máy tính cá nhân", B: "Máy cung cấp dịch vụ cho client", C: "Thiết bị in", D: "Bộ định tuyến" }, answer: "B" },
+      { id: 32, chapter: 3, question: "Ảo hóa máy chủ giúp:", options: { A: "Giảm hiệu suất", B: "Tối ưu tài nguyên phần cứng", C: "Tăng chi phí", D: "Giảm bảo mật" }, answer: "B" },
+      { id: 33, chapter: 3, question: "RAID dùng để:", options: { A: "Tăng tốc CPU", B: "Dự phòng và tăng hiệu suất lưu trữ", C: "Kết nối mạng", D: "Quản lý người dùng" }, answer: "B" },
+      { id: 34, chapter: 3, question: "DNS server dùng để:", options: { A: "Lưu file", B: "Phân giải tên miền thành IP", C: "Gửi email", D: "Lọc virus" }, answer: "B" },
+      { id: 35, chapter: 3, question: "DHCP server có chức năng:", options: { A: "Lưu dữ liệu", B: "Cấp phát địa chỉ IP tự động", C: "Quản lý user", D: "Định tuyến" }, answer: "B" },
+      { id: 36, chapter: 3, question: "Web server dùng để:", options: { A: "Lưu trữ email", B: "Phục vụ nội dung web cho client", C: "Định tuyến", D: "Cấp phát IP" }, answer: "B" },
+      { id: 37, chapter: 3, question: "FTP server dùng để:", options: { A: "Gửi email", B: "Truyền tải file", C: "Phân giải tên miền", D: "Cấp phát IP" }, answer: "B" },
+      { id: 38, chapter: 3, question: "Mail server dùng để:", options: { A: "Lưu file", B: "Gửi và nhận email", C: "Phân giải tên miền", D: "Cấp phát IP" }, answer: "B" },
+      { id: 39, chapter: 3, question: "Backup server dùng để:", options: { A: "Tăng tốc mạng", B: "Sao lưu dữ liệu định kỳ", C: "Quản lý người dùng", D: "Định tuyến" }, answer: "B" },
+      { id: 40, chapter: 3, question: "Patch management là:", options: { A: "Quản lý mạng", B: "Cập nhật và vá lỗi phần mềm", C: "Quản lý user", D: "Sao lưu dữ liệu" }, answer: "B" },
+      { id: 41, chapter: 3, question: "Load balancing giúp:", options: { A: "Tăng lỗi", B: "Phân phối tải đều cho nhiều server", C: "Giảm tốc độ", D: "Không cần server" }, answer: "B" },
+      { id: 42, chapter: 3, question: "High Availability (HA) nghĩa là:", options: { A: "Hiệu suất thấp", B: "Hệ thống luôn sẵn sàng hoạt động", C: "Nhiều lỗi", D: "Tốc độ chậm" }, answer: "B" },
+      { id: 43, chapter: 3, question: "Hypervisor là:", options: { A: "Hệ điều hành thông thường", B: "Phần mềm tạo và quản lý máy ảo", C: "Thiết bị phần cứng", D: "Giao thức mạng" }, answer: "B" },
+      { id: 44, chapter: 3, question: "Snapshot trong ảo hóa là:", options: { A: "Ảnh chụp màn hình", B: "Trạng thái lưu của máy ảo", C: "Bản backup mạng", D: "File log" }, answer: "B" },
+      { id: 45, chapter: 3, question: "SAN là:", options: { A: "Mạng xã hội", B: "Mạng lưu trữ chuyên dụng", C: "Giao thức email", D: "Loại server" }, answer: "B" },
+      { id: 46, chapter: 3, question: "NAS là:", options: { A: "Giao thức mạng", B: "Thiết bị lưu trữ gắn vào mạng", C: "Loại CPU", D: "Phần mềm ảo hóa" }, answer: "B" },
+      { id: 47, chapter: 3, question: "Clustering server nhằm mục đích:", options: { A: "Giảm server", B: "Tăng độ sẵn sàng và hiệu suất", C: "Giảm tốc độ", D: "Tăng chi phí" }, answer: "B" },
+      { id: 48, chapter: 3, question: "Khi server bị lỗi, failover giúp:", options: { A: "Tắt toàn hệ thống", B: "Chuyển sang server dự phòng tự động", C: "Tăng tải", D: "Giảm bảo mật" }, answer: "B" },
+      { id: 49, chapter: 3, question: "Monitoring server dùng để:", options: { A: "Tắt server", B: "Theo dõi hiệu suất và trạng thái", C: "Tăng CPU", D: "Giảm RAM" }, answer: "B" },
+      { id: 50, chapter: 3, question: "Đặt server trong datacenter giúp:", options: { A: "Tăng rủi ro", B: "Đảm bảo điện, làm mát, bảo mật vật lý", C: "Giảm hiệu suất", D: "Tăng chi phí không cần thiết" }, answer: "B" },
 
-  // ── CH 2 ─────────────────────────────────────────────────────
-  {id:21,chapter:2,question:"Thành phần nào là bộ xử lý trung tâm?",options:{A:"RAM",B:"CPU",C:"HDD",D:"GPU"},answer:"B"},
-  {id:22,chapter:2,question:"RAM trong hệ thống dùng để:",options:{A:"Lưu dữ liệu vĩnh viễn",B:"Lưu dữ liệu tạm thời",C:"Kết nối mạng",D:"Hiển thị hình ảnh"},answer:"B"},
-  {id:23,chapter:2,question:"Thiết bị nào dùng để kết nối nhiều máy tính trong mạng?",options:{A:"Máy in",B:"Switch",C:"Scanner",D:"Monitor"},answer:"B"},
-  {id:24,chapter:2,question:"Hệ điều hành server phổ biến là:",options:{A:"Android",B:"Windows Server / Linux",C:"iOS",D:"DOS"},answer:"B"},
-  {id:25,chapter:2,question:"NIC là:",options:{A:"Card âm thanh",B:"Card mạng",C:"Card đồ họa",D:"Card nhớ"},answer:"B"},
-  {id:26,chapter:2,question:"Router dùng để:",options:{A:"Lưu dữ liệu",B:"Định tuyến gói tin giữa các mạng",C:"In tài liệu",D:"Xử lý đồ họa"},answer:"B"},
-  {id:27,chapter:2,question:"Firewall có chức năng:",options:{A:"Tăng tốc mạng",B:"Lọc và kiểm soát lưu lượng mạng",C:"Lưu trữ dữ liệu",D:"Kết nối wifi"},answer:"B"},
-  {id:28,chapter:2,question:"Thiết bị lưu trữ dữ liệu lâu dài là:",options:{A:"RAM",B:"HDD/SSD",C:"Cache",D:"Register"},answer:"B"},
-  {id:29,chapter:2,question:"UPS dùng để:",options:{A:"Tăng tốc CPU",B:"Cung cấp điện dự phòng",C:"Kết nối mạng",D:"Làm mát máy chủ"},answer:"B"},
-  {id:30,chapter:2,question:"BIOS/UEFI là:",options:{A:"Hệ điều hành",B:"Firmware khởi động máy tính",C:"Phần mềm diệt virus",D:"Giao thức mạng"},answer:"B"},
+      // ── CH 4 ─────────────────────────────────────────────────────
+      { id: 51, chapter: 4, question: "Tài khoản người dùng (user account) dùng để:", options: { A: "Lưu dữ liệu hệ thống", B: "Xác thực và phân quyền truy cập", C: "Tăng tốc CPU", D: "Kết nối mạng" }, answer: "B" },
+      { id: 52, chapter: 4, question: "Group policy trong Windows dùng để:", options: { A: "Quản lý phần cứng", B: "Quản lý cấu hình tập trung cho user", C: "Định tuyến mạng", D: "Lưu file" }, answer: "B" },
+      { id: 53, chapter: 4, question: "Active Directory là:", options: { A: "Phần mềm diệt virus", B: "Dịch vụ quản lý tài khoản tập trung", C: "Giao thức mạng", D: "Loại server" }, answer: "B" },
+      { id: 54, chapter: 4, question: "LDAP là:", options: { A: "Giao thức email", B: "Giao thức truy cập dịch vụ thư mục", C: "Giao thức định tuyến", D: "Giao thức truyền file" }, answer: "B" },
+      { id: 55, chapter: 4, question: "Phân quyền (permission) người dùng giúp:", options: { A: "Tăng tốc hệ thống", B: "Kiểm soát quyền truy cập tài nguyên", C: "Giảm bảo mật", D: "Tăng lỗi" }, answer: "B" },
+      { id: 56, chapter: 4, question: "Password policy giúp:", options: { A: "Tăng tốc đăng nhập", B: "Tăng độ bảo mật mật khẩu", C: "Giảm người dùng", D: "Không cần xác thực" }, answer: "B" },
+      { id: 57, chapter: 4, question: "MFA (Multi-Factor Authentication) là:", options: { A: "Đăng nhập một bước", B: "Xác thực nhiều lớp bảo mật", C: "Không cần mật khẩu", D: "Đăng nhập bằng email" }, answer: "B" },
+      { id: 58, chapter: 4, question: "Role-Based Access Control (RBAC) nghĩa là:", options: { A: "Cấp quyền ngẫu nhiên", B: "Phân quyền theo vai trò", C: "Không phân quyền", D: "Chỉ có một quyền" }, answer: "B" },
+      { id: 59, chapter: 4, question: "Audit log dùng để:", options: { A: "Tăng tốc hệ thống", B: "Ghi lại hoạt động người dùng", C: "Xóa tài khoản", D: "Cấp phát IP" }, answer: "B" },
+      { id: 60, chapter: 4, question: "Single Sign-On (SSO) giúp:", options: { A: "Đăng nhập nhiều lần", B: "Đăng nhập một lần dùng nhiều dịch vụ", C: "Không cần mật khẩu", D: "Tăng lỗi xác thực" }, answer: "B" },
+      { id: 61, chapter: 4, question: "Khóa tài khoản sau nhiều lần đăng nhập sai giúp:", options: { A: "Giảm bảo mật", B: "Ngăn tấn công brute force", C: "Tăng tốc hệ thống", D: "Không cần thiết" }, answer: "B" },
+      { id: 62, chapter: 4, question: "Home directory của user dùng để:", options: { A: "Lưu cấu hình hệ thống", B: "Lưu file cá nhân của người dùng", C: "Chứa phần mềm", D: "Lưu log hệ thống" }, answer: "B" },
+      { id: 63, chapter: 4, question: "Disabled account nghĩa là:", options: { A: "Tài khoản bị xóa", B: "Tài khoản bị vô hiệu hóa tạm thời", C: "Tài khoản mới", D: "Tài khoản admin" }, answer: "B" },
+      { id: 64, chapter: 4, question: "Domain trong mạng Windows là:", options: { A: "Tên website", B: "Môi trường quản lý tập trung", C: "Loại IP", D: "Giao thức mạng" }, answer: "B" },
+      { id: 65, chapter: 4, question: "Workgroup khác Domain ở điểm nào?", options: { A: "Workgroup có server trung tâm", B: "Workgroup không có server quản lý trung tâm", C: "Domain không cần mật khẩu", D: "Workgroup bảo mật hơn" }, answer: "B" },
+      { id: 66, chapter: 4, question: "OU (Organizational Unit) trong AD dùng để:", options: { A: "Tạo mạng", B: "Tổ chức đối tượng trong Active Directory", C: "Định tuyến", D: "Lưu file" }, answer: "B" },
+      { id: 67, chapter: 4, question: "Kerberos là:", options: { A: "Phần mềm mã hóa", B: "Giao thức xác thực mạng", C: "Giao thức định tuyến", D: "Loại virus" }, answer: "B" },
+      { id: 68, chapter: 4, question: "Quản lý user tập trung giúp:", options: { A: "Tăng phức tạp", B: "Dễ quản lý và kiểm soát", C: "Giảm bảo mật", D: "Tăng chi phí" }, answer: "B" },
+      { id: 69, chapter: 4, question: "Chính sách hết hạn mật khẩu giúp:", options: { A: "Làm khó người dùng", B: "Buộc thay mật khẩu định kỳ để bảo mật", C: "Tăng đăng nhập sai", D: "Không cần thiết" }, answer: "B" },
+      { id: 70, chapter: 4, question: "Quản trị viên nên làm gì khi nhân viên nghỉ việc?", options: { A: "Giữ nguyên tài khoản", B: "Vô hiệu hóa hoặc xóa tài khoản ngay", C: "Đổi tên tài khoản", D: "Thêm quyền" }, answer: "B" },
 
-  // ── CH 3 ─────────────────────────────────────────────────────
-  {id:31,chapter:3,question:"Máy chủ (server) là:",options:{A:"Máy tính cá nhân",B:"Máy cung cấp dịch vụ cho client",C:"Thiết bị in",D:"Bộ định tuyến"},answer:"B"},
-  {id:32,chapter:3,question:"Ảo hóa máy chủ giúp:",options:{A:"Giảm hiệu suất",B:"Tối ưu tài nguyên phần cứng",C:"Tăng chi phí",D:"Giảm bảo mật"},answer:"B"},
-  {id:33,chapter:3,question:"RAID dùng để:",options:{A:"Tăng tốc CPU",B:"Dự phòng và tăng hiệu suất lưu trữ",C:"Kết nối mạng",D:"Quản lý người dùng"},answer:"B"},
-  {id:34,chapter:3,question:"DNS server dùng để:",options:{A:"Lưu file",B:"Phân giải tên miền thành IP",C:"Gửi email",D:"Lọc virus"},answer:"B"},
-  {id:35,chapter:3,question:"DHCP server có chức năng:",options:{A:"Lưu dữ liệu",B:"Cấp phát địa chỉ IP tự động",C:"Quản lý user",D:"Định tuyến"},answer:"B"},
-  {id:36,chapter:3,question:"Web server dùng để:",options:{A:"Lưu trữ email",B:"Phục vụ nội dung web cho client",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
-  {id:37,chapter:3,question:"FTP server dùng để:",options:{A:"Gửi email",B:"Truyền tải file",C:"Phân giải tên miền",D:"Cấp phát IP"},answer:"B"},
-  {id:38,chapter:3,question:"Mail server dùng để:",options:{A:"Lưu file",B:"Gửi và nhận email",C:"Phân giải tên miền",D:"Cấp phát IP"},answer:"B"},
-  {id:39,chapter:3,question:"Backup server dùng để:",options:{A:"Tăng tốc mạng",B:"Sao lưu dữ liệu định kỳ",C:"Quản lý người dùng",D:"Định tuyến"},answer:"B"},
-  {id:40,chapter:3,question:"Patch management là:",options:{A:"Quản lý mạng",B:"Cập nhật và vá lỗi phần mềm",C:"Quản lý user",D:"Sao lưu dữ liệu"},answer:"B"},
-  {id:41,chapter:3,question:"Load balancing giúp:",options:{A:"Tăng lỗi",B:"Phân phối tải đều cho nhiều server",C:"Giảm tốc độ",D:"Không cần server"},answer:"B"},
-  {id:42,chapter:3,question:"High Availability (HA) nghĩa là:",options:{A:"Hiệu suất thấp",B:"Hệ thống luôn sẵn sàng hoạt động",C:"Nhiều lỗi",D:"Tốc độ chậm"},answer:"B"},
-  {id:43,chapter:3,question:"Hypervisor là:",options:{A:"Hệ điều hành thông thường",B:"Phần mềm tạo và quản lý máy ảo",C:"Thiết bị phần cứng",D:"Giao thức mạng"},answer:"B"},
-  {id:44,chapter:3,question:"Snapshot trong ảo hóa là:",options:{A:"Ảnh chụp màn hình",B:"Trạng thái lưu của máy ảo",C:"Bản backup mạng",D:"File log"},answer:"B"},
-  {id:45,chapter:3,question:"SAN là:",options:{A:"Mạng xã hội",B:"Mạng lưu trữ chuyên dụng",C:"Giao thức email",D:"Loại server"},answer:"B"},
-  {id:46,chapter:3,question:"NAS là:",options:{A:"Giao thức mạng",B:"Thiết bị lưu trữ gắn vào mạng",C:"Loại CPU",D:"Phần mềm ảo hóa"},answer:"B"},
-  {id:47,chapter:3,question:"Clustering server nhằm mục đích:",options:{A:"Giảm server",B:"Tăng độ sẵn sàng và hiệu suất",C:"Giảm tốc độ",D:"Tăng chi phí"},answer:"B"},
-  {id:48,chapter:3,question:"Khi server bị lỗi, failover giúp:",options:{A:"Tắt toàn hệ thống",B:"Chuyển sang server dự phòng tự động",C:"Tăng tải",D:"Giảm bảo mật"},answer:"B"},
-  {id:49,chapter:3,question:"Monitoring server dùng để:",options:{A:"Tắt server",B:"Theo dõi hiệu suất và trạng thái",C:"Tăng CPU",D:"Giảm RAM"},answer:"B"},
-  {id:50,chapter:3,question:"Đặt server trong datacenter giúp:",options:{A:"Tăng rủi ro",B:"Đảm bảo điện, làm mát, bảo mật vật lý",C:"Giảm hiệu suất",D:"Tăng chi phí không cần thiết"},answer:"B"},
+      // ── CH 5 ─────────────────────────────────────────────────────
+      { id: 71, chapter: 5, question: "Mô hình Client-Server là:", options: { A: "Máy tính ngang hàng", B: "Máy chủ cung cấp dịch vụ cho máy khách", C: "Mạng không có server", D: "Chỉ dùng internet" }, answer: "B" },
+      { id: 72, chapter: 5, question: "Mô hình P2P (Peer-to-Peer) là:", options: { A: "Cần server trung tâm", B: "Máy tính chia sẻ trực tiếp với nhau", C: "Không có mạng", D: "Chỉ dùng server" }, answer: "B" },
+      { id: 73, chapter: 5, question: "Cloud computing là:", options: { A: "Tính toán trên máy cá nhân", B: "Sử dụng tài nguyên qua internet", C: "Mạng nội bộ", D: "Không kết nối internet" }, answer: "B" },
+      { id: 74, chapter: 5, question: "IaaS là:", options: { A: "Phần mềm dịch vụ", B: "Hạ tầng dịch vụ (cung cấp máy ảo, lưu trữ)", C: "Nền tảng dịch vụ", D: "Ứng dụng web" }, answer: "B" },
+      { id: 75, chapter: 5, question: "SaaS là:", options: { A: "Hạ tầng dịch vụ", B: "Phần mềm dịch vụ (dùng qua trình duyệt)", C: "Nền tảng dịch vụ", D: "Máy chủ ảo" }, answer: "B" },
+      { id: 76, chapter: 5, question: "PaaS là:", options: { A: "Phần mềm dịch vụ", B: "Nền tảng dịch vụ (môi trường phát triển)", C: "Hạ tầng dịch vụ", D: "Ứng dụng di động" }, answer: "B" },
+      { id: 77, chapter: 5, question: "Private cloud khác Public cloud ở điểm:", options: { A: "Private cloud rẻ hơn", B: "Private cloud dùng riêng cho tổ chức", C: "Public cloud an toàn hơn", D: "Private cloud không cần quản trị" }, answer: "B" },
+      { id: 78, chapter: 5, question: "Hybrid cloud là:", options: { A: "Chỉ dùng cloud công cộng", B: "Kết hợp private và public cloud", C: "Không dùng cloud", D: "Chỉ dùng cloud riêng" }, answer: "B" },
+      { id: 79, chapter: 5, question: "SNMP dùng để:", options: { A: "Gửi email", B: "Quản lý thiết bị mạng", C: "Định tuyến", D: "Cấp phát IP" }, answer: "B" },
+      { id: 80, chapter: 5, question: "Syslog dùng để:", options: { A: "Quản lý user", B: "Thu thập log từ thiết bị mạng", C: "Định tuyến", D: "Cấp phát IP" }, answer: "B" },
+      { id: 81, chapter: 5, question: "NMS (Network Management System) là:", options: { A: "Giao thức mạng", B: "Hệ thống quản lý mạng", C: "Máy chủ email", D: "Thiết bị định tuyến" }, answer: "B" },
+      { id: 82, chapter: 5, question: "Monitoring tool như Nagios dùng để:", options: { A: "Tắt server", B: "Giám sát hệ thống và cảnh báo", C: "Định tuyến", D: "Lưu file" }, answer: "B" },
+      { id: 83, chapter: 5, question: "Băng thông (bandwidth) là:", options: { A: "Kích thước file", B: "Khả năng truyền dữ liệu tối đa", C: "Số lượng user", D: "Tốc độ CPU" }, answer: "B" },
+      { id: 84, chapter: 5, question: "Latency là:", options: { A: "Băng thông mạng", B: "Độ trễ truyền dữ liệu", C: "Tốc độ CPU", D: "Dung lượng RAM" }, answer: "B" },
+      { id: 85, chapter: 5, question: "QoS (Quality of Service) giúp:", options: { A: "Giảm băng thông", B: "Ưu tiên lưu lượng quan trọng", C: "Tắt kết nối", D: "Không cần quản lý" }, answer: "B" },
+      { id: 86, chapter: 5, question: "VLAN dùng để:", options: { A: "Tăng tốc internet", B: "Phân đoạn mạng logic", C: "Kết nối internet", D: "Lưu dữ liệu" }, answer: "B" },
+      { id: 87, chapter: 5, question: "VPN giúp:", options: { A: "Giảm bảo mật", B: "Kết nối an toàn qua internet", C: "Tăng latency", D: "Ngắt kết nối" }, answer: "B" },
+      { id: 88, chapter: 5, question: "NAT (Network Address Translation) dùng để:", options: { A: "Phân giải tên miền", B: "Ánh xạ IP nội bộ ra IP công cộng", C: "Định tuyến động", D: "Cấp phát IP" }, answer: "B" },
+      { id: 89, chapter: 5, question: "Mô hình OSI có bao nhiêu tầng?", options: { A: "5", B: "7", C: "4", D: "6" }, answer: "B" },
+      { id: 90, chapter: 5, question: "Giao thức TCP/IP hoạt động ở:", options: { A: "Tầng vật lý", B: "Tầng mạng và tầng giao vận", C: "Tầng ứng dụng", D: "Tầng liên kết dữ liệu" }, answer: "B" },
 
-  // ── CH 4 ─────────────────────────────────────────────────────
-  {id:51,chapter:4,question:"Tài khoản người dùng (user account) dùng để:",options:{A:"Lưu dữ liệu hệ thống",B:"Xác thực và phân quyền truy cập",C:"Tăng tốc CPU",D:"Kết nối mạng"},answer:"B"},
-  {id:52,chapter:4,question:"Group policy trong Windows dùng để:",options:{A:"Quản lý phần cứng",B:"Quản lý cấu hình tập trung cho user",C:"Định tuyến mạng",D:"Lưu file"},answer:"B"},
-  {id:53,chapter:4,question:"Active Directory là:",options:{A:"Phần mềm diệt virus",B:"Dịch vụ quản lý tài khoản tập trung",C:"Giao thức mạng",D:"Loại server"},answer:"B"},
-  {id:54,chapter:4,question:"LDAP là:",options:{A:"Giao thức email",B:"Giao thức truy cập dịch vụ thư mục",C:"Giao thức định tuyến",D:"Giao thức truyền file"},answer:"B"},
-  {id:55,chapter:4,question:"Phân quyền (permission) người dùng giúp:",options:{A:"Tăng tốc hệ thống",B:"Kiểm soát quyền truy cập tài nguyên",C:"Giảm bảo mật",D:"Tăng lỗi"},answer:"B"},
-  {id:56,chapter:4,question:"Password policy giúp:",options:{A:"Tăng tốc đăng nhập",B:"Tăng độ bảo mật mật khẩu",C:"Giảm người dùng",D:"Không cần xác thực"},answer:"B"},
-  {id:57,chapter:4,question:"MFA (Multi-Factor Authentication) là:",options:{A:"Đăng nhập một bước",B:"Xác thực nhiều lớp bảo mật",C:"Không cần mật khẩu",D:"Đăng nhập bằng email"},answer:"B"},
-  {id:58,chapter:4,question:"Role-Based Access Control (RBAC) nghĩa là:",options:{A:"Cấp quyền ngẫu nhiên",B:"Phân quyền theo vai trò",C:"Không phân quyền",D:"Chỉ có một quyền"},answer:"B"},
-  {id:59,chapter:4,question:"Audit log dùng để:",options:{A:"Tăng tốc hệ thống",B:"Ghi lại hoạt động người dùng",C:"Xóa tài khoản",D:"Cấp phát IP"},answer:"B"},
-  {id:60,chapter:4,question:"Single Sign-On (SSO) giúp:",options:{A:"Đăng nhập nhiều lần",B:"Đăng nhập một lần dùng nhiều dịch vụ",C:"Không cần mật khẩu",D:"Tăng lỗi xác thực"},answer:"B"},
-  {id:61,chapter:4,question:"Khóa tài khoản sau nhiều lần đăng nhập sai giúp:",options:{A:"Giảm bảo mật",B:"Ngăn tấn công brute force",C:"Tăng tốc hệ thống",D:"Không cần thiết"},answer:"B"},
-  {id:62,chapter:4,question:"Home directory của user dùng để:",options:{A:"Lưu cấu hình hệ thống",B:"Lưu file cá nhân của người dùng",C:"Chứa phần mềm",D:"Lưu log hệ thống"},answer:"B"},
-  {id:63,chapter:4,question:"Disabled account nghĩa là:",options:{A:"Tài khoản bị xóa",B:"Tài khoản bị vô hiệu hóa tạm thời",C:"Tài khoản mới",D:"Tài khoản admin"},answer:"B"},
-  {id:64,chapter:4,question:"Domain trong mạng Windows là:",options:{A:"Tên website",B:"Môi trường quản lý tập trung",C:"Loại IP",D:"Giao thức mạng"},answer:"B"},
-  {id:65,chapter:4,question:"Workgroup khác Domain ở điểm nào?",options:{A:"Workgroup có server trung tâm",B:"Workgroup không có server quản lý trung tâm",C:"Domain không cần mật khẩu",D:"Workgroup bảo mật hơn"},answer:"B"},
-  {id:66,chapter:4,question:"OU (Organizational Unit) trong AD dùng để:",options:{A:"Tạo mạng",B:"Tổ chức đối tượng trong Active Directory",C:"Định tuyến",D:"Lưu file"},answer:"B"},
-  {id:67,chapter:4,question:"Kerberos là:",options:{A:"Phần mềm mã hóa",B:"Giao thức xác thực mạng",C:"Giao thức định tuyến",D:"Loại virus"},answer:"B"},
-  {id:68,chapter:4,question:"Quản lý user tập trung giúp:",options:{A:"Tăng phức tạp",B:"Dễ quản lý và kiểm soát",C:"Giảm bảo mật",D:"Tăng chi phí"},answer:"B"},
-  {id:69,chapter:4,question:"Chính sách hết hạn mật khẩu giúp:",options:{A:"Làm khó người dùng",B:"Buộc thay mật khẩu định kỳ để bảo mật",C:"Tăng đăng nhập sai",D:"Không cần thiết"},answer:"B"},
-  {id:70,chapter:4,question:"Quản trị viên nên làm gì khi nhân viên nghỉ việc?",options:{A:"Giữ nguyên tài khoản",B:"Vô hiệu hóa hoặc xóa tài khoản ngay",C:"Đổi tên tài khoản",D:"Thêm quyền"},answer:"B"},
+      // ── CH 6 ─────────────────────────────────────────────────────
+      { id: 91, chapter: 6, question: "Cấu hình hệ thống là:", options: { A: "Cài phần mềm ngẫu nhiên", B: "Thiết lập tham số hoạt động của hệ thống", C: "Tắt server", D: "Xóa dữ liệu" }, answer: "B" },
+      { id: 92, chapter: 6, question: "Configuration management giúp:", options: { A: "Tăng lỗi cấu hình", B: "Theo dõi và kiểm soát thay đổi cấu hình", C: "Giảm hiệu suất", D: "Không cần quản lý" }, answer: "B" },
+      { id: 93, chapter: 6, question: "Ansible, Puppet, Chef là:", options: { A: "Hệ điều hành", B: "Công cụ tự động hóa cấu hình", C: "Giao thức mạng", D: "Phần mềm diệt virus" }, answer: "B" },
+      { id: 94, chapter: 6, question: "Change management trong IT là:", options: { A: "Thay đổi tùy tiện", B: "Quy trình kiểm soát thay đổi hệ thống", C: "Xóa tài khoản", D: "Tắt server" }, answer: "B" },
+      { id: 95, chapter: 6, question: "Bảo trì phòng ngừa (preventive maintenance) là:", options: { A: "Sửa chữa sau khi hỏng", B: "Bảo trì định kỳ trước khi sự cố xảy ra", C: "Không bảo trì", D: "Bảo trì ngẫu nhiên" }, answer: "B" },
+      { id: 96, chapter: 6, question: "Disk defragmentation dùng để:", options: { A: "Tăng dung lượng", B: "Tối ưu lưu trữ file trên ổ đĩa", C: "Xóa virus", D: "Tăng RAM" }, answer: "B" },
+      { id: 97, chapter: 6, question: "Log file dùng để:", options: { A: "Lưu file người dùng", B: "Ghi lại sự kiện và hoạt động hệ thống", C: "Lưu email", D: "Tăng tốc CPU" }, answer: "B" },
+      { id: 98, chapter: 6, question: "Khi nào cần reboot server?", options: { A: "Mỗi giờ", B: "Sau cập nhật hoặc khi hệ thống lỗi", C: "Không bao giờ", D: "Mỗi phút" }, answer: "B" },
+      { id: 99, chapter: 6, question: "SOP (Standard Operating Procedure) là:", options: { A: "Giao thức mạng", B: "Quy trình chuẩn vận hành", C: "Phần mềm quản lý", D: "Loại server" }, answer: "B" },
+      { id: 100, chapter: 6, question: "Disaster Recovery Plan là:", options: { A: "Kế hoạch mở rộng hệ thống", B: "Kế hoạch phục hồi sau thảm họa", C: "Kế hoạch mua phần cứng", D: "Kế hoạch tuyển dụng" }, answer: "B" },
+      { id: 101, chapter: 6, question: "RTO (Recovery Time Objective) là:", options: { A: "Thời gian backup", B: "Thời gian tối đa để phục hồi hệ thống", C: "Tốc độ mạng", D: "Băng thông" }, answer: "B" },
+      { id: 102, chapter: 6, question: "RPO (Recovery Point Objective) là:", options: { A: "Tốc độ phục hồi", B: "Lượng dữ liệu tối đa có thể mất", C: "Thời gian backup", D: "Số lần backup" }, answer: "B" },
+      { id: 103, chapter: 6, question: "Full backup là:", options: { A: "Backup một phần", B: "Sao lưu toàn bộ dữ liệu", C: "Backup log", D: "Backup ảo" }, answer: "B" },
+      { id: 104, chapter: 6, question: "Incremental backup là:", options: { A: "Backup toàn bộ", B: "Chỉ backup dữ liệu thay đổi từ lần backup trước", C: "Backup ngẫu nhiên", D: "Không backup" }, answer: "B" },
+      { id: 105, chapter: 6, question: "3-2-1 backup rule nghĩa là:", options: { A: "3 lần backup mỗi ngày", B: "3 bản sao, 2 loại phương tiện, 1 bản off-site", C: "3 server, 2 user, 1 admin", D: "3 file, 2 folder, 1 drive" }, answer: "B" },
+      { id: 106, chapter: 6, question: "Infrastructure as Code (IaC) là:", options: { A: "Lập trình ứng dụng", B: "Quản lý hạ tầng bằng code", C: "Giao thức mạng", D: "Phần mềm server" }, answer: "B" },
+      { id: 107, chapter: 6, question: "Terraform là:", options: { A: "Hệ điều hành", B: "Công cụ IaC để quản lý hạ tầng cloud", C: "Giao thức bảo mật", D: "Loại database" }, answer: "B" },
+      { id: 108, chapter: 6, question: "CI/CD trong DevOps là:", options: { A: "Giao thức mạng", B: "Tích hợp và triển khai liên tục", C: "Loại server", D: "Phần mềm backup" }, answer: "B" },
+      { id: 109, chapter: 6, question: "Container (Docker) giúp:", options: { A: "Tăng phần cứng", B: "Đóng gói ứng dụng cùng môi trường", C: "Giảm bảo mật", D: "Tắt server" }, answer: "B" },
+      { id: 110, chapter: 6, question: "Kubernetes dùng để:", options: { A: "Lưu trữ dữ liệu", B: "Quản lý và điều phối container", C: "Gửi email", D: "Định tuyến mạng" }, answer: "B" },
 
-  // ── CH 5 ─────────────────────────────────────────────────────
-  {id:71,chapter:5,question:"Mô hình Client-Server là:",options:{A:"Máy tính ngang hàng",B:"Máy chủ cung cấp dịch vụ cho máy khách",C:"Mạng không có server",D:"Chỉ dùng internet"},answer:"B"},
-  {id:72,chapter:5,question:"Mô hình P2P (Peer-to-Peer) là:",options:{A:"Cần server trung tâm",B:"Máy tính chia sẻ trực tiếp với nhau",C:"Không có mạng",D:"Chỉ dùng server"},answer:"B"},
-  {id:73,chapter:5,question:"Cloud computing là:",options:{A:"Tính toán trên máy cá nhân",B:"Sử dụng tài nguyên qua internet",C:"Mạng nội bộ",D:"Không kết nối internet"},answer:"B"},
-  {id:74,chapter:5,question:"IaaS là:",options:{A:"Phần mềm dịch vụ",B:"Hạ tầng dịch vụ (cung cấp máy ảo, lưu trữ)",C:"Nền tảng dịch vụ",D:"Ứng dụng web"},answer:"B"},
-  {id:75,chapter:5,question:"SaaS là:",options:{A:"Hạ tầng dịch vụ",B:"Phần mềm dịch vụ (dùng qua trình duyệt)",C:"Nền tảng dịch vụ",D:"Máy chủ ảo"},answer:"B"},
-  {id:76,chapter:5,question:"PaaS là:",options:{A:"Phần mềm dịch vụ",B:"Nền tảng dịch vụ (môi trường phát triển)",C:"Hạ tầng dịch vụ",D:"Ứng dụng di động"},answer:"B"},
-  {id:77,chapter:5,question:"Private cloud khác Public cloud ở điểm:",options:{A:"Private cloud rẻ hơn",B:"Private cloud dùng riêng cho tổ chức",C:"Public cloud an toàn hơn",D:"Private cloud không cần quản trị"},answer:"B"},
-  {id:78,chapter:5,question:"Hybrid cloud là:",options:{A:"Chỉ dùng cloud công cộng",B:"Kết hợp private và public cloud",C:"Không dùng cloud",D:"Chỉ dùng cloud riêng"},answer:"B"},
-  {id:79,chapter:5,question:"SNMP dùng để:",options:{A:"Gửi email",B:"Quản lý thiết bị mạng",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
-  {id:80,chapter:5,question:"Syslog dùng để:",options:{A:"Quản lý user",B:"Thu thập log từ thiết bị mạng",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
-  {id:81,chapter:5,question:"NMS (Network Management System) là:",options:{A:"Giao thức mạng",B:"Hệ thống quản lý mạng",C:"Máy chủ email",D:"Thiết bị định tuyến"},answer:"B"},
-  {id:82,chapter:5,question:"Monitoring tool như Nagios dùng để:",options:{A:"Tắt server",B:"Giám sát hệ thống và cảnh báo",C:"Định tuyến",D:"Lưu file"},answer:"B"},
-  {id:83,chapter:5,question:"Băng thông (bandwidth) là:",options:{A:"Kích thước file",B:"Khả năng truyền dữ liệu tối đa",C:"Số lượng user",D:"Tốc độ CPU"},answer:"B"},
-  {id:84,chapter:5,question:"Latency là:",options:{A:"Băng thông mạng",B:"Độ trễ truyền dữ liệu",C:"Tốc độ CPU",D:"Dung lượng RAM"},answer:"B"},
-  {id:85,chapter:5,question:"QoS (Quality of Service) giúp:",options:{A:"Giảm băng thông",B:"Ưu tiên lưu lượng quan trọng",C:"Tắt kết nối",D:"Không cần quản lý"},answer:"B"},
-  {id:86,chapter:5,question:"VLAN dùng để:",options:{A:"Tăng tốc internet",B:"Phân đoạn mạng logic",C:"Kết nối internet",D:"Lưu dữ liệu"},answer:"B"},
-  {id:87,chapter:5,question:"VPN giúp:",options:{A:"Giảm bảo mật",B:"Kết nối an toàn qua internet",C:"Tăng latency",D:"Ngắt kết nối"},answer:"B"},
-  {id:88,chapter:5,question:"NAT (Network Address Translation) dùng để:",options:{A:"Phân giải tên miền",B:"Ánh xạ IP nội bộ ra IP công cộng",C:"Định tuyến động",D:"Cấp phát IP"},answer:"B"},
-  {id:89,chapter:5,question:"Mô hình OSI có bao nhiêu tầng?",options:{A:"5",B:"7",C:"4",D:"6"},answer:"B"},
-  {id:90,chapter:5,question:"Giao thức TCP/IP hoạt động ở:",options:{A:"Tầng vật lý",B:"Tầng mạng và tầng giao vận",C:"Tầng ứng dụng",D:"Tầng liên kết dữ liệu"},answer:"B"},
+      // ── CH 7 ─────────────────────────────────────────────────────
+      { id: 111, chapter: 7, question: "HTTP là giao thức:", options: { A: "Truyền file", B: "Truyền siêu văn bản (web)", C: "Gửi email", D: "Định tuyến" }, answer: "B" },
+      { id: 112, chapter: 7, question: "HTTPS khác HTTP ở điểm:", options: { A: "Chậm hơn", B: "Có mã hóa SSL/TLS", C: "Không dùng port 80", D: "Không cần server" }, answer: "B" },
+      { id: 113, chapter: 7, question: "SMTP dùng để:", options: { A: "Nhận email", B: "Gửi email", C: "Định tuyến", D: "Phân giải tên miền" }, answer: "B" },
+      { id: 114, chapter: 7, question: "POP3 dùng để:", options: { A: "Gửi email", B: "Tải email về máy client", C: "Định tuyến", D: "Phân giải tên miền" }, answer: "B" },
+      { id: 115, chapter: 7, question: "IMAP khác POP3 ở điểm:", options: { A: "IMAP xóa mail sau khi tải", B: "IMAP giữ mail trên server, đồng bộ nhiều thiết bị", C: "POP3 nhanh hơn", D: "IMAP không dùng mạng" }, answer: "B" },
+      { id: 116, chapter: 7, question: "FTP dùng để:", options: { A: "Gửi email", B: "Truyền file", C: "Định tuyến", D: "Phân giải tên miền" }, answer: "B" },
+      { id: 117, chapter: 7, question: "SFTP khác FTP ở điểm:", options: { A: "Chậm hơn", B: "Có mã hóa bảo mật", C: "Không truyền file", D: "Chỉ dùng LAN" }, answer: "B" },
+      { id: 118, chapter: 7, question: "SSH dùng để:", options: { A: "Truyền file", B: "Đăng nhập và quản lý máy từ xa an toàn", C: "Gửi email", D: "Phân giải tên miền" }, answer: "B" },
+      { id: 119, chapter: 7, question: "Telnet khác SSH ở điểm:", options: { A: "Telnet bảo mật hơn", B: "Telnet không mã hóa", C: "SSH chậm hơn", D: "Không khác gì" }, answer: "B" },
+      { id: 120, chapter: 7, question: "RDP (Remote Desktop Protocol) dùng để:", options: { A: "Gửi email", B: "Truy cập màn hình máy tính từ xa", C: "Định tuyến", D: "Truyền file" }, answer: "B" },
+      { id: 121, chapter: 7, question: "NTP (Network Time Protocol) dùng để:", options: { A: "Định tuyến", B: "Đồng bộ thời gian giữa các thiết bị", C: "Gửi email", D: "Lưu file" }, answer: "B" },
+      { id: 122, chapter: 7, question: "SNMP dùng để:", options: { A: "Gửi email", B: "Giám sát và quản lý thiết bị mạng", C: "Truyền file", D: "Phân giải tên miền" }, answer: "B" },
+      { id: 123, chapter: 7, question: "Proxy server dùng để:", options: { A: "Lưu file", B: "Trung gian giữa client và internet", C: "Định tuyến", D: "Cấp phát IP" }, answer: "B" },
+      { id: 124, chapter: 7, question: "Reverse proxy dùng để:", options: { A: "Che giấu client", B: "Che giấu và bảo vệ server backend", C: "Tăng latency", D: "Giảm bảo mật" }, answer: "B" },
+      { id: 125, chapter: 7, question: "CDN (Content Delivery Network) giúp:", options: { A: "Tăng latency", B: "Phân phối nội dung gần người dùng", C: "Giảm tốc độ", D: "Không cần server" }, answer: "B" },
+      { id: 126, chapter: 7, question: "Web Application Firewall (WAF) bảo vệ:", options: { A: "Phần cứng server", B: "Ứng dụng web khỏi tấn công", C: "Mạng nội bộ", D: "Email" }, answer: "B" },
+      { id: 127, chapter: 7, question: "API Gateway dùng để:", options: { A: "Lưu dữ liệu", B: "Quản lý và định tuyến API request", C: "Gửi email", D: "Cấp phát IP" }, answer: "B" },
+      { id: 128, chapter: 7, question: "Microservices là:", options: { A: "Ứng dụng nguyên khối", B: "Kiến trúc chia nhỏ thành nhiều dịch vụ độc lập", C: "Một loại database", D: "Giao thức mạng" }, answer: "B" },
+      { id: 129, chapter: 7, question: "Load balancer trong ứng dụng web giúp:", options: { A: "Giảm server", B: "Phân phối request đến nhiều server", C: "Tăng latency", D: "Không cần server" }, answer: "B" },
+      { id: 130, chapter: 7, question: "SSL/TLS certificate dùng để:", options: { A: "Tăng tốc web", B: "Mã hóa kết nối và xác thực danh tính", C: "Lưu file", D: "Định tuyến" }, answer: "B" },
 
-  // ── CH 6 ─────────────────────────────────────────────────────
-  {id:91,chapter:6,question:"Cấu hình hệ thống là:",options:{A:"Cài phần mềm ngẫu nhiên",B:"Thiết lập tham số hoạt động của hệ thống",C:"Tắt server",D:"Xóa dữ liệu"},answer:"B"},
-  {id:92,chapter:6,question:"Configuration management giúp:",options:{A:"Tăng lỗi cấu hình",B:"Theo dõi và kiểm soát thay đổi cấu hình",C:"Giảm hiệu suất",D:"Không cần quản lý"},answer:"B"},
-  {id:93,chapter:6,question:"Ansible, Puppet, Chef là:",options:{A:"Hệ điều hành",B:"Công cụ tự động hóa cấu hình",C:"Giao thức mạng",D:"Phần mềm diệt virus"},answer:"B"},
-  {id:94,chapter:6,question:"Change management trong IT là:",options:{A:"Thay đổi tùy tiện",B:"Quy trình kiểm soát thay đổi hệ thống",C:"Xóa tài khoản",D:"Tắt server"},answer:"B"},
-  {id:95,chapter:6,question:"Bảo trì phòng ngừa (preventive maintenance) là:",options:{A:"Sửa chữa sau khi hỏng",B:"Bảo trì định kỳ trước khi sự cố xảy ra",C:"Không bảo trì",D:"Bảo trì ngẫu nhiên"},answer:"B"},
-  {id:96,chapter:6,question:"Disk defragmentation dùng để:",options:{A:"Tăng dung lượng",B:"Tối ưu lưu trữ file trên ổ đĩa",C:"Xóa virus",D:"Tăng RAM"},answer:"B"},
-  {id:97,chapter:6,question:"Log file dùng để:",options:{A:"Lưu file người dùng",B:"Ghi lại sự kiện và hoạt động hệ thống",C:"Lưu email",D:"Tăng tốc CPU"},answer:"B"},
-  {id:98,chapter:6,question:"Khi nào cần reboot server?",options:{A:"Mỗi giờ",B:"Sau cập nhật hoặc khi hệ thống lỗi",C:"Không bao giờ",D:"Mỗi phút"},answer:"B"},
-  {id:99,chapter:6,question:"SOP (Standard Operating Procedure) là:",options:{A:"Giao thức mạng",B:"Quy trình chuẩn vận hành",C:"Phần mềm quản lý",D:"Loại server"},answer:"B"},
-  {id:100,chapter:6,question:"Disaster Recovery Plan là:",options:{A:"Kế hoạch mở rộng hệ thống",B:"Kế hoạch phục hồi sau thảm họa",C:"Kế hoạch mua phần cứng",D:"Kế hoạch tuyển dụng"},answer:"B"},
-  {id:101,chapter:6,question:"RTO (Recovery Time Objective) là:",options:{A:"Thời gian backup",B:"Thời gian tối đa để phục hồi hệ thống",C:"Tốc độ mạng",D:"Băng thông"},answer:"B"},
-  {id:102,chapter:6,question:"RPO (Recovery Point Objective) là:",options:{A:"Tốc độ phục hồi",B:"Lượng dữ liệu tối đa có thể mất",C:"Thời gian backup",D:"Số lần backup"},answer:"B"},
-  {id:103,chapter:6,question:"Full backup là:",options:{A:"Backup một phần",B:"Sao lưu toàn bộ dữ liệu",C:"Backup log",D:"Backup ảo"},answer:"B"},
-  {id:104,chapter:6,question:"Incremental backup là:",options:{A:"Backup toàn bộ",B:"Chỉ backup dữ liệu thay đổi từ lần backup trước",C:"Backup ngẫu nhiên",D:"Không backup"},answer:"B"},
-  {id:105,chapter:6,question:"3-2-1 backup rule nghĩa là:",options:{A:"3 lần backup mỗi ngày",B:"3 bản sao, 2 loại phương tiện, 1 bản off-site",C:"3 server, 2 user, 1 admin",D:"3 file, 2 folder, 1 drive"},answer:"B"},
-  {id:106,chapter:6,question:"Infrastructure as Code (IaC) là:",options:{A:"Lập trình ứng dụng",B:"Quản lý hạ tầng bằng code",C:"Giao thức mạng",D:"Phần mềm server"},answer:"B"},
-  {id:107,chapter:6,question:"Terraform là:",options:{A:"Hệ điều hành",B:"Công cụ IaC để quản lý hạ tầng cloud",C:"Giao thức bảo mật",D:"Loại database"},answer:"B"},
-  {id:108,chapter:6,question:"CI/CD trong DevOps là:",options:{A:"Giao thức mạng",B:"Tích hợp và triển khai liên tục",C:"Loại server",D:"Phần mềm backup"},answer:"B"},
-  {id:109,chapter:6,question:"Container (Docker) giúp:",options:{A:"Tăng phần cứng",B:"Đóng gói ứng dụng cùng môi trường",C:"Giảm bảo mật",D:"Tắt server"},answer:"B"},
-  {id:110,chapter:6,question:"Kubernetes dùng để:",options:{A:"Lưu trữ dữ liệu",B:"Quản lý và điều phối container",C:"Gửi email",D:"Định tuyến mạng"},answer:"B"},
+      // ── CH 8 ─────────────────────────────────────────────────────
+      { id: 131, chapter: 8, question: "Địa chỉ IP dùng để:", options: { A: "Lưu file", B: "Định danh thiết bị trên mạng", C: "Gửi email", D: "Tăng tốc CPU" }, answer: "B" },
+      { id: 132, chapter: 8, question: "IPv4 có bao nhiêu bit?", options: { A: "16", B: "32", C: "64", D: "128" }, answer: "B" },
+      { id: 133, chapter: 8, question: "IPv6 có bao nhiêu bit?", options: { A: "32", B: "128", C: "64", D: "256" }, answer: "B" },
+      { id: 134, chapter: 8, question: "Subnet mask dùng để:", options: { A: "Mã hóa dữ liệu", B: "Xác định phần mạng và phần host trong IP", C: "Định tuyến động", D: "Cấp phát IP" }, answer: "B" },
+      { id: 135, chapter: 8, question: "Default gateway là:", options: { A: "Máy chủ DNS", B: "Thiết bị chuyển tiếp gói tin ra ngoài mạng", C: "Địa chỉ IP tĩnh", D: "Máy chủ DHCP" }, answer: "B" },
+      { id: 136, chapter: 8, question: "ARP (Address Resolution Protocol) dùng để:", options: { A: "Phân giải tên miền", B: "Ánh xạ IP sang MAC address", C: "Định tuyến", D: "Cấp phát IP" }, answer: "B" },
+      { id: 137, chapter: 8, question: "ICMP dùng để:", options: { A: "Truyền file", B: "Gửi thông báo lỗi và kiểm tra kết nối", C: "Gửi email", D: "Phân giải tên miền" }, answer: "B" },
+      { id: 138, chapter: 8, question: "Lệnh ping sử dụng giao thức:", options: { A: "TCP", B: "ICMP", C: "UDP", D: "FTP" }, answer: "B" },
+      { id: 139, chapter: 8, question: "Port 80 dùng cho:", options: { A: "FTP", B: "HTTP", C: "SMTP", D: "SSH" }, answer: "B" },
+      { id: 140, chapter: 8, question: "Port 443 dùng cho:", options: { A: "FTP", B: "HTTPS", C: "SSH", D: "SMTP" }, answer: "B" },
+      { id: 141, chapter: 8, question: "Port 22 dùng cho:", options: { A: "HTTP", B: "SSH", C: "FTP", D: "SMTP" }, answer: "B" },
+      { id: 142, chapter: 8, question: "Port 25 dùng cho:", options: { A: "HTTP", B: "SMTP", C: "FTP", D: "SSH" }, answer: "B" },
+      { id: 143, chapter: 8, question: "Firewall hoạt động dựa trên:", options: { A: "Tốc độ mạng", B: "Quy tắc lọc gói tin (rules)", C: "Số lượng user", D: "Dung lượng lưu trữ" }, answer: "B" },
+      { id: 144, chapter: 8, question: "TCP là giao thức:", options: { A: "Không tin cậy", B: "Tin cậy, có xác nhận kết nối", C: "Không kết nối", D: "Không truyền dữ liệu" }, answer: "B" },
+      { id: 145, chapter: 8, question: "UDP là giao thức:", options: { A: "Tin cậy cao", B: "Không kết nối, nhanh nhưng không đảm bảo", C: "Chậm", D: "Không dùng mạng" }, answer: "B" },
+      { id: 146, chapter: 8, question: "Định tuyến tĩnh (Static routing) là:", options: { A: "Tự động cập nhật", B: "Cấu hình thủ công bởi admin", C: "Không cần cấu hình", D: "Không hoạt động" }, answer: "B" },
+      { id: 147, chapter: 8, question: "Định tuyến động (Dynamic routing) là:", options: { A: "Thủ công", B: "Tự động cập nhật đường đi theo topology", C: "Không dùng router", D: "Không có mạng" }, answer: "B" },
+      { id: 148, chapter: 8, question: "Giao thức định tuyến gồm:", options: { A: "RIP, OSPF, BGP", B: "HTTP, FTP", C: "SMTP, POP3", D: "SSH, Telnet" }, answer: "A" },
+      { id: 149, chapter: 8, question: "Chuyển tiếp gói tin (Forwarding) là:", options: { A: "Lưu dữ liệu", B: "Gửi gói tin đến đích theo bảng định tuyến", C: "Tắt mạng", D: "Tăng CPU" }, answer: "B" },
+      { id: 150, chapter: 8, question: "Một mạng tốt cần:", options: { A: "Không bảo mật", B: "Tối ưu hiệu năng, độ tin cậy và bảo mật", C: "Tăng lỗi", D: "Không quản lý" }, answer: "B" },
 
-  // ── CH 7 ─────────────────────────────────────────────────────
-  {id:111,chapter:7,question:"HTTP là giao thức:",options:{A:"Truyền file",B:"Truyền siêu văn bản (web)",C:"Gửi email",D:"Định tuyến"},answer:"B"},
-  {id:112,chapter:7,question:"HTTPS khác HTTP ở điểm:",options:{A:"Chậm hơn",B:"Có mã hóa SSL/TLS",C:"Không dùng port 80",D:"Không cần server"},answer:"B"},
-  {id:113,chapter:7,question:"SMTP dùng để:",options:{A:"Nhận email",B:"Gửi email",C:"Định tuyến",D:"Phân giải tên miền"},answer:"B"},
-  {id:114,chapter:7,question:"POP3 dùng để:",options:{A:"Gửi email",B:"Tải email về máy client",C:"Định tuyến",D:"Phân giải tên miền"},answer:"B"},
-  {id:115,chapter:7,question:"IMAP khác POP3 ở điểm:",options:{A:"IMAP xóa mail sau khi tải",B:"IMAP giữ mail trên server, đồng bộ nhiều thiết bị",C:"POP3 nhanh hơn",D:"IMAP không dùng mạng"},answer:"B"},
-  {id:116,chapter:7,question:"FTP dùng để:",options:{A:"Gửi email",B:"Truyền file",C:"Định tuyến",D:"Phân giải tên miền"},answer:"B"},
-  {id:117,chapter:7,question:"SFTP khác FTP ở điểm:",options:{A:"Chậm hơn",B:"Có mã hóa bảo mật",C:"Không truyền file",D:"Chỉ dùng LAN"},answer:"B"},
-  {id:118,chapter:7,question:"SSH dùng để:",options:{A:"Truyền file",B:"Đăng nhập và quản lý máy từ xa an toàn",C:"Gửi email",D:"Phân giải tên miền"},answer:"B"},
-  {id:119,chapter:7,question:"Telnet khác SSH ở điểm:",options:{A:"Telnet bảo mật hơn",B:"Telnet không mã hóa",C:"SSH chậm hơn",D:"Không khác gì"},answer:"B"},
-  {id:120,chapter:7,question:"RDP (Remote Desktop Protocol) dùng để:",options:{A:"Gửi email",B:"Truy cập màn hình máy tính từ xa",C:"Định tuyến",D:"Truyền file"},answer:"B"},
-  {id:121,chapter:7,question:"NTP (Network Time Protocol) dùng để:",options:{A:"Định tuyến",B:"Đồng bộ thời gian giữa các thiết bị",C:"Gửi email",D:"Lưu file"},answer:"B"},
-  {id:122,chapter:7,question:"SNMP dùng để:",options:{A:"Gửi email",B:"Giám sát và quản lý thiết bị mạng",C:"Truyền file",D:"Phân giải tên miền"},answer:"B"},
-  {id:123,chapter:7,question:"Proxy server dùng để:",options:{A:"Lưu file",B:"Trung gian giữa client và internet",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
-  {id:124,chapter:7,question:"Reverse proxy dùng để:",options:{A:"Che giấu client",B:"Che giấu và bảo vệ server backend",C:"Tăng latency",D:"Giảm bảo mật"},answer:"B"},
-  {id:125,chapter:7,question:"CDN (Content Delivery Network) giúp:",options:{A:"Tăng latency",B:"Phân phối nội dung gần người dùng",C:"Giảm tốc độ",D:"Không cần server"},answer:"B"},
-  {id:126,chapter:7,question:"Web Application Firewall (WAF) bảo vệ:",options:{A:"Phần cứng server",B:"Ứng dụng web khỏi tấn công",C:"Mạng nội bộ",D:"Email"},answer:"B"},
-  {id:127,chapter:7,question:"API Gateway dùng để:",options:{A:"Lưu dữ liệu",B:"Quản lý và định tuyến API request",C:"Gửi email",D:"Cấp phát IP"},answer:"B"},
-  {id:128,chapter:7,question:"Microservices là:",options:{A:"Ứng dụng nguyên khối",B:"Kiến trúc chia nhỏ thành nhiều dịch vụ độc lập",C:"Một loại database",D:"Giao thức mạng"},answer:"B"},
-  {id:129,chapter:7,question:"Load balancer trong ứng dụng web giúp:",options:{A:"Giảm server",B:"Phân phối request đến nhiều server",C:"Tăng latency",D:"Không cần server"},answer:"B"},
-  {id:130,chapter:7,question:"SSL/TLS certificate dùng để:",options:{A:"Tăng tốc web",B:"Mã hóa kết nối và xác thực danh tính",C:"Lưu file",D:"Định tuyến"},answer:"B"},
+      // ── Extra 10 ─────────────────────────────────────────────────
+      { id: 151, chapter: 1, question: "Trong quản trị hệ thống, downtime ảnh hưởng đến:", options: { A: "Tốc độ CPU", B: "Sự liên tục của dịch vụ doanh nghiệp", C: "Dung lượng RAM", D: "Màu sắc giao diện" }, answer: "B" },
+      { id: 152, chapter: 2, question: "GPU chủ yếu dùng cho:", options: { A: "Lưu trữ dữ liệu", B: "Xử lý đồ họa và tính toán song song", C: "Kết nối mạng", D: "Cấp phát IP" }, answer: "B" },
+      { id: 153, chapter: 3, question: "Mục đích chính của disaster recovery site là:", options: { A: "Tiết kiệm điện", B: "Tiếp tục hoạt động khi datacenter chính gặp sự cố", C: "Tăng băng thông", D: "Giảm chi phí phần mềm" }, answer: "B" },
+      { id: 154, chapter: 4, question: "Principle of Least Privilege nghĩa là:", options: { A: "Cấp toàn quyền cho mọi user", B: "Chỉ cấp quyền tối thiểu cần thiết", C: "Không cấp quyền nào", D: "Chia sẻ mật khẩu" }, answer: "B" },
+      { id: 155, chapter: 5, question: "Topology mạng hình sao (Star) có đặc điểm:", options: { A: "Không cần thiết bị trung tâm", B: "Tất cả thiết bị kết nối vào một switch/hub trung tâm", C: "Chỉ có 2 thiết bị", D: "Không cần cáp mạng" }, answer: "B" },
+      { id: 156, chapter: 6, question: "Khi áp dụng IaC, lợi ích lớn nhất là:", options: { A: "Tốc độ CPU tăng", B: "Hạ tầng có thể tái tạo và nhất quán", C: "Giảm số lượng server", D: "Không cần backup" }, answer: "B" },
+      { id: 157, chapter: 7, question: "Giao thức HTTPS sử dụng port mặc định:", options: { A: "80", B: "443", C: "22", D: "25" }, answer: "B" },
+      { id: 158, chapter: 8, question: "Lớp mạng (Network Layer) trong OSI xử lý:", options: { A: "Truyền bit vật lý", B: "Định tuyến và địa chỉ IP", C: "Mã hóa dữ liệu", D: "Quản lý phiên" }, answer: "B" },
+      { id: 159, chapter: 3, question: "VM (Virtual Machine) là:", options: { A: "Máy tính vật lý", B: "Máy tính ảo chạy trên hypervisor", C: "Phần mềm diệt virus", D: "Loại giao thức mạng" }, answer: "B" },
+      { id: 160, chapter: 8, question: "MAC address có độ dài:", options: { A: "32 bit", B: "48 bit", C: "64 bit", D: "128 bit" }, answer: "B" },
+    ];
 
-  // ── CH 8 ─────────────────────────────────────────────────────
-  {id:131,chapter:8,question:"Địa chỉ IP dùng để:",options:{A:"Lưu file",B:"Định danh thiết bị trên mạng",C:"Gửi email",D:"Tăng tốc CPU"},answer:"B"},
-  {id:132,chapter:8,question:"IPv4 có bao nhiêu bit?",options:{A:"16",B:"32",C:"64",D:"128"},answer:"B"},
-  {id:133,chapter:8,question:"IPv6 có bao nhiêu bit?",options:{A:"32",B:"128",C:"64",D:"256"},answer:"B"},
-  {id:134,chapter:8,question:"Subnet mask dùng để:",options:{A:"Mã hóa dữ liệu",B:"Xác định phần mạng và phần host trong IP",C:"Định tuyến động",D:"Cấp phát IP"},answer:"B"},
-  {id:135,chapter:8,question:"Default gateway là:",options:{A:"Máy chủ DNS",B:"Thiết bị chuyển tiếp gói tin ra ngoài mạng",C:"Địa chỉ IP tĩnh",D:"Máy chủ DHCP"},answer:"B"},
-  {id:136,chapter:8,question:"ARP (Address Resolution Protocol) dùng để:",options:{A:"Phân giải tên miền",B:"Ánh xạ IP sang MAC address",C:"Định tuyến",D:"Cấp phát IP"},answer:"B"},
-  {id:137,chapter:8,question:"ICMP dùng để:",options:{A:"Truyền file",B:"Gửi thông báo lỗi và kiểm tra kết nối",C:"Gửi email",D:"Phân giải tên miền"},answer:"B"},
-  {id:138,chapter:8,question:"Lệnh ping sử dụng giao thức:",options:{A:"TCP",B:"ICMP",C:"UDP",D:"FTP"},answer:"B"},
-  {id:139,chapter:8,question:"Port 80 dùng cho:",options:{A:"FTP",B:"HTTP",C:"SMTP",D:"SSH"},answer:"B"},
-  {id:140,chapter:8,question:"Port 443 dùng cho:",options:{A:"FTP",B:"HTTPS",C:"SSH",D:"SMTP"},answer:"B"},
-  {id:141,chapter:8,question:"Port 22 dùng cho:",options:{A:"HTTP",B:"SSH",C:"FTP",D:"SMTP"},answer:"B"},
-  {id:142,chapter:8,question:"Port 25 dùng cho:",options:{A:"HTTP",B:"SMTP",C:"FTP",D:"SSH"},answer:"B"},
-  {id:143,chapter:8,question:"Firewall hoạt động dựa trên:",options:{A:"Tốc độ mạng",B:"Quy tắc lọc gói tin (rules)",C:"Số lượng user",D:"Dung lượng lưu trữ"},answer:"B"},
-  {id:144,chapter:8,question:"TCP là giao thức:",options:{A:"Không tin cậy",B:"Tin cậy, có xác nhận kết nối",C:"Không kết nối",D:"Không truyền dữ liệu"},answer:"B"},
-  {id:145,chapter:8,question:"UDP là giao thức:",options:{A:"Tin cậy cao",B:"Không kết nối, nhanh nhưng không đảm bảo",C:"Chậm",D:"Không dùng mạng"},answer:"B"},
-  {id:146,chapter:8,question:"Định tuyến tĩnh (Static routing) là:",options:{A:"Tự động cập nhật",B:"Cấu hình thủ công bởi admin",C:"Không cần cấu hình",D:"Không hoạt động"},answer:"B"},
-  {id:147,chapter:8,question:"Định tuyến động (Dynamic routing) là:",options:{A:"Thủ công",B:"Tự động cập nhật đường đi theo topology",C:"Không dùng router",D:"Không có mạng"},answer:"B"},
-  {id:148,chapter:8,question:"Giao thức định tuyến gồm:",options:{A:"RIP, OSPF, BGP",B:"HTTP, FTP",C:"SMTP, POP3",D:"SSH, Telnet"},answer:"A"},
-  {id:149,chapter:8,question:"Chuyển tiếp gói tin (Forwarding) là:",options:{A:"Lưu dữ liệu",B:"Gửi gói tin đến đích theo bảng định tuyến",C:"Tắt mạng",D:"Tăng CPU"},answer:"B"},
-  {id:150,chapter:8,question:"Một mạng tốt cần:",options:{A:"Không bảo mật",B:"Tối ưu hiệu năng, độ tin cậy và bảo mật",C:"Tăng lỗi",D:"Không quản lý"},answer:"B"},
+    /* ============================================================
+       CHAPTER NAMES
+       ============================================================ */
+    const CHAPTER_NAMES = {
+      0: "Tất cả chương",
+      1: "Chương 1: Giới thiệu",
+      2: "Chương 2: Thành phần hệ thống",
+      3: "Chương 3: Quản trị máy chủ",
+      4: "Chương 4: Quản trị người dùng",
+      5: "Chương 5: Mô hình quản trị mạng",
+      6: "Chương 6: Cấu hình & Duy trì",
+      7: "Chương 7: Dịch vụ ứng dụng",
+      8: "Chương 8: Dịch vụ mạng",
+      "linux1": "Linux Phần 1 (Câu 1-40)",
+      "linux2": "Linux Phần 2 (Câu 41-80)",
+      "linux3": "Linux Phần 3 (Câu 81-120)",
+    };
 
-  // ── Extra 10 ─────────────────────────────────────────────────
-  {id:151,chapter:1,question:"Trong quản trị hệ thống, downtime ảnh hưởng đến:",options:{A:"Tốc độ CPU",B:"Sự liên tục của dịch vụ doanh nghiệp",C:"Dung lượng RAM",D:"Màu sắc giao diện"},answer:"B"},
-  {id:152,chapter:2,question:"GPU chủ yếu dùng cho:",options:{A:"Lưu trữ dữ liệu",B:"Xử lý đồ họa và tính toán song song",C:"Kết nối mạng",D:"Cấp phát IP"},answer:"B"},
-  {id:153,chapter:3,question:"Mục đích chính của disaster recovery site là:",options:{A:"Tiết kiệm điện",B:"Tiếp tục hoạt động khi datacenter chính gặp sự cố",C:"Tăng băng thông",D:"Giảm chi phí phần mềm"},answer:"B"},
-  {id:154,chapter:4,question:"Principle of Least Privilege nghĩa là:",options:{A:"Cấp toàn quyền cho mọi user",B:"Chỉ cấp quyền tối thiểu cần thiết",C:"Không cấp quyền nào",D:"Chia sẻ mật khẩu"},answer:"B"},
-  {id:155,chapter:5,question:"Topology mạng hình sao (Star) có đặc điểm:",options:{A:"Không cần thiết bị trung tâm",B:"Tất cả thiết bị kết nối vào một switch/hub trung tâm",C:"Chỉ có 2 thiết bị",D:"Không cần cáp mạng"},answer:"B"},
-  {id:156,chapter:6,question:"Khi áp dụng IaC, lợi ích lớn nhất là:",options:{A:"Tốc độ CPU tăng",B:"Hạ tầng có thể tái tạo và nhất quán",C:"Giảm số lượng server",D:"Không cần backup"},answer:"B"},
-  {id:157,chapter:7,question:"Giao thức HTTPS sử dụng port mặc định:",options:{A:"80",B:"443",C:"22",D:"25"},answer:"B"},
-  {id:158,chapter:8,question:"Lớp mạng (Network Layer) trong OSI xử lý:",options:{A:"Truyền bit vật lý",B:"Định tuyến và địa chỉ IP",C:"Mã hóa dữ liệu",D:"Quản lý phiên"},answer:"B"},
-  {id:159,chapter:3,question:"VM (Virtual Machine) là:",options:{A:"Máy tính vật lý",B:"Máy tính ảo chạy trên hypervisor",C:"Phần mềm diệt virus",D:"Loại giao thức mạng"},answer:"B"},
-  {id:160,chapter:8,question:"MAC address có độ dài:",options:{A:"32 bit",B:"48 bit",C:"64 bit",D:"128 bit"},answer:"B"},
-];
+    const LS_LB = 'qthtm_leaderboard';
+    const LS_HISTORY = 'qthtm_history';
 
-/* ============================================================
-   CHAPTER NAMES
-   ============================================================ */
-const CHAPTER_NAMES = {
-  0:"Tất cả chương",
-  1:"Chương 1: Giới thiệu",
-  2:"Chương 2: Thành phần hệ thống",
-  3:"Chương 3: Quản trị máy chủ",
-  4:"Chương 4: Quản trị người dùng",
-  5:"Chương 5: Mô hình quản trị mạng",
-  6:"Chương 6: Cấu hình & Duy trì",
-  7:"Chương 7: Dịch vụ ứng dụng",
-  8:"Chương 8: Dịch vụ mạng",
-};
+    /* ============================================================
+       STATE
+       ============================================================ */
+    let state = {
+      playerName: '', chapter: 0, questions: [],
+      current: 0, score: 0, correctCount: 0, wrongCount: 0,
+      answered: false,
+      /* per-question shuffled options — set in renderQuestion() */
+      shuffledOpts: [],      // [{key:'A',text:'...'}, ...]
+      correctOptText: '',    // text of the correct answer
+    };
 
-const LS_LB      = 'qthtm_leaderboard';
-const LS_HISTORY = 'qthtm_history';
-
-/* ============================================================
-   STATE
-   ============================================================ */
-let state = {
-  playerName:'', chapter:0, questions:[],
-  current:0, score:0, correctCount:0, wrongCount:0,
-  answered:false,
-  /* per-question shuffled options — set in renderQuestion() */
-  shuffledOpts:[],      // [{key:'A',text:'...'}, ...]
-  correctOptText:'',    // text of the correct answer
-};
-
-/* ============================================================
-   HELPERS
-   ============================================================ */
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function fmtDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric'})
-    + ' ' + d.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
-}
-
-function accClass(acc) {
-  return acc >= 75 ? 'acc-high' : acc >= 50 ? 'acc-mid' : 'acc-low';
-}
-
-function showToast(msg, dur=2200) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), dur);
-}
-
-function escHtml(s) {
-  return String(s).replace(/[&<>"']/g, c=>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-/* ============================================================
-   SCREEN NAV
-   ============================================================ */
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-/* ============================================================
-   HOME INIT
-   ============================================================ */
-function initHome() {
-  const grid = document.getElementById('chapter-grid');
-  grid.innerHTML = '';
-  for (let i = 0; i <= 8; i++) {
-    const label = i === 0 ? 'Tất cả' : `Chương ${i}`;
-    grid.innerHTML += `<div class="ch-btn">
-      <input type="radio" name="chapter" id="ch${i}" value="${i}" ${i===0?'checked':''}>
-      <label for="ch${i}" class="ch-label">${label}</label>
-    </div>`;
-  }
-}
-
-/* ============================================================
-   START
-   ============================================================ */
-document.getElementById('btn-start').addEventListener('click', () => {
-  const name = document.getElementById('player-name').value.trim();
-  if (name.length < 2) { showToast('⚠️ Tên cần ít nhất 2 ký tự!'); document.getElementById('player-name').focus(); return; }
-  const chVal = parseInt(document.querySelector('input[name="chapter"]:checked').value);
-  state.playerName = name; state.chapter = chVal;
-  state.score = state.correctCount = state.wrongCount = state.current = 0;
-  state.answered = false;
-  const pool = chVal === 0 ? QUESTIONS : QUESTIONS.filter(q=>q.chapter===chVal);
-  state.questions = shuffle(pool);
-  if (!state.questions.length) { showToast('Không có câu hỏi cho chương này!'); return; }
-  showScreen('screen-quiz');
-  renderQuestion();
-});
-
-/* ============================================================
-   RENDER QUESTION  (with answer-option shuffle)
-   ============================================================ */
-function renderQuestion() {
-  const q   = state.questions[state.current];
-  const idx = state.current;
-  const tot = state.questions.length;
-
-  /* --- Shuffle options --- */
-  // Build array of {origKey, text}
-  const optArr = Object.entries(q.options).map(([k, v]) => ({origKey:k, text:v}));
-  const shuffled = shuffle(optArr);
-  const LABELS = ['A','B','C','D'];
-  // Map new label → entry
-  state.shuffledOpts = shuffled.map((item, i) => ({
-    label: LABELS[i],
-    text:  item.text,
-    origKey: item.origKey
-  }));
-  // Remember which new label holds the correct answer
-  const correctEntry = state.shuffledOpts.find(o => o.origKey === q.answer);
-  state.correctLabel = correctEntry ? correctEntry.label : q.answer; // fallback
-
-  /* --- Header --- */
-  document.getElementById('qz-chapter-tag').textContent = CHAPTER_NAMES[q.chapter];
-  document.getElementById('qz-count').textContent       = `Câu ${idx+1} / ${tot}`;
-  document.getElementById('qz-score').textContent       = `${state.score>=0?'+':''}${state.score} điểm`;
-  document.getElementById('progress-bar').style.width   = `${(idx/tot)*100}%`;
-  document.getElementById('qz-q-num').textContent       = `Câu ${idx+1}`;
-  document.getElementById('qz-q-text').textContent      = q.question;
-
-  /* --- Answers --- */
-  const wrap = document.getElementById('answers-wrap');
-  wrap.innerHTML = '';
-  state.shuffledOpts.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'ans-btn';
-    btn.dataset.label = opt.label;
-    btn.innerHTML = `<span class="ans-key">${opt.label}</span><span>${opt.text}</span>`;
-    btn.addEventListener('click', () => handleAnswer(opt.label));
-    wrap.appendChild(btn);
-  });
-
-  document.getElementById('next-btn').classList.remove('visible');
-  state.answered = false;
-}
-
-/* ============================================================
-   HANDLE ANSWER
-   ============================================================ */
-function handleAnswer(chosenLabel) {
-  if (state.answered) return;
-  state.answered = true;
-
-  document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
-
-  const isRight = chosenLabel === state.correctLabel;
-  const chosenBtn  = document.querySelector(`.ans-btn[data-label="${chosenLabel}"]`);
-  const correctBtn = document.querySelector(`.ans-btn[data-label="${state.correctLabel}"]`);
-
-  if (isRight) {
-    state.score += 20; state.correctCount++;
-    chosenBtn.classList.add('correct','pulse');
-    floatScore(chosenBtn, '+20', true);
-  } else {
-    state.score -= 10; state.wrongCount++;
-    chosenBtn.classList.add('wrong');
-    correctBtn.classList.add('correct');
-    floatScore(chosenBtn, '−10', false);
-  }
-
-  document.getElementById('qz-score').textContent = `${state.score>=0?'+':''}${state.score} điểm`;
-  document.getElementById('next-btn').classList.add('visible');
-}
-
-/* ============================================================
-   FLOAT SCORE ANIMATION
-   ============================================================ */
-function floatScore(btn, text, isPlus) {
-  const rect = btn.getBoundingClientRect();
-  const el   = document.createElement('div');
-  el.className   = `score-float ${isPlus?'plus':'minus'}`;
-  el.textContent = text;
-  el.style.left  = `${rect.left + rect.width/2 - 20}px`;
-  el.style.top   = `${rect.top + window.scrollY - 10}px`;
-  document.body.appendChild(el);
-  el.addEventListener('animationend', ()=>el.remove());
-}
-
-/* ============================================================
-   NEXT BUTTON
-   ============================================================ */
-document.getElementById('next-btn').addEventListener('click', () => {
-  state.current++;
-  if (state.current >= state.questions.length) showResults();
-  else renderQuestion();
-});
-
-/* ============================================================
-   EXIT
-   ============================================================ */
-document.getElementById('btn-exit-quiz').addEventListener('click', () => {
-  if (confirm('Thoát quiz? Kết quả sẽ không được lưu.')) showScreen('screen-home');
-});
-
-/* ============================================================
-   RESULTS
-   ============================================================ */
-function showResults() {
-  const tot = state.questions.length;
-  const acc = tot > 0 ? Math.round((state.correctCount/tot)*100) : 0;
-  document.getElementById('res-score').textContent   = state.score;
-  document.getElementById('res-correct').textContent = state.correctCount;
-  document.getElementById('res-wrong').textContent   = state.wrongCount;
-  document.getElementById('res-acc').textContent     = `${acc}%`;
-  document.getElementById('res-detail').textContent  =
-    `${state.playerName} · ${CHAPTER_NAMES[state.chapter]} · ${tot} câu`;
-  document.getElementById('result-emoji').textContent =
-    acc>=80?'🏆': acc>=60?'🎯': acc>=40?'📚':'💪';
-  saveSession({name:state.playerName, score:state.score, accuracy:acc,
-               chapter:state.chapter, total:tot, correct:state.correctCount,
-               date:new Date().toISOString()});
-  showScreen('screen-result');
-}
-
-/* ============================================================
-   LOCALSTORAGE & CLOUD
-   ============================================================ */
-function getLB()      { try{return JSON.parse(localStorage.getItem(LS_LB))||[];}catch{return[];} }
-function getHistory() { try{return JSON.parse(localStorage.getItem(LS_HISTORY))||[];}catch{return[];} }
-
-async function saveLeaderboardToCloud(session) {
-  try {
-    const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-      headers: { 'X-Access-Key': API_KEY }
-    });
-    let currentData = [];
-    if (getRes.ok) {
-      const data = await getRes.json();
-      currentData = (data.record && data.record.leaderboard) ? data.record.leaderboard : [];
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
 
-    currentData.push(session);
-    currentData.sort((a, b) => b.score - a.score);
-    currentData = currentData.slice(0, 100);
+    function fmtDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        + ' ' + d.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    }
 
-    const putRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Access-Key': API_KEY
-      },
-      body: JSON.stringify({ leaderboard: currentData })
+    function accClass(acc) {
+      return acc >= 75 ? 'acc-high' : acc >= 50 ? 'acc-mid' : 'acc-low';
+    }
+
+    function showToast(msg, dur = 2200) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), dur);
+    }
+
+    function escHtml(s) {
+      return String(s).replace(/[&<>"']/g, c =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    /* ============================================================
+       SCREEN NAV
+       ============================================================ */
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ============================================================
+       HOME INIT
+       ============================================================ */
+    function initHome() {
+      const grid = document.getElementById('chapter-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i <= 8; i++) {
+        const label = i === 0 ? 'Tất cả' : `Chương ${i}`;
+        grid.innerHTML += `<div class="ch-btn">
+      <input type="radio" name="chapter" id="ch${i}" value="${i}" ${i === 0 ? 'checked' : ''}>
+      <label for="ch${i}" class="ch-label">${label}</label>
+    </div>`;
+      }
+    }
+
+    /* ============================================================
+       START
+       ============================================================ */
+    document.getElementById('btn-start').addEventListener('click', () => {
+      const name = document.getElementById('player-name').value.trim();
+      if (name.length < 2) { showToast('⚠️ Tên cần ít nhất 2 ký tự!'); document.getElementById('player-name').focus(); return; }
+      const selectedEl = document.querySelector('input[name="chapter"]:checked');
+      if (!selectedEl) { showToast('⚠️ Vui lòng chọn một chương hoặc phần thi!'); return; }
+      const selectedVal = selectedEl.value;
+
+      let pool = [];
+      if (selectedVal.startswith && selectedVal.startswith('linux')) { /* Check for polyfill just in case */ }
+      // Let's do simple check
+      if (typeof selectedVal === 'string' && selectedVal.indexOf('linux') === 0) {
+        const part = selectedVal.replace('linux', '');
+        if (part === '1') pool = QUESTIONS_120.slice(0, 40).map(q => ({ ...q, chapter: 'linux1' }));
+        else if (part === '2') pool = QUESTIONS_120.slice(40, 80).map(q => ({ ...q, chapter: 'linux2' }));
+        else if (part === '3') pool = QUESTIONS_120.slice(80, 120).map(q => ({ ...q, chapter: 'linux3' }));
+        state.chapter = selectedVal;
+      } else {
+        const chVal = parseInt(selectedVal);
+        state.chapter = chVal;
+        pool = chVal === 0 ? QUESTIONS : QUESTIONS.filter(q => q.chapter === chVal);
+      }
+
+      state.playerName = name;
+      state.score = state.correctCount = state.wrongCount = state.current = 0;
+      state.answered = false;
+      state.questions = shuffle(pool);
+      if (!state.questions.length) { showToast('Không có câu hỏi cho chương này!'); return; }
+      showScreen('screen-quiz');
+      renderQuestion();
     });
 
-    if (!putRes.ok) throw new Error('PUT failed');
-    localStorage.setItem(LS_LB, JSON.stringify(currentData));
-  } catch (err) {
-    console.error('Lưu đám mây thất bại, lưu cục bộ:', err);
-    const lb = getLB();
-    lb.push(session);
-    lb.sort((a, b) => b.score - a.score);
-    localStorage.setItem(LS_LB, JSON.stringify(lb.slice(0, 100)));
-  }
-}
+    /* ============================================================
+       RENDER QUESTION  (with answer-option shuffle)
+       ============================================================ */
+    function renderQuestion() {
+      const q = state.questions[state.current];
+      const idx = state.current;
+      const tot = state.questions.length;
 
-function saveSession(s) {
-  const hist = getHistory(); hist.unshift(s);
-  if (hist.length > 50) hist.length = 50;
-  localStorage.setItem(LS_HISTORY, JSON.stringify(hist));
-  
-  // Async save to cloud
-  saveLeaderboardToCloud(s);
-}
+      /* --- Shuffle options --- */
+      // Build array of {origKey, text}
+      const optArr = Object.entries(q.options).map(([k, v]) => ({ origKey: k, text: v }));
+      const shuffled = shuffle(optArr);
+      const LABELS = ['A', 'B', 'C', 'D'];
+      // Map new label → entry
+      state.shuffledOpts = shuffled.map((item, i) => ({
+        label: LABELS[i],
+        text: item.text,
+        origKey: item.origKey
+      }));
+      // Remember which new label holds the correct answer
+      const correctEntry = state.shuffledOpts.find(o => o.origKey === q.answer);
+      state.correctLabel = correctEntry ? correctEntry.label : q.answer; // fallback
 
-/* ============================================================
-   LEADERBOARD
-   ============================================================ */
-let lbSortCol = 'score', lbSortDir = -1;
-let lbDataCache = [];
+      /* --- Header --- */
+      document.getElementById('qz-chapter-tag').textContent = CHAPTER_NAMES[q.chapter];
+      document.getElementById('qz-count').textContent = `Câu ${idx + 1} / ${tot}`;
+      document.getElementById('qz-score').textContent = `${state.score >= 0 ? '+' : ''}${state.score} điểm`;
+      document.getElementById('progress-bar').style.width = `${(idx / tot) * 100}%`;
+      document.getElementById('qz-q-num').textContent = `Câu ${idx + 1}`;
+      document.getElementById('qz-q-text').textContent = q.question;
 
-async function loadLeaderboard() {
-  const empty = document.getElementById('lb-empty');
-  const loading = document.getElementById('lb-loading');
-  const tblWrap = document.querySelector('#screen-lb .tbl-wrap');
-  
-  empty.style.display = 'none';
-  tblWrap.style.display = 'none';
-  loading.style.display = 'block';
-  
-  try {
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
-      method: 'GET',
-      headers: { 'X-Access-Key': API_KEY }
+      /* --- Answers --- */
+      const wrap = document.getElementById('answers-wrap');
+      wrap.innerHTML = '';
+      state.shuffledOpts.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'ans-btn';
+        btn.dataset.label = opt.label;
+        btn.innerHTML = `<span class="ans-key">${opt.label}</span><span>${opt.text}</span>`;
+        btn.addEventListener('click', () => handleAnswer(opt.label));
+        wrap.appendChild(btn);
+      });
+
+      document.getElementById('next-btn').classList.remove('visible');
+      state.answered = false;
+    }
+
+    /* ============================================================
+       HANDLE ANSWER
+       ============================================================ */
+    function handleAnswer(chosenLabel) {
+      if (state.answered) return;
+      state.answered = true;
+
+      document.querySelectorAll('.ans-btn').forEach(b => b.disabled = true);
+
+      const isRight = chosenLabel === state.correctLabel;
+      const chosenBtn = document.querySelector(`.ans-btn[data-label="${chosenLabel}"]`);
+      const correctBtn = document.querySelector(`.ans-btn[data-label="${state.correctLabel}"]`);
+
+      if (isRight) {
+        state.score += 20; state.correctCount++;
+        chosenBtn.classList.add('correct', 'pulse');
+        floatScore(chosenBtn, '+20', true);
+      } else {
+        state.score -= 10; state.wrongCount++;
+        chosenBtn.classList.add('wrong');
+        correctBtn.classList.add('correct');
+        floatScore(chosenBtn, '−10', false);
+      }
+
+      document.getElementById('qz-score').textContent = `${state.score >= 0 ? '+' : ''}${state.score} điểm`;
+      document.getElementById('next-btn').classList.add('visible');
+    }
+
+    /* ============================================================
+       FLOAT SCORE ANIMATION
+       ============================================================ */
+    function floatScore(btn, text, isPlus) {
+      const rect = btn.getBoundingClientRect();
+      const el = document.createElement('div');
+      el.className = `score-float ${isPlus ? 'plus' : 'minus'}`;
+      el.textContent = text;
+      el.style.left = `${rect.left + rect.width / 2 - 20}px`;
+      el.style.top = `${rect.top + window.scrollY - 10}px`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
+
+    /* ============================================================
+       NEXT BUTTON
+       ============================================================ */
+    document.getElementById('next-btn').addEventListener('click', () => {
+      state.current++;
+      if (state.current >= state.questions.length) showResults();
+      else renderQuestion();
     });
-    if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-    lbDataCache = (data.record && data.record.leaderboard) ? data.record.leaderboard : [];
-    localStorage.setItem(LS_LB, JSON.stringify(lbDataCache));
-  } catch (err) {
-    console.error('Lỗi tải đám mây, dùng localStorage:', err);
-    lbDataCache = getLB();
-    showToast('⚠️ Lỗi tải từ đám mây, đang hiển thị dữ liệu cục bộ');
-  }
-  
-  loading.style.display = 'none';
-  if (!lbDataCache.length) {
-    empty.style.display = 'block';
-    return;
-  }
-  
-  tblWrap.style.display = 'block';
-  renderLeaderboard();
-}
 
-function renderLeaderboard() {
-  const tbody = document.getElementById('lb-tbody');
-  const sorted = [...lbDataCache].sort((a,b) => {
-    const va=a[lbSortCol]??'', vb=b[lbSortCol]??'';
-    return (typeof va==='number' ? (va-vb) : String(va).localeCompare(String(vb))) * lbSortDir;
-  });
-  tbody.innerHTML = sorted.map((r,i) => {
-    const rc = i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-n';
-    const ri = i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1;
-    return `<tr>
+    /* ============================================================
+       EXIT
+       ============================================================ */
+    document.getElementById('btn-exit-quiz').addEventListener('click', () => {
+      if (confirm('Thoát quiz? Kết quả sẽ không được lưu.')) showScreen('screen-home');
+    });
+
+    /* ============================================================
+       RESULTS
+       ============================================================ */
+    function showResults() {
+      const tot = state.questions.length;
+      const acc = tot > 0 ? Math.round((state.correctCount / tot) * 100) : 0;
+      document.getElementById('res-score').textContent = state.score;
+      document.getElementById('res-correct').textContent = state.correctCount;
+      document.getElementById('res-wrong').textContent = state.wrongCount;
+      document.getElementById('res-acc').textContent = `${acc}%`;
+      document.getElementById('res-detail').textContent =
+        `${state.playerName} · ${CHAPTER_NAMES[state.chapter]} · ${tot} câu`;
+      document.getElementById('result-emoji').textContent =
+        acc >= 80 ? '🏆' : acc >= 60 ? '🎯' : acc >= 40 ? '📚' : '💪';
+      saveSession({
+        name: state.playerName, score: state.score, accuracy: acc,
+        chapter: state.chapter, total: tot, correct: state.correctCount,
+        date: new Date().toISOString()
+      });
+      showScreen('screen-result');
+    }
+
+    /* ============================================================
+       LOCALSTORAGE & CLOUD
+       ============================================================ */
+    function getLB() { try { return JSON.parse(localStorage.getItem(LS_LB)) || []; } catch { return []; } }
+    function getHistory() { try { return JSON.parse(localStorage.getItem(LS_HISTORY)) || []; } catch { return []; } }
+
+    async function saveLeaderboardToCloud(session) {
+      try {
+        const getRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+          headers: { 'X-Access-Key': API_KEY }
+        });
+        let currentData = [];
+        if (getRes.ok) {
+          const data = await getRes.json();
+          currentData = (data.record && data.record.leaderboard) ? data.record.leaderboard : [];
+        }
+
+        currentData.push(session);
+        currentData.sort((a, b) => b.score - a.score);
+        currentData = currentData.slice(0, 100);
+
+        const putRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Access-Key': API_KEY
+          },
+          body: JSON.stringify({ leaderboard: currentData })
+        });
+
+        if (!putRes.ok) throw new Error('PUT failed');
+        localStorage.setItem(LS_LB, JSON.stringify(currentData));
+      } catch (err) {
+        console.error('Lưu đám mây thất bại, lưu cục bộ:', err);
+        const lb = getLB();
+        lb.push(session);
+        lb.sort((a, b) => b.score - a.score);
+        localStorage.setItem(LS_LB, JSON.stringify(lb.slice(0, 100)));
+      }
+    }
+
+    function saveSession(s) {
+      const hist = getHistory(); hist.unshift(s);
+      if (hist.length > 50) hist.length = 50;
+      localStorage.setItem(LS_HISTORY, JSON.stringify(hist));
+
+      // Async save to cloud
+      saveLeaderboardToCloud(s);
+    }
+
+    /* ============================================================
+       LEADERBOARD
+       ============================================================ */
+    let lbSortCol = 'score', lbSortDir = -1;
+    let lbDataCache = [];
+
+    async function loadLeaderboard() {
+      const empty = document.getElementById('lb-empty');
+      const loading = document.getElementById('lb-loading');
+      const tblWrap = document.querySelector('#screen-lb .tbl-wrap');
+
+      empty.style.display = 'none';
+      tblWrap.style.display = 'none';
+      loading.style.display = 'block';
+
+      try {
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+          method: 'GET',
+          headers: { 'X-Access-Key': API_KEY }
+        });
+        if (!res.ok) throw new Error('API error');
+        const data = await res.json();
+        lbDataCache = (data.record && data.record.leaderboard) ? data.record.leaderboard : [];
+        localStorage.setItem(LS_LB, JSON.stringify(lbDataCache));
+      } catch (err) {
+        console.error('Lỗi tải đám mây, dùng localStorage:', err);
+        lbDataCache = getLB();
+        showToast('⚠️ Lỗi tải từ đám mây, đang hiển thị dữ liệu cục bộ');
+      }
+
+      loading.style.display = 'none';
+      if (!lbDataCache.length) {
+        empty.style.display = 'block';
+        return;
+      }
+
+      tblWrap.style.display = 'block';
+      renderLeaderboard();
+    }
+
+    function renderLeaderboard() {
+      const tbody = document.getElementById('lb-tbody');
+      const sorted = [...lbDataCache].sort((a, b) => {
+        const va = a[lbSortCol] ?? '', vb = b[lbSortCol] ?? '';
+        return (typeof va === 'number' ? (va - vb) : String(va).localeCompare(String(vb))) * lbSortDir;
+      });
+      tbody.innerHTML = sorted.map((r, i) => {
+        const rc = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
+        const ri = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1;
+        return `<tr>
       <td><span class="rank-badge ${rc}">${ri}</span></td>
       <td><strong>${escHtml(r.name)}</strong></td>
       <td><strong style="color:var(--accent-h)">${r.score}</strong></td>
       <td><span class="acc-pill ${accClass(r.accuracy)}">${r.accuracy}%</span></td>
-      <td>${r.chapter===0?'Tất cả':'Ch.'+r.chapter}</td>
+      <td>${r.chapter === 0 ? 'Tất cả' : (typeof r.chapter === 'string' && r.chapter.indexOf('linux') === 0 ? 'Linux P' + r.chapter.replace('linux', '') : 'Ch.' + r.chapter)}</td>
       <td style="color:var(--text-muted);font-size:.8rem">${fmtDate(r.date)}</td>
     </tr>`;
-  }).join('');
-  document.querySelectorAll('thead th[data-col]').forEach(th=>{
-    const icon = th.querySelector('.sort-icon'); if(!icon) return;
-    if(th.dataset.col===lbSortCol){icon.textContent=lbSortDir===-1?'↓':'↑';icon.style.opacity='1';}
-    else{icon.textContent='↕';icon.style.opacity='.4';}
-  });
-}
+      }).join('');
+      document.querySelectorAll('thead th[data-col]').forEach(th => {
+        const icon = th.querySelector('.sort-icon'); if (!icon) return;
+        if (th.dataset.col === lbSortCol) { icon.textContent = lbSortDir === -1 ? '↓' : '↑'; icon.style.opacity = '1'; }
+        else { icon.textContent = '↕'; icon.style.opacity = '.4'; }
+      });
+    }
 
-/* ============================================================
-   HISTORY
-   ============================================================ */
-function renderHistory() {
-  const hist  = getHistory().slice(0,10);
-  const tbody = document.getElementById('hist-tbody');
-  const empty = document.getElementById('hist-empty');
-  if (!hist.length) { tbody.innerHTML=''; empty.style.display='block'; return; }
-  empty.style.display = 'none';
-  tbody.innerHTML = hist.map(r=>`<tr>
+    /* ============================================================
+       HISTORY
+       ============================================================ */
+    function renderHistory() {
+      const hist = getHistory().slice(0, 10);
+      const tbody = document.getElementById('hist-tbody');
+      const empty = document.getElementById('hist-empty');
+      if (!hist.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+      empty.style.display = 'none';
+      tbody.innerHTML = hist.map(r => `<tr>
     <td style="color:var(--text-muted);font-size:.8rem;white-space:nowrap">${fmtDate(r.date)}</td>
     <td>${escHtml(r.name)}</td>
-    <td>${r.chapter===0?'Tất cả':'Ch.'+r.chapter}</td>
+    <td>${r.chapter === 0 ? 'Tất cả' : (typeof r.chapter === 'string' && r.chapter.indexOf('linux') === 0 ? 'Linux P' + r.chapter.replace('linux', '') : 'Ch.' + r.chapter)}</td>
     <td><strong style="color:var(--accent-h)">${r.score}</strong></td>
     <td><span class="acc-pill ${accClass(r.accuracy)}">${r.accuracy}%</span></td>
   </tr>`).join('');
-}
+    }
 
-/* ============================================================
-   EVENTS
-   ============================================================ */
-document.getElementById('btn-lb-home').addEventListener('click',      ()=>{loadLeaderboard();showScreen('screen-lb');});
-document.getElementById('btn-history-home').addEventListener('click', ()=>{renderHistory();showScreen('screen-history');});
-document.getElementById('btn-play-again').addEventListener('click',   ()=>showScreen('screen-home'));
-document.getElementById('btn-see-lb').addEventListener('click',       ()=>{loadLeaderboard();showScreen('screen-lb');});
-document.getElementById('btn-history-result').addEventListener('click',()=>{renderHistory();showScreen('screen-history');});
-document.getElementById('btn-back-lb').addEventListener('click',      ()=>showScreen('screen-home'));
-document.getElementById('btn-back-hist').addEventListener('click',    ()=>showScreen('screen-home'));
+    /* ============================================================
+       EVENTS
+       ============================================================ */
+    document.getElementById('btn-lb-home').addEventListener('click', () => { loadLeaderboard(); showScreen('screen-lb'); });
+    document.getElementById('btn-history-home').addEventListener('click', () => { renderHistory(); showScreen('screen-history'); });
+    document.getElementById('btn-play-again').addEventListener('click', () => showScreen('screen-home'));
+    document.getElementById('btn-see-lb').addEventListener('click', () => { loadLeaderboard(); showScreen('screen-lb'); });
+    document.getElementById('btn-history-result').addEventListener('click', () => { renderHistory(); showScreen('screen-history'); });
+    document.getElementById('btn-back-lb').addEventListener('click', () => showScreen('screen-home'));
+    document.getElementById('btn-back-hist').addEventListener('click', () => showScreen('screen-home'));
 
-document.querySelectorAll('thead th.sortable').forEach(th=>{
-  th.addEventListener('click',()=>{
-    const col=th.dataset.col;
-    lbSortDir = col===lbSortCol ? lbSortDir*-1 : (col==='score'||col==='accuracy'?-1:1);
-    lbSortCol = col;
-    renderLeaderboard();
-  });
-});
+    document.querySelectorAll('thead th.sortable').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.col;
+        lbSortDir = col === lbSortCol ? lbSortDir * -1 : (col === 'score' || col === 'accuracy' ? -1 : 1);
+        lbSortCol = col;
+        renderLeaderboard();
+      });
+    });
 
-document.getElementById('player-name').addEventListener('keydown', e=>{
-  if(e.key==='Enter') document.getElementById('btn-start').click();
-});
+    document.getElementById('player-name').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('btn-start').click();
+    });
 
-/* ============================================================
-   INIT
-   ============================================================ */
-initHome();
-</script>
+    /* ============================================================
+       INIT
+       ============================================================ */
+    initHome();
+  </script>
 </body>
+
 </html>
