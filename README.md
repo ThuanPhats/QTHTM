@@ -1,6 +1,6 @@
 # 🖧 Trắc Nghiệm Quản Trị Hệ Thống Mạng
 
-> Ứng dụng ôn tập trắc nghiệm môn **Quản Trị Hệ Thống Mạng** — 160 câu hỏi, 8 chương, không cần backend, chạy hoàn toàn trên trình duyệt.
+> Ứng dụng ôn tập trắc nghiệm môn **Quản Trị Hệ Thống Mạng** (gồm bộ 160 câu hỏi lý thuyết chia thành 8 chương, bộ 120 câu Linux và bộ 190 câu QTHTM) — chạy hoàn toàn trên trình duyệt, không cần backend.
 
 🌐 **Demo:** [https://ThuanPhats.github.io/QTHTM/](https://ThuanPhats.github.io/QTHTM/)
 
@@ -14,19 +14,23 @@
 
 ## 📚 Nội dung câu hỏi
 
-Bộ đề gồm **160 câu trắc nghiệm** chia thành **8 chương**, bao phủ toàn bộ chương trình lý thuyết:
+Bộ đề chính gồm **160 câu trắc nghiệm** chia thành **8 chương**, bao phủ toàn bộ chương trình lý thuyết:
 
-| Chương | Tên chủ đề | Số câu |
+| Chương | Tên chủ đề | Số câu thực tế |
 |--------|-----------|--------|
-| Chương 1 | Giới thiệu về Quản Trị Hệ Thống Mạng | 20 |
-| Chương 2 | Các thành phần của hệ thống | 10 |
-| Chương 3 | Quản trị máy chủ | 20 |
-| Chương 4 | Quản trị người dùng | 20 |
-| Chương 5 | Mô hình quản trị mạng và hệ thống | 20 |
-| Chương 6 | Cấu hình và duy trì hệ thống | 20 |
-| Chương 7 | Các dịch vụ mức ứng dụng | 20 |
-| Chương 8 | Các dịch vụ mức mạng | 20 |
-| **Tổng** | | **150 câu** |
+| Chương 1 | Giới thiệu về Quản Trị Hệ Thống Mạng | 21 |
+| Chương 2 | Các thành phần của hệ thống | 11 |
+| Chương 3 | Quản trị máy chủ | 22 |
+| Chương 4 | Quản trị người dùng | 21 |
+| Chương 5 | Mô hình quản trị mạng và hệ thống | 21 |
+| Chương 6 | Cấu hình và duy trì hệ thống | 21 |
+| Chương 7 | Các dịch vụ mức ứng dụng | 21 |
+| Chương 8 | Các dịch vụ mức mạng | 22 |
+| **Tổng** | | **160 câu** |
+
+Bên cạnh bộ đề 160 câu chia theo chương, ứng dụng còn tích hợp các bộ câu hỏi ôn tập bổ sung:
+- **Bộ 120 câu Linux (K13)**: Được chia thành 3 phần luyện tập (mỗi phần 40 câu) để ôn tập chuyên sâu về hệ điều hành Linux.
+- **Bộ 190 câu QTHTM (Thầy Sáng)**: Được chia thành 4 phần luyện tập (Phần 1-3 có 50 câu, Phần 4 có 40 câu) giúp củng cố toàn diện kiến thức Quản trị hệ thống mạng.
 
 ---
 
@@ -132,8 +136,9 @@ Truy cập: **[https://ThuanPhats.github.io/QTHTM/](https://ThuanPhats.github.io
 
 ```
 QTHTM/
+├── QTHTM_questions.json  ← File nguồn chứa 190 câu hỏi trắc nghiệm
 └── docs/
-    └── index.html    ← Toàn bộ ứng dụng (HTML + CSS + JS inline)
+    └── index.html         ← Toàn bộ ứng dụng Web (HTML + CSS + JS inline)
 ```
 
 > **Zero dependency** — không Bootstrap, không jQuery, không React, không CDN.  
