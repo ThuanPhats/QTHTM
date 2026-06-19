@@ -136,9 +136,8 @@ Truy cập: **[https://ThuanPhats.github.io/QTHTM/](https://ThuanPhats.github.io
 
 ```
 QTHTM/
-├── QTHTM_questions.json  ← File nguồn chứa 190 câu hỏi trắc nghiệm
 └── docs/
-    └── index.html         ← Toàn bộ ứng dụng Web (HTML + CSS + JS inline)
+    └── index.html    ← Toàn bộ ứng dụng (HTML + CSS + JS inline)
 ```
 
 > **Zero dependency** — không Bootstrap, không jQuery, không React, không CDN.  
