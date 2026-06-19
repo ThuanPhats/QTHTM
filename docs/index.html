@@ -434,6 +434,11 @@
       opacity: .6;
     }
 
+    .ans-btn.review-opt {
+      cursor: default !important;
+      pointer-events: none;
+    }
+
     @keyframes pulse-correct {
       0% {
         box-shadow: 0 0 0 0 rgba(34, 197, 94, .6);
@@ -1175,7 +1180,10 @@
         <button class="btn btn-secondary" id="btn-play-again">🔄 Chơi lại</button>
         <button class="btn btn-primary" id="btn-see-lb">🏆 Bảng xếp hạng</button>
       </div>
-      <button class="btn btn-secondary" id="btn-history-result">📋 Xem lịch sử thi</button>
+      <div class="btn-row" style="margin-top: 10px;">
+        <button class="btn btn-secondary" id="btn-history-result">📋 Xem lịch sử thi</button>
+        <button class="btn btn-primary" id="btn-review-result" style="background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 18px rgba(16, 185, 129, .4);">🔍 Xem lại bài làm</button>
+      </div>
     </div>
 
     <!-- ========== SCREEN 4: LEADERBOARD ========== -->
@@ -1224,6 +1232,7 @@
               <th>Chương</th>
               <th>Điểm</th>
               <th>Chính xác</th>
+              <th style="text-align: center; width: 90px;">Bài làm</th>
             </tr>
           </thead>
           <tbody id="hist-tbody"></tbody>
@@ -1232,6 +1241,52 @@
       <div id="hist-empty" class="empty-state" style="display:none;">
         <div class="empty-icon">📭</div>
         <div>Chưa có lịch sử. Hãy bắt đầu thi!</div>
+      </div>
+    </div>
+
+    <!-- ========== SCREEN 6: REVIEW ========== -->
+    <div id="screen-review" class="screen">
+      <div class="page-header">
+        <button class="btn btn-secondary btn-sm" id="btn-back-review">← Quay lại</button>
+        <h2>🔍 Xem lại bài làm</h2>
+      </div>
+
+      <!-- Attempt Summary Card -->
+      <div class="card" id="review-summary-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 id="review-title" style="font-size:1.2rem; font-weight:700; color:var(--accent-h);">Bài làm của...</h3>
+            <p id="review-meta" style="color:var(--text-muted); font-size:0.9rem; margin-top:4px;"></p>
+          </div>
+          <div class="score-badge" id="review-score-badge">0 điểm</div>
+        </div>
+
+        <div class="stats-grid" style="margin-top:20px;">
+          <div class="stat-box good">
+            <div class="val" id="review-correct">0</div>
+            <div class="lbl">Đúng</div>
+          </div>
+          <div class="stat-box bad">
+            <div class="val" id="review-wrong">0</div>
+            <div class="lbl">Sai</div>
+          </div>
+          <div class="stat-box neu">
+            <div class="val" id="review-acc">0%</div>
+            <div class="lbl">Chính xác</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="btn-row" style="margin-top:10px; gap:8px;">
+        <button class="btn btn-secondary btn-sm" id="btn-filter-review-all" style="flex:1; min-width: auto;">Tất cả</button>
+        <button class="btn btn-secondary btn-sm" id="btn-filter-review-correct" style="flex:1; min-width: auto; border-color: rgba(34, 197, 94, 0.4); color: var(--correct);">Đúng</button>
+        <button class="btn btn-secondary btn-sm" id="btn-filter-review-wrong" style="flex:1; min-width: auto; border-color: rgba(239, 68, 68, 0.4); color: var(--wrong);">Sai</button>
+      </div>
+
+      <!-- Question List Container -->
+      <div id="review-questions-list" style="display:flex; flex-direction:column; gap:16px; margin-bottom: 20px;">
+        <!-- Dynamically rendered question cards -->
       </div>
     </div>
 
@@ -4897,6 +4952,8 @@
       /* per-question shuffled options — set in renderQuestion() */
       shuffledOpts: [],      // [{key:'A',text:'...'}, ...]
       correctOptText: '',    // text of the correct answer
+      userAnswers: [],       // list of answered questions in this attempt
+      lastScreen: 'screen-home' // tracks where to go back from review screen
     };
 
     /* ============================================================
@@ -4991,6 +5048,7 @@
       state.playerName = name;
       state.score = state.correctCount = state.wrongCount = state.current = 0;
       state.answered = false;
+      state.userAnswers = [];
       state.questions = shuffle(pool);
       if (!state.questions.length) { showToast('Không có câu hỏi cho chương này!'); return; }
       showScreen('screen-quiz');
@@ -5068,6 +5126,17 @@
         floatScore(chosenBtn, '−10', false);
       }
 
+      // Record this answer for review
+      const q = state.questions[state.current];
+      if (!state.userAnswers) state.userAnswers = [];
+      state.userAnswers.push({
+        question: q.question,
+        options: [...state.shuffledOpts],
+        chosenLabel: chosenLabel,
+        correctLabel: state.correctLabel,
+        isCorrect: isRight
+      });
+
       document.getElementById('qz-score').textContent = `${state.score >= 0 ? '+' : ''}${state.score} điểm`;
       document.getElementById('next-btn').classList.add('visible');
     }
@@ -5119,7 +5188,8 @@
       saveSession({
         name: state.playerName, score: state.score, accuracy: acc,
         chapter: state.chapter, total: tot, correct: state.correctCount,
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
+        userAnswers: state.userAnswers || []
       });
       showScreen('screen-result');
     }
@@ -5157,7 +5227,7 @@
         if (!putRes.ok) throw new Error('PUT failed');
         localStorage.setItem(LS_LB, JSON.stringify(currentData));
       } catch (err) {
-        console.error('Lưu đám mây thất bại, lưu cục bộ:', err);
+        console.error('Lỗi lưu đám mây, dùng cục bộ:', err);
         const lb = getLB();
         lb.push(session);
         lb.sort((a, b) => b.score - a.score);
@@ -5170,8 +5240,10 @@
       if (hist.length > 50) hist.length = 50;
       localStorage.setItem(LS_HISTORY, JSON.stringify(hist));
 
-      // Async save to cloud
-      saveLeaderboardToCloud(s);
+      // Async save to cloud (strip userAnswers to save space)
+      const cloudSession = { ...s };
+      delete cloudSession.userAnswers;
+      saveLeaderboardToCloud(cloudSession);
     }
 
     /* ============================================================
@@ -5248,13 +5320,157 @@
       const empty = document.getElementById('hist-empty');
       if (!hist.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
       empty.style.display = 'none';
-      tbody.innerHTML = hist.map(r => `<tr>
-    <td style="color:var(--text-muted);font-size:.8rem;white-space:nowrap">${fmtDate(r.date)}</td>
-    <td>${escHtml(r.name)}</td>
-    <td>${r.chapter === 0 ? 'Tất cả' : (typeof r.chapter === 'string' && r.chapter.indexOf('linux') === 0 ? 'Linux P' + r.chapter.replace('linux', '') : (typeof r.chapter === 'string' && r.chapter.indexOf('qthtm') === 0 ? 'QTHTM P' + r.chapter.replace('qthtm', '') : 'Ch.' + r.chapter))}</td>
-    <td><strong style="color:var(--accent-h)">${r.score}</strong></td>
-    <td><span class="acc-pill ${accClass(r.accuracy)}">${r.accuracy}%</span></td>
-  </tr>`).join('');
+      tbody.innerHTML = hist.map((r, index) => {
+        const canReview = r.userAnswers && r.userAnswers.length > 0;
+        const reviewBtn = canReview
+          ? `<button class="btn btn-secondary btn-sm btn-review-hist" data-index="${index}" style="padding: 4px 8px; font-size: 0.75rem; min-width: auto; height: auto;">🔍 Xem</button>`
+          : `<span style="color:var(--text-muted);font-size:0.75rem;">-</span>`;
+        return `<tr>
+          <td style="color:var(--text-muted);font-size:.8rem;white-space:nowrap">${fmtDate(r.date)}</td>
+          <td>${escHtml(r.name)}</td>
+          <td>${r.chapter === 0 ? 'Tất cả' : (typeof r.chapter === 'string' && r.chapter.indexOf('linux') === 0 ? 'Linux P' + r.chapter.replace('linux', '') : (typeof r.chapter === 'string' && r.chapter.indexOf('qthtm') === 0 ? 'QTHTM P' + r.chapter.replace('qthtm', '') : 'Ch.' + r.chapter))}</td>
+          <td><strong style="color:var(--accent-h)">${r.score}</strong></td>
+          <td><span class="acc-pill ${accClass(r.accuracy)}">${r.accuracy}%</span></td>
+          <td style="text-align: center;">${reviewBtn}</td>
+        </tr>`;
+      }).join('');
+
+      tbody.querySelectorAll('.btn-review-hist').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.dataset.index);
+          const attempt = hist[idx];
+          if (attempt) {
+            state.lastScreen = 'screen-history';
+            showReview(attempt);
+          }
+        });
+      });
+    }
+
+    /* ============================================================
+       REVIEW
+       ============================================================ */
+    let currentReviewAttempt = null;
+    let currentReviewFilter = 'all';
+
+    function showReview(attempt) {
+      currentReviewAttempt = attempt;
+      currentReviewFilter = 'all';
+      updateFilterButtons();
+
+      document.getElementById('review-title').textContent = `Bài làm của ${escHtml(attempt.name)}`;
+      
+      const chName = CHAPTER_NAMES[attempt.chapter] || 'Chương ' + attempt.chapter;
+      document.getElementById('review-meta').textContent = `${chName} · ${attempt.total} câu`;
+      
+      const scoreBadge = document.getElementById('review-score-badge');
+      scoreBadge.textContent = `${attempt.score >= 0 ? '+' : ''}${attempt.score} điểm`;
+      
+      const wrongCount = attempt.total - attempt.correct;
+      document.getElementById('review-correct').textContent = attempt.correct;
+      document.getElementById('review-wrong').textContent = wrongCount;
+      document.getElementById('review-acc').textContent = `${attempt.accuracy}%`;
+
+      renderReviewQuestions();
+      showScreen('screen-review');
+    }
+
+    function updateFilterButtons() {
+      const btnAll = document.getElementById('btn-filter-review-all');
+      const btnCorrect = document.getElementById('btn-filter-review-correct');
+      const btnWrong = document.getElementById('btn-filter-review-wrong');
+
+      [btnAll, btnCorrect, btnWrong].forEach(btn => {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-secondary');
+      });
+
+      if (currentReviewFilter === 'all') {
+        btnAll.classList.remove('btn-secondary');
+        btnAll.classList.add('btn-primary');
+      } else if (currentReviewFilter === 'correct') {
+        btnCorrect.classList.remove('btn-secondary');
+        btnCorrect.classList.add('btn-primary');
+      } else if (currentReviewFilter === 'wrong') {
+        btnWrong.classList.remove('btn-secondary');
+        btnWrong.classList.add('btn-primary');
+      }
+    }
+
+    function renderReviewQuestions() {
+      const container = document.getElementById('review-questions-list');
+      container.innerHTML = '';
+
+      if (!currentReviewAttempt || !currentReviewAttempt.userAnswers) return;
+
+      let filtered = currentReviewAttempt.userAnswers;
+      if (currentReviewFilter === 'correct') {
+        filtered = currentReviewAttempt.userAnswers.filter(q => q.isCorrect);
+      } else if (currentReviewFilter === 'wrong') {
+        filtered = currentReviewAttempt.userAnswers.filter(q => !q.isCorrect);
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="card" style="text-align: center; padding: 24px; color: var(--text-muted);">
+            Không có câu hỏi nào thuộc bộ lọc này.
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach((q, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const qNum = document.createElement('div');
+        qNum.className = 'question-num';
+        qNum.style.display = 'flex';
+        qNum.style.justifyContent = 'space-between';
+
+        const qNumText = document.createElement('span');
+        qNumText.textContent = `Câu ${idx + 1}`;
+
+        const statusBadge = document.createElement('span');
+        statusBadge.textContent = q.isCorrect ? '✓ Đúng (+20đ)' : '✗ Sai (-10đ)';
+        statusBadge.style.color = q.isCorrect ? 'var(--correct)' : 'var(--wrong)';
+        statusBadge.style.fontWeight = '700';
+
+        qNum.appendChild(qNumText);
+        qNum.appendChild(statusBadge);
+
+        const qText = document.createElement('div');
+        qText.className = 'question-text';
+        qText.style.marginBottom = '18px';
+        qText.textContent = q.question;
+
+        const optionsWrap = document.createElement('div');
+        optionsWrap.className = 'answers';
+
+        q.options.forEach(opt => {
+          const optDiv = document.createElement('div');
+          optDiv.className = 'ans-btn review-opt';
+
+          if (opt.label === q.correctLabel) {
+            optDiv.classList.add('correct');
+          } else if (opt.label === q.chosenLabel && !q.isCorrect) {
+            optDiv.classList.add('wrong');
+          }
+
+          let marker = '';
+          if (opt.label === q.chosenLabel) {
+            marker = ` <span style="margin-left: auto; font-size: 0.8rem; font-weight: 700; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 4px;">Lựa chọn của bạn</span>`;
+          }
+
+          optDiv.innerHTML = `<span class="ans-key">${opt.label}</span><span>${escHtml(opt.text)}</span>${marker}`;
+          optionsWrap.appendChild(optDiv);
+        });
+
+        card.appendChild(qNum);
+        card.appendChild(qText);
+        card.appendChild(optionsWrap);
+        container.appendChild(card);
+      });
     }
 
     /* ============================================================
@@ -5267,6 +5483,35 @@
     document.getElementById('btn-history-result').addEventListener('click', () => { renderHistory(); showScreen('screen-history'); });
     document.getElementById('btn-back-lb').addEventListener('click', () => showScreen('screen-home'));
     document.getElementById('btn-back-hist').addEventListener('click', () => showScreen('screen-home'));
+
+    document.getElementById('btn-back-review').addEventListener('click', () => {
+      showScreen(state.lastScreen || 'screen-home');
+    });
+    document.getElementById('btn-review-result').addEventListener('click', () => {
+      state.lastScreen = 'screen-result';
+      const hist = getHistory();
+      if (hist.length > 0) {
+        showReview(hist[0]);
+      } else {
+        showToast('⚠️ Không có dữ liệu bài làm!');
+      }
+    });
+
+    document.getElementById('btn-filter-review-all').addEventListener('click', () => {
+      currentReviewFilter = 'all';
+      updateFilterButtons();
+      renderReviewQuestions();
+    });
+    document.getElementById('btn-filter-review-correct').addEventListener('click', () => {
+      currentReviewFilter = 'correct';
+      updateFilterButtons();
+      renderReviewQuestions();
+    });
+    document.getElementById('btn-filter-review-wrong').addEventListener('click', () => {
+      currentReviewFilter = 'wrong';
+      updateFilterButtons();
+      renderReviewQuestions();
+    });
 
     document.querySelectorAll('thead th.sortable').forEach(th => {
       th.addEventListener('click', () => {
