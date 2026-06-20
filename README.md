@@ -1,6 +1,6 @@
 # 🖧 Trắc Nghiệm Quản Trị Hệ Thống Mạng
 
-> Ứng dụng ôn tập trắc nghiệm môn **Quản Trị Hệ Thống Mạng** (gồm bộ 160 câu hỏi lý thuyết chia thành 8 chương, bộ 120 câu Linux và bộ 190 câu QTHTM) — chạy hoàn toàn trên trình duyệt, không cần backend.
+> Ứng dụng ôn tập trắc nghiệm môn **Quản Trị Hệ Thống Mạng** (gồm bộ 160 câu hỏi lý thuyết chia thành 8 chương và bộ 190 câu QTHTM) — chạy hoàn toàn trên trình duyệt, không cần backend.
 
 🌐 **Demo:** [https://ThuanPhats.github.io/QTHTM/](https://ThuanPhats.github.io/QTHTM/)
 
@@ -29,7 +29,6 @@ Bộ đề chính gồm **160 câu trắc nghiệm** chia thành **8 chương**,
 | **Tổng** | | **160 câu** |
 
 Bên cạnh bộ đề 160 câu chia theo chương, ứng dụng còn tích hợp các bộ câu hỏi ôn tập bổ sung:
-- **Bộ 120 câu Linux (K13)**: Được chia thành 3 phần luyện tập (mỗi phần 40 câu) để ôn tập chuyên sâu về hệ điều hành Linux.
 - **Bộ 190 câu QTHTM (Thầy Sáng)**: Được chia thành 4 phần luyện tập (Phần 1-3 có 50 câu, Phần 4 có 40 câu) giúp củng cố toàn diện kiến thức Quản trị hệ thống mạng.
 - **SAI LA TOI**: Bộ 25 câu điểm liệt được trích từ file ôn tập PDF, đáp án đúng lấy theo chữ màu đỏ trong tài liệu.
 - **Ôn tập QTHTM 1**: Bộ 275 câu từ file Word, chia thành 14 phần nhỏ; câu có hình được hiển thị kèm trong quiz.
