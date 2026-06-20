@@ -1135,6 +1135,10 @@
                               <label>BỘ 190 CÂU QTHTM (Thầy Sáng)</label>
                               <div class="linux-grid">
                                     <div class="ch-btn">
+                                          <input type="radio" name="chapter" id="qthtm_all" value="qthtm_all">
+                                          <label for="qthtm_all" class="ch-label">Tất cả</label>
+                                    </div>
+                                    <div class="ch-btn">
                                           <input type="radio" name="chapter" id="qthtm1" value="qthtm1">
                                           <label for="qthtm1" class="ch-label">20 câu (phần 1)</label>
                                     </div>
@@ -11084,6 +11088,7 @@
                   "qthtm8": "QTHTM Phần 8 (Câu 141-160)",
                   "qthtm9": "QTHTM Phần 9 (Câu 161-180)",
                   "qthtm10": "QTHTM Phần 10 (Câu 181-190)",
+                  "qthtm_all": "Tất cả 190 câu QTHTM",
                   "qthtm_test": "Thi thử QTHTM (40 câu ngẫu nhiên)",
                   "ch_test": "Thi thử 150 câu Thầy Sáng (40 câu ngẫu nhiên)",
                   "ontap2p_test": "Thi thử Ôn tập Quản trị (40 câu ngẫu nhiên)",
@@ -11132,6 +11137,7 @@
                   if (chapter === 'ch_test') return 'Thi thử 150 câu';
                   if (chapter === 'ontap2p_test') return 'Thi thử Ôn tập';
                   if (chapter === 'qthtm_test') return 'Thi thử QTHTM';
+                  if (chapter === 'qthtm_all') return 'Tất cả 190 câu';
                   if (chapter === 'linux350_test') return 'Thi thử Linux';
                   if (chapter === 0) return 'Tất cả';
                   if (chapter === 'sailatoi') return 'SAI LA TOI';
@@ -11222,6 +11228,8 @@
                         if (selectedVal === 'qthtm_test') {
                               pool = QUESTIONS_190.map(q => ({ ...q, chapter: selectedVal }));
                               pool = shuffle(pool).slice(0, 40);
+                        } else if (selectedVal === 'qthtm_all') {
+                              pool = QUESTIONS_190.map(q => ({ ...q, chapter: selectedVal }));
                         } else {
                               const part = parseInt(selectedVal.replace('qthtm', ''), 10);
                               const start = (part - 1) * 20;
