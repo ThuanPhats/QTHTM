@@ -32,8 +32,7 @@ Bên cạnh bộ đề 160 câu chia theo chương, ứng dụng còn tích hợ
 - **Bộ 190 câu QTHTM (Thầy Sáng)**: Được chia thành 10 phần luyện tập (mỗi phần 20 câu, phần cuối 10 câu) và phần Thi thử bốc ngẫu nhiên 40 câu.
 - **Bộ 350 câu Linux (K13)**: Được chia thành 18 phần luyện tập (mỗi phần 20 câu, phần cuối 10 câu) và phần Thi thử bốc ngẫu nhiên 40 câu.
 - **SAI LA TOI**: Bộ 25 câu điểm liệt được trích từ file ôn tập PDF, đáp án đúng lấy theo chữ màu đỏ trong tài liệu.
-- **Ôn tập QTHTM 1**: Bộ 275 câu từ file Word, chia thành 14 phần nhỏ; câu có hình được hiển thị kèm trong quiz.
-- **Ôn tập QTHTM 2**: Bộ 239 câu từ file Word, chia thành 12 phần nhỏ.
+- **Ôn tập QTHTM 2**: Bộ 239 câu từ file Word, chia thành 12 phần nhỏ (mỗi phần 20 câu, phần cuối 19 câu) và phần Thi thử bốc ngẫu nhiên 40 câu.
 
 ---
 
