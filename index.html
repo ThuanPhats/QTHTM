@@ -708,6 +708,52 @@
                   color: var(--wrong);
             }
 
+            /* ===== PAGINATION ===== */
+            .pagination-wrap {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  gap: 6px;
+                  margin-top: 20px;
+                  flex-wrap: wrap;
+            }
+
+            .page-btn {
+                  display: inline-flex;
+                  align-items: center;
+                  justify-content: center;
+                  min-width: 38px;
+                  height: 38px;
+                  padding: 0 8px;
+                  background: var(--surface2);
+                  border: 1.5px solid var(--border);
+                  border-radius: 8px;
+                  color: var(--text);
+                  font-size: .88rem;
+                  font-weight: 600;
+                  cursor: pointer;
+                  transition: all .18s;
+                  user-select: none;
+            }
+
+            .page-btn:hover:not(:disabled) {
+                  border-color: var(--accent-h);
+                  color: var(--accent-h);
+                  background: rgba(99, 102, 241, .1);
+            }
+
+            .page-btn.active {
+                  background: linear-gradient(135deg, var(--accent), var(--accent-d));
+                  border-color: var(--accent);
+                  color: #fff;
+                  box-shadow: 0 4px 12px rgba(99, 102, 241, .3);
+            }
+
+            .page-btn:disabled {
+                  opacity: 0.4;
+                  cursor: not-allowed;
+            }
+
             /* ===== MISC ===== */
             .empty-state {
                   text-align: center;
@@ -1387,6 +1433,7 @@
                               <tbody id="lb-tbody"></tbody>
                         </table>
                   </div>
+                  <div id="lb-pagination" class="pagination-wrap" style="display:none;"></div>
                   <div id="lb-empty" class="empty-state" style="display:none;">
                         <div class="empty-icon">📭</div>
                         <div>Chưa có kết quả nào. Hãy thi thử!</div>
@@ -11364,7 +11411,6 @@
 
                         currentData.push(session);
                         currentData.sort((a, b) => b.score - a.score);
-                        currentData = currentData.slice(0, 100);
 
                         const putRes = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
                               method: 'PUT',
@@ -11382,7 +11428,7 @@
                         const lb = getLB();
                         lb.push(session);
                         lb.sort((a, b) => b.score - a.score);
-                        localStorage.setItem(LS_LB, JSON.stringify(lb.slice(0, 100)));
+                        localStorage.setItem(LS_LB, JSON.stringify(lb));
                   }
             }
 
@@ -11402,14 +11448,18 @@
                ============================================================ */
             let lbSortCol = 'score', lbSortDir = -1;
             let lbDataCache = [];
+            let lbCurrentPage = 1;
+            const lbPageSize = 50;
 
             async function loadLeaderboard() {
                   const empty = document.getElementById('lb-empty');
                   const loading = document.getElementById('lb-loading');
                   const tblWrap = document.querySelector('#screen-lb .tbl-wrap');
+                  const pagWrap = document.getElementById('lb-pagination');
 
                   empty.style.display = 'none';
                   tblWrap.style.display = 'none';
+                  if (pagWrap) pagWrap.style.display = 'none';
                   loading.style.display = 'block';
 
                   try {
@@ -11434,6 +11484,7 @@
                   }
 
                   tblWrap.style.display = 'block';
+                  lbCurrentPage = 1;
                   renderLeaderboard();
             }
 
@@ -11443,9 +11494,20 @@
                         const va = a[lbSortCol] ?? '', vb = b[lbSortCol] ?? '';
                         return (typeof va === 'number' ? (va - vb) : String(va).localeCompare(String(vb))) * lbSortDir;
                   });
-                  tbody.innerHTML = sorted.map((r, i) => {
-                        const rc = i === 0 ? 'rank-1' : i === 1 ? 'rank-2' : i === 2 ? 'rank-3' : 'rank-n';
-                        const ri = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1;
+
+                  const totalItems = sorted.length;
+                  const totalPages = Math.ceil(totalItems / lbPageSize) || 1;
+
+                  if (lbCurrentPage > totalPages) lbCurrentPage = totalPages;
+                  if (lbCurrentPage < 1) lbCurrentPage = 1;
+
+                  const startIndex = (lbCurrentPage - 1) * lbPageSize;
+                  const pageItems = sorted.slice(startIndex, startIndex + lbPageSize);
+
+                  tbody.innerHTML = pageItems.map((r, index) => {
+                        const globalIndex = startIndex + index;
+                        const rc = globalIndex === 0 ? 'rank-1' : globalIndex === 1 ? 'rank-2' : globalIndex === 2 ? 'rank-3' : 'rank-n';
+                        const ri = globalIndex === 0 ? '🥇' : globalIndex === 1 ? '🥈' : globalIndex === 2 ? '🥉' : globalIndex + 1;
                         return `<tr>
       <td><span class="rank-badge ${rc}">${ri}</span></td>
       <td><strong>${escHtml(r.name)}</strong></td>
@@ -11455,11 +11517,60 @@
       <td style="color:var(--text-muted);font-size:.8rem">${fmtDate(r.date)}</td>
     </tr>`;
                   }).join('');
+
                   document.querySelectorAll('thead th[data-col]').forEach(th => {
                         const icon = th.querySelector('.sort-icon'); if (!icon) return;
                         if (th.dataset.col === lbSortCol) { icon.textContent = lbSortDir === -1 ? '↓' : '↑'; icon.style.opacity = '1'; }
                         else { icon.textContent = '↕'; icon.style.opacity = '.4'; }
                   });
+
+                  renderLeaderboardPagination(totalPages);
+            }
+
+            function renderLeaderboardPagination(totalPages) {
+                  const pagWrap = document.getElementById('lb-pagination');
+                  if (!pagWrap) return;
+
+                  if (totalPages <= 1) {
+                        pagWrap.style.display = 'none';
+                        pagWrap.innerHTML = '';
+                        return;
+                  }
+
+                  pagWrap.style.display = 'flex';
+                  let html = '';
+
+                  // Nút trước
+                  html += `<button class="page-btn" ${lbCurrentPage === 1 ? 'disabled' : ''} onclick="changeLbPage(${lbCurrentPage - 1})">←</button>`;
+
+                  const range = 1; // Số trang hiển thị xung quanh trang hiện tại
+                  let pages = [];
+
+                  for (let i = 1; i <= totalPages; i++) {
+                        if (i === 1 || i === totalPages || (i >= lbCurrentPage - range && i <= lbCurrentPage + range)) {
+                              pages.push(i);
+                        } else if (pages[pages.length - 1] !== '...') {
+                              pages.push('...');
+                        }
+                  }
+
+                  pages.forEach(p => {
+                        if (p === '...') {
+                              html += `<span style="color:var(--text-muted); padding: 0 4px;">...</span>`;
+                        } else {
+                              html += `<button class="page-btn ${p === lbCurrentPage ? 'active' : ''}" onclick="changeLbPage(${p})">${p}</button>`;
+                        }
+                  });
+
+                  // Nút sau
+                  html += `<button class="page-btn" ${lbCurrentPage === totalPages ? 'disabled' : ''} onclick="changeLbPage(${lbCurrentPage + 1})">→</button>`;
+
+                  pagWrap.innerHTML = html;
+            }
+
+            function changeLbPage(page) {
+                  lbCurrentPage = page;
+                  renderLeaderboard();
             }
 
             /* ============================================================
@@ -11680,6 +11791,7 @@
                         const col = th.dataset.col;
                         lbSortDir = col === lbSortCol ? lbSortDir * -1 : (col === 'score' || col === 'accuracy' ? -1 : 1);
                         lbSortCol = col;
+                        lbCurrentPage = 1;
                         renderLeaderboard();
                   });
             });
